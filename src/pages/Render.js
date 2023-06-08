@@ -31,7 +31,6 @@ const Render = () => {
           display: "flex",
           justifyContent: "space-between",
           height: "100vh",
-          minWidth: "500px",
           flexDirection: "column",
         }}
       >
