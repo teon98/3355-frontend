@@ -1,4 +1,9 @@
-.body {
+.gradient {
   background: linear-gradient(360deg, #17b7bd 4.53%, #7cde9d 75.31%);
+  height: 100vh;
+}
+
+.notgradient {
+  background: white;
   height: 100vh;
 }
