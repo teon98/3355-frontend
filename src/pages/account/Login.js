@@ -1,7 +1,8 @@
+import { Box } from "@mui/material";
 import React from "react";
 
 const Login = () => {
-  return <div>login 페이지입니다.</div>;
+  return <Box></Box>;
 };
 
 export default Login;
