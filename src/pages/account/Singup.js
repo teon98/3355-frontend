@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
@@ -6,6 +7,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Stack } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import BackNavbar from "../../components/BackNavbar";
+
 const auththeme = createTheme({
   typography: {
     fontFamily: "GmarketSans",
@@ -178,6 +181,8 @@ const Singup = () => {
 
   return (
     <ThemeProvider theme={auththeme}>
+      {/* 상단 뒤로가기 nav바 */}
+      <BackNavbar />
       <Box
         sx={{
           display: "flex",
