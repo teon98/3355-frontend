@@ -103,7 +103,7 @@ const Render = () => {
                   width: "100%",
                 }}
               >
-                Outlined
+                Sign UP
               </Button>
             </Link>
           </Stack>
