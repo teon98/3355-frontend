@@ -29,8 +29,6 @@ const Render = () => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
-          height: "100vh",
           flexDirection: "column",
         }}
       >
@@ -40,6 +38,7 @@ const Render = () => {
             justifyContent: "center",
             alignItems: "center",
             mt: "20%",
+            mb: "20%",
             minHeight: "200px",
           }}
         >
