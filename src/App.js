@@ -13,6 +13,7 @@ import PointDetail from "./pages/card/PointDetail";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./styles/FadeStyles.css";
+import CardCreate from "./pages/account/CardCreate";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -47,6 +48,7 @@ const App = () => {
               <Route path="/" element={<Render />} />
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/signup" element={<Singup />} />
+              <Route path="/auth/cardCreate" element={<CardCreate />} />
               <Route path="/home" element={<LowerNavbar />}>
                 <Route index element={<Home />} />
                 <Route path="payment" element={<PaymentDetails />} />

@@ -4,7 +4,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Stack } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import axios from "axios";
 import BackNavbar from "../../components/BackNavbar";
 
@@ -23,39 +24,55 @@ const auththeme = createTheme({
     },
   },
 });
-const Login = () => {
+const CardCreate = () => {
+  //유저 정보 받아오기
+  const { state } = useLocation();
+  const userNo = state;
+
+  //카드 변수
   const navi = useNavigate({});
+  const [cardPass, setCardPass] = useState();
+  const [card, setCard] = useState({});
 
-  //유저 입력정보 저장변수
-  const [userEmail, setUserEmail] = useState();
-  const [userPass, setUserPass] = useState();
-  const [user, setUser] = useState();
+  //카드 정규식
+  const cardRegEx = /^[0-9]{4}/;
 
-  //유저,비밀번호 저장
-  const handleEmail = (e) => {
-    setUserEmail(e.target.value);
-    setUser({ userEmail, userPass });
+  //비밀번호 체크
+  const handleCardPass = (e) => {
+    if (cardRegEx.test(e.target.value)) {
+      const el = document.getElementById("passmessage");
+      el.innerHTML = "사용 가능한 비밀번호입니다.";
+      setCardPass(e.target.value);
+    } else {
+      const el = document.getElementById("passmessage");
+      el.innerHTML = "숫자 4자리를 입력해주세요.";
+    }
   };
 
-  const handlePass = (e) => {
-    setUserPass(e.target.value);
-    setUser({ userEmail, userPass });
+  //비밀번호 중복체크
+  const handleCardDupPass = (e) => {
+    if (cardPass == e.target.value) {
+      const el = document.getElementById("passDupmessage");
+      el.innerHTML = "비밀번호가 일치합니다.";
+      setCard({ userNo, cardPass });
+    } else {
+      const el = document.getElementById("passDupmessage");
+      el.innerHTML = "비밀번호가 일치하지 않습니다.";
+    }
   };
 
-  //로그인버튼
-  const handleLogin = (e) => {
+  //카드 생성
+  const handleCardInsert = (e) => {
     axios({
-      url: `/user/login.sam`,
-      method: "get",
-      params: { userEmail: userEmail, userPass: userPass },
+      url: `/user/insertCard.sam`,
+      method: "post",
+      data: { cardPass: cardPass },
+      params: { userNo: userNo },
     })
       .then((res) => {
+        console.log(card);
         console.log(res.data);
-        if (res.data > 0) {
-          navi("/home");
-        } else {
-          console.log("실패");
-        }
+        navi("/auth/login");
       })
       .catch((err) => {
         console.log(err);
@@ -93,21 +110,23 @@ const Login = () => {
           }}
         >
           <Box>
-            이메일:
-            <input onChange={handleEmail} name="userEmail"></input>
+            카드 비밀번호:
+            <input onChange={handleCardPass} name="userPass"></input>
+            <p id="passmessage">카드 비밀번호는 숫자 4자리입니다</p>
           </Box>
           <Box>
-            비밀번호:
-            <input onChange={handlePass} name="userPass"></input>
+            카드 비밀번호 2차체크:
+            <input onChange={handleCardDupPass} name="userPassDup"></input>
+            <p id="passDupmessage">패스워드 2차체크</p>
           </Box>
           <Box>
             <button
-              id="loginBtn"
+              id="cardBtn"
               type="button"
               className="btn btn-default"
-              onClick={handleLogin}
+              onClick={handleCardInsert}
             >
-              로그인
+              카드 생성
             </button>
           </Box>
           <Stack spacing={2}>
@@ -154,4 +173,5 @@ const Login = () => {
     </ThemeProvider>
   );
 };
-export default Login;
+
+export default CardCreate;
