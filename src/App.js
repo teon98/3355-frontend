@@ -13,6 +13,8 @@ import PointDetail from "./pages/card/PointDetail";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./styles/FadeStyles.css";
+import BarcodeScan from "./pages/card/BarcodeScan";
+import Pay from "./pages/card/Pay";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -49,6 +51,8 @@ const App = () => {
               <Route path="/auth/signup" element={<Singup />} />
               <Route path="/home" element={<LowerNavbar />}>
                 <Route index element={<Home />} />
+                <Route path="barcode" element={<BarcodeScan />} />
+                <Route path="pay" element={<Pay />} />
                 <Route path="payment" element={<PaymentDetails />} />
                 <Route path="point" element={<PointDetail />} />
               </Route>
