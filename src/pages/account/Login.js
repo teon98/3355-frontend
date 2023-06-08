@@ -6,7 +6,6 @@ const auththeme = createTheme({
   typography: {
     fontFamily: "GmarketSans",
   },
-
   palette: {
     primary: {
       main: "#17B7BD", //배경색
@@ -18,15 +17,14 @@ const auththeme = createTheme({
     },
   },
 });
-
 const Login = () => {
   return (
     <ThemeProvider theme={auththeme}>
+
       {/* 상단 뒤로가기 nav바 */}
       <BackNavbar />
       {/* LOGO */}
     </ThemeProvider>
   );
 };
-
 export default Login;
