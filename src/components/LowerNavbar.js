@@ -21,17 +21,6 @@ const Navbar = () => {
       <Outlet />
 
       {/* 하단 footer는 고정 */}
-      <ul>
-        <li>
-          <NavLink>Event</NavLink>
-        </li>
-        <li>
-          <NavLink to="/home">Home</NavLink>
-        </li>
-        <li>
-          <NavLink>Community</NavLink>
-        </li>
-      </ul>
 
       <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
         <BottomNavigation

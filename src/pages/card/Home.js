@@ -1,13 +1,23 @@
 import React from "react";
 import TopNavbar from "../../components/TopNavbar";
+import { Box } from "@mui/material";
+import CardAni from "../../components/CardAni";
+import AccPoBal from "../../components/AccPoBal";
 
 const Home = () => {
   return (
-    <div>
-      <TopNavbar />
-      <h1>Card Home 화면입니다.</h1>
-      <p>폰트 적용 test GmarketSans 입니까?</p>
-    </div>
+    <>
+      <Box>
+        <TopNavbar />
+      </Box>
+
+      <Box>
+        <CardAni />
+      </Box>
+      <Box>
+        <AccPoBal />
+      </Box>
+    </>
   );
 };
 
