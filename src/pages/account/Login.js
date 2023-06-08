@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import React from "react";
 import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
@@ -117,6 +118,7 @@ const Login = () => {
       </Box>
     </ThemeProvider>
   );
+
 };
 
 export default Login;
