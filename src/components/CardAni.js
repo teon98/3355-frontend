@@ -8,7 +8,7 @@ import masterImage from "../images/CardImg/mastercard.png";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import { Box } from "@mui/material";
 
-function CardAni(props) {
+function CardAni() {
   // 카드 뒤집기 애니메이션
   const [isFlipped, setIsFlipped] = useState(false);
   const handleClick = () => {

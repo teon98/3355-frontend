@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import appStyle from "./App.module.css";
 import Container from "@mui/system/Container";
@@ -24,23 +24,27 @@ const theme = createTheme({
 const App = () => {
   const location = useLocation();
 
-  //잔상 없애기 위한 state
-  const [show, setShow] = useState(true);
-
-  const handleChange = () => {
-    setShow(false);
-  };
+  //현재 경로 알아내기
+  const currentPath = location.pathname;
+  //console.log(currentPath === "/");
+  //console.log(/\/auth/.test(currentPath));
+  // console.log( currentPath === "/" || /\/auth/.test(currentPath) ? "야호" : "무야호");
 
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="sm" className={appStyle.body}>
+      <Container
+        maxWidth="sm"
+        className={
+          currentPath === "/" || /\/auth/.test(currentPath)
+            ? appStyle.gradient
+            : appStyle.notgradient
+        }
+      >
         <TransitionGroup>
           <CSSTransition
-            in={show}
             key={location.key}
             classNames="fade"
             timeout={300}
-            onExited={handleChange}
             unmountOnExit
           >
             <Routes location={location}>
