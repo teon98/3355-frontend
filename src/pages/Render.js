@@ -29,9 +29,9 @@ const Render = () => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
-          height: "100vh",
           flexDirection: "column",
+          ml: "24px",
+          mr: "24px",
         }}
       >
         <Box
@@ -40,6 +40,7 @@ const Render = () => {
             justifyContent: "center",
             alignItems: "center",
             mt: "20%",
+            mb: "20%",
             minHeight: "200px",
           }}
         >
@@ -104,7 +105,7 @@ const Render = () => {
                   width: "100%",
                 }}
               >
-                Outlined
+                Sign UP
               </Button>
             </Link>
           </Stack>

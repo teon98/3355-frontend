@@ -1,68 +1,73 @@
 import React, { useState } from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FolderIcon from "@mui/icons-material/Folder";
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Paper from "@mui/material/Paper";
-import { NavLink, Outlet } from "react-router-dom";
+import CreditCardRoundedIcon from "@mui/icons-material/CreditCardRounded";
+import LocalActivityRoundedIcon from "@mui/icons-material/LocalActivityRounded";
+import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
 
-const Navbar = () => {
-  const [value, setValue] = useState("recents");
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Paper } from "@mui/material";
+
+import { createTheme, ThemeProvider } from "@mui/material";
+
+//폰트 GmarketSans로 지정
+const theme = createTheme({
+  typography: {
+    fontFamily: "GmarketSans",
+  },
+  palette: {
+    primary: {
+      main: "#17B7BD",
+    },
+  },
+});
+
+const LowerNavbar = () => {
+  const navigator = useNavigate();
+  const location = useLocation();
+
+  const [value, setValue] = useState(location.pathname);
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
+    navigator(newValue);
   };
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       {/* cotent가 들어가는 부분 */}
       <Outlet />
 
       {/* 하단 footer는 고정 */}
-      <ul>
-        <li>
-          <NavLink>Event</NavLink>
-        </li>
-        <li>
-          <NavLink to="/home">Home</NavLink>
-        </li>
-        <li>
-          <NavLink>Community</NavLink>
-        </li>
-      </ul>
-
-      <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}>
-        <BottomNavigation
-          sx={{ width: 500 }}
-          value={value}
-          onChange={handleChange}
-        >
+      <Paper
+        sx={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+        }}
+        elevation={3}
+      >
+        <BottomNavigation value={value} onChange={handleChange}>
           <BottomNavigationAction
-            label="Recents"
-            value="recents"
-            icon={<RestoreIcon />}
+            label="Events"
+            value="/event"
+            icon={<LocalActivityRoundedIcon />}
           />
           <BottomNavigationAction
-            label="Favorites"
-            value="favorites"
-            icon={<FavoriteIcon />}
+            label="Cards"
+            value="/home"
+            icon={<CreditCardRoundedIcon />}
           />
           <BottomNavigationAction
-            label="Nearby"
-            value="nearby"
-            icon={<LocationOnIcon />}
-          />
-          <BottomNavigationAction
-            label="Folder"
-            value="folder"
-            icon={<FolderIcon />}
+            label="Community"
+            value="/community"
+            icon={<GroupsRoundedIcon />}
           />
         </BottomNavigation>
       </Paper>
-    </div>
+    </ThemeProvider>
   );
 };
 
-export default Navbar;
+export default LowerNavbar;

@@ -1,0 +1,56 @@
+.root1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.linked {
+  text-decoration: none;
+}
+
+.card1 {
+  width: 200px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s;
+}
+
+.card1:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card1 .title {
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.card1 .balance {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* 반응형 */
+@media screen and (max-width: 600px) {
+  .card1 {
+    width: 150px;
+  }
+
+  .card1 .title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .card1 .balance {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+  }
+}
