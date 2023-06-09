@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Stack } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+
 import axios from "axios";
 import BackNavbar from "../../components/BackNavbar";
 
@@ -24,6 +26,7 @@ const auththeme = createTheme({
   },
 });
 const Singup = () => {
+  //유저 변수들
   const navi = useNavigate({});
   const [userEmail, setUserEmail] = useState();
   const [userPass, setUserPass] = useState();
@@ -47,6 +50,7 @@ const Singup = () => {
   // const [userGenderBoo, setUserGenderBoo] = useState(false);
   // const [userNicknameBoo, setUserNicknameBoo] = useState(false);
 
+  //이메일 체크
   const handleEmail = (e) => {
     if (emailRegEx.test(e.target.value)) {
       console.log(e.target.value);
@@ -79,6 +83,7 @@ const Singup = () => {
       });
   };
 
+  //비밀번호 체크
   const handlePass = (e) => {
     if (passRegEx.test(e.target.value)) {
       const el = document.getElementById("passmessage");
@@ -89,6 +94,8 @@ const Singup = () => {
       el.innerHTML = "비밀번호는 영문 숫자만 가능하며 8자리입니다.";
     }
   };
+
+  //비밀번호 2차체크
   const handlePassDup = (e) => {
     if (userPass == e.target.value) {
       const el = document.getElementById("passDupmessage");
@@ -102,6 +109,8 @@ const Singup = () => {
       // setUserPassBoo(false);
     }
   };
+
+  //생년월일 체크
   const handleBirth = (e) => {
     if (birthRegEx.test(e.target.value)) {
       const el = document.getElementById("birthmessage");
@@ -116,6 +125,8 @@ const Singup = () => {
       // setUserBirthBoo(false);
     }
   };
+
+  //성별체크
   const handleGender = (e) => {
     if (genderRegEx.test(e.target.value)) {
       const el = document.getElementById("gendermessage");
@@ -129,6 +140,8 @@ const Singup = () => {
       // setUserGenderBoo(false);
     }
   };
+
+  //별명체크
   const handleNickname = (e) => {
     if (nickRegEx.test(e.target.value)) {
       setUserNickname(e.target.value);
@@ -161,6 +174,7 @@ const Singup = () => {
       });
   };
 
+  //유저정보 값 보내기
   const handleInsert = () => {
     console.log(user);
 
@@ -171,7 +185,7 @@ const Singup = () => {
     })
       .then((res) => {
         console.log(res.data);
-        navi("/auth/login");
+        navi("/auth/cardCreate", { state: res.data });
       })
       .catch((err) => {
         console.log(err);
@@ -308,4 +322,5 @@ const Singup = () => {
     </ThemeProvider>
   );
 };
+
 export default Singup;
