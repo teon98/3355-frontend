@@ -1,0 +1,125 @@
+.section {
+  width: 100%;
+  height: 30vh;
+  position: relative;
+  perspective: 600px;
+}
+
+.card {
+  margin: 48px auto;
+  height: 200px;
+  width: 380px;
+  transition: all 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card > div {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  backface-visibility: hidden;
+}
+
+.card .front {
+  background: linear-gradient(to right, #213e26, #05fa5f);
+  color: white;
+  z-index: 9999;
+}
+
+.card .back {
+  background: orange;
+  transform: rotateY(180deg);
+  text-align: center;
+}
+
+.card .front h3 {
+  position: absolute;
+  top: 10px;
+  left: 13px;
+}
+
+.card .front .magicon {
+  display: flex;
+  align-items: center;
+  margin: 120px 0 auto 0;
+  margin-right: 250px;
+}
+
+.card .front .magimg {
+  width: 70px;
+  height: auto;
+}
+
+.card .front .leftIcon {
+  margin-right: 5px;
+}
+
+.card .front .cardNomaster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto auto 20px 30px;
+}
+
+.card .front .cardNo {
+  text-align: left;
+  font-size: 15px;
+  width: 100px;
+}
+
+.card .front .masterimg {
+  width: 100px;
+  margin-left: 150px;
+}
+
+/* 반응형 */
+@media screen and (max-width: 600px) {
+  .card {
+    height: 170px;
+    width: 320px;
+  }
+
+  .card .front .magicon {
+    margin: 100px 0 auto 0;
+    margin-right: 220px;
+  }
+
+  .card .front .magimg {
+    width: 50px;
+    height: auto;
+  }
+
+  .card .front .leftIcon {
+    margin-right: 5px;
+    font-size: 14px;
+  }
+
+  .card .front .cardNomaster {
+    justify-content: flex-start;
+    margin: auto 0 22px auto;
+  }
+
+  .card .front .cardNo {
+    font-size: 12px;
+    width: 90px;
+    margin-left: 11px;
+  }
+
+  .card .front .masterimg {
+    width: 80px;
+    margin-right: 10px;
+  }
+}
