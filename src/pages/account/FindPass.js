@@ -5,9 +5,9 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Stack } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import BackNavbar from "../../components/BackNavbar";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 const auththeme = createTheme({
   typography: {
@@ -24,44 +24,35 @@ const auththeme = createTheme({
     },
   },
 });
-const Login = () => {
+const FindPass = () => {
   const navi = useNavigate({});
 
-  //유저 입력정보 저장변수
-  const [userEmail, setUserEmail] = useState();
-  const [userPass, setUserPass] = useState();
-  const [user, setUser] = useState();
+  const [searchEmail, setSearchEmail] = useState();
+  const [searchNickName, setSearchNickName] = useState();
 
-  //유저,비밀번호 저장
-  const handleEmail = (e) => {
-    setUserEmail(e.target.value);
-    setUser({ userEmail, userPass });
+  //이메일 입력
+  const handleSearchEmail = (e) => {
+    setSearchEmail(e.target.value);
   };
 
-  const handlePass = (e) => {
-    setUserPass(e.target.value);
-    setUser({ userEmail, userPass });
+  //닉네임 입력
+  const handleSearchNickName = (e) => {
+    setSearchNickName(e.target.value);
   };
 
-  //비밀번호찾기 버튼
-  const handleFindPassGo = (e) => {
-    navi("/auth/findPass");
-  };
-
-  const userNo = useSelector((state) => state.userNo);
   const dispatch = useDispatch();
-  //로그인버튼
-  const handleLogin = (e) => {
+  //비밀번호 체크 메일 보내기
+  const handleFindPass = (e) => {
     axios({
-      url: `/user/login.sam`,
-      method: "get",
-      params: { userEmail: userEmail, userPass: userPass },
+      url: `/user/findPass.sam`,
+      method: "put",
+      params: { userEmail: searchEmail, userNickname: searchNickName },
     })
       .then((res) => {
         console.log(res.data);
-        dispatch({ type: "setUserNo", num: res.data });
         if (res.data > 0) {
-          navi("/home");
+          dispatch({ type: "setUserNo", num: res.data });
+          navi("/auth/ChangePass");
         } else {
           console.log("실패");
         }
@@ -103,31 +94,31 @@ const Login = () => {
           }}
         >
           <Box>
-            이메일:
-            <input onChange={handleEmail} name="userEmail"></input>
+            <h5> 이메일 </h5>
+            <input
+              type="text"
+              maxLength="20"
+              name="SearchEmial"
+              onChange={handleSearchEmail}
+            />
           </Box>
           <Box>
-            비밀번호:
-            <input onChange={handlePass} name="userPass"></input>
+            <h5> 닉네임 </h5>
+            <input
+              type="text"
+              maxLength="15"
+              name="SearchNickName"
+              onChange={handleSearchNickName}
+            />
           </Box>
           <Box>
             <button
-              id="findPassGoBtn"
+              id="findPassBtn"
               type="button"
               className="btn btn-default"
-              onClick={handleFindPassGo}
+              onClick={handleFindPass}
             >
               비밀번호 찾기
-            </button>
-          </Box>
-          <Box>
-            <button
-              id="loginBtn"
-              type="button"
-              className="btn btn-default"
-              onClick={handleLogin}
-            >
-              로그인
             </button>
           </Box>
           <Stack spacing={2}>
@@ -174,4 +165,4 @@ const Login = () => {
     </ThemeProvider>
   );
 };
-export default Login;
+export default FindPass;
