@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
@@ -42,11 +41,11 @@ const Singup = () => {
   const nickRegEx = /^[A-Za-z0-9_ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{5}$/;
 
   //성공여부확인
-  const [userEmailBoo, setUserEmailBoo] = useState(false);
-  const [userPassBoo, setUserPassBoo] = useState(false);
-  const [userBirthBoo, setUserBirthBoo] = useState(false);
-  const [userGenderBoo, setUserGenderBoo] = useState(false);
-  const [userNicknameBoo, setUserNicknameBoo] = useState(false);
+  // const [userEmailBoo, setUserEmailBoo] = useState(false);
+  // const [userPassBoo, setUserPassBoo] = useState(false);
+  // const [userBirthBoo, setUserBirthBoo] = useState(false);
+  // const [userGenderBoo, setUserGenderBoo] = useState(false);
+  // const [userNicknameBoo, setUserNicknameBoo] = useState(false);
 
   const handleEmail = (e) => {
     if (emailRegEx.test(e.target.value)) {
@@ -56,7 +55,7 @@ const Singup = () => {
       const el = document.getElementById("emailmessage");
       el.innerHTML = "중복체크를 진행해주세요.";
     } else {
-      setUserEmailBoo(false);
+      // setUserEmailBoo(false);
       const el = document.getElementById("emailmessage");
       el.innerHTML = "이메일의 형식이 올바르지 않습니다.";
     }
@@ -96,11 +95,11 @@ const Singup = () => {
       el.innerHTML = "비밀번호가 일치합니다.";
 
       setUser({ userEmail, userPass, userBirth, userGender, userNickname });
-      setUserPassBoo(true);
+      // setUserPassBoo(true);
     } else {
       const el = document.getElementById("passDupmessage");
       el.innerHTML = "비밀번호가 일치하지 않습니다.";
-      setUserPassBoo(false);
+      // setUserPassBoo(false);
     }
   };
   const handleBirth = (e) => {
@@ -110,11 +109,11 @@ const Singup = () => {
       setUserBirth(e.target.value);
 
       setUser({ userEmail, userPass, userBirth, userGender, userNickname });
-      setUserBirthBoo(true);
+      // setUserBirthBoo(true);
     } else {
       const el = document.getElementById("birthmessage");
       el.innerHTML = "생년월일 6자리를 입력해주세요.";
-      setUserBirthBoo(false);
+      // setUserBirthBoo(false);
     }
   };
   const handleGender = (e) => {
@@ -122,25 +121,25 @@ const Singup = () => {
       const el = document.getElementById("gendermessage");
       el.innerHTML = "주민번호 뒷자리 1개가 확인되었습니다.";
       setUserGender(e.target.value);
-      setUserGenderBoo(true);
+      // setUserGenderBoo(true);
       setUser({ userEmail, userPass, userBirth, userGender, userNickname });
     } else {
       const el = document.getElementById("gendermessage");
       el.innerHTML = "주민번호 뒷자리 1개를 입력해주세요.";
-      setUserGenderBoo(false);
+      // setUserGenderBoo(false);
     }
   };
   const handleNickname = (e) => {
     if (nickRegEx.test(e.target.value)) {
       setUserNickname(e.target.value);
-      setUserNicknameBoo(true);
+      // setUserNicknameBoo(true);
 
       const el = document.getElementById("nickmessage");
       el.innerHTML = "중복체크를 진행해주세요";
     } else {
       const el = document.getElementById("nickmessage");
       el.innerHTML = "영문 숫자 한글 5자를 입력해주세요.";
-      setUserNicknameBoo(false);
+      // setUserNicknameBoo(false);
     }
   };
 
