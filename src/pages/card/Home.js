@@ -4,6 +4,7 @@ import CardAni from "../../components/CardAni";
 import AccPoBal from "../../components/AccPoBal";
 import CashCharge from "../../components/CashCharge";
 import HisToryTabs from "../../components/StoreList";
+import TopNavbar from "../../components/TopNavbar";
 
 const Home = () => {
   return (
