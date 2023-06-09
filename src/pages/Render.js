@@ -30,6 +30,8 @@ const Render = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
+          ml: "24px",
+          mr: "24px",
         }}
       >
         <Box

@@ -10,6 +10,8 @@ import LowerNavbar from "./components/LowerNavbar";
 import Mypage from "./pages/mypage/Mypage";
 import PaymentDetails from "./pages/card/PaymentDetails";
 import PointDetail from "./pages/card/PointDetail";
+import CommunityMain from "./pages/community/CommunityMain";
+import Event from "./pages/eventpage/EventPage";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./styles/FadeStyles.css";
@@ -39,6 +41,7 @@ const App = () => {
             ? appStyle.gradient
             : appStyle.notgradient
         }
+        disableGutters
       >
         <TransitionGroup>
           <CSSTransition
@@ -48,16 +51,28 @@ const App = () => {
             unmountOnExit
           >
             <Routes location={location}>
+              {/* 렌더화면 */}
               <Route path="/" element={<Render />} />
+              {/* 계정 */}
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/signup" element={<Singup />} />
+              {/* 홈(==카드) */}
               <Route path="/home" element={<LowerNavbar />}>
                 <Route index element={<Home />} />
                 <Route path="payment" element={<PaymentDetails />} />
                 <Route path="point" element={<PointDetail />} />
               </Route>
+              {/* 커뮤니티 */}
+              <Route path="/community" element={<LowerNavbar />}>
+                <Route index element={<CommunityMain />} />
+              </Route>
+              {/* 마이페이지 */}
               <Route path="/mypage" element={<LowerNavbar />}>
                 <Route index element={<Mypage />} />
+              </Route>
+              {/* 이벤트 */}
+              <Route path="/event" element={<LowerNavbar />}>
+                <Route index element={<Event />}></Route>
               </Route>
             </Routes>
           </CSSTransition>
