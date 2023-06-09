@@ -18,6 +18,7 @@ import "./styles/FadeStyles.css";
 import BarcodeScan from "./pages/card/BarcodeScan";
 import Pay from "./pages/card/Pay";
 import CardCreate from "./pages/account/CardCreate";
+import PayComplete from "./pages/card/PayComplete";
 import FindPass from "./pages/account/FindPass";
 import ChangePass from "./pages/account/ChangePass";
 
@@ -69,6 +70,7 @@ const App = () => {
                 <Route index element={<Home />} />
                 <Route path="barcode" element={<BarcodeScan />} />
                 <Route path="pay" element={<Pay />} />
+                <Route path="pay/complete" element={<PayComplete />} />
                 <Route path="payment" element={<PaymentDetails />} />
                 <Route path="point" element={<PointDetail />} />
               </Route>
