@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Card,
@@ -9,10 +9,27 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import "../styles/MainCSS/AccPoBal.css";
+import axios from "axios";
 
 const AccPoBal = () => {
-  const pointBalance = "2,000";
-  const cardBalance = "10,000";
+  const [cardBalance, setCardBalance] = useState(0);
+  const [pointBalance, setPointBalance] = useState(0);
+
+  useEffect(() => {
+    axios({
+      url: "/home",
+      method: "get",
+      params: { userNo: "110" },
+    })
+      .then((response) => {
+        console.log(response);
+        setCardBalance(response.data.accountBalance);
+        setPointBalance(response.data.pointBalance);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 
   return (
     <Box className="root1">
