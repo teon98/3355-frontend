@@ -14,10 +14,11 @@ import CommunityMain from "./pages/community/CommunityMain";
 import Event from "./pages/eventpage/EventPage";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "./styles/FadeStyles.css"
+import "./styles/FadeStyles.css";
 import BarcodeScan from "./pages/card/BarcodeScan";
 import Pay from "./pages/card/Pay";
 import CardCreate from "./pages/account/CardCreate";
+import PayComplete from "./pages/card/PayComplete";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -65,6 +66,7 @@ const App = () => {
                 <Route index element={<Home />} />
                 <Route path="barcode" element={<BarcodeScan />} />
                 <Route path="pay" element={<Pay />} />
+                <Route path="pay/complete" element={<PayComplete />} />
                 <Route path="payment" element={<PaymentDetails />} />
                 <Route path="point" element={<PointDetail />} />
               </Route>
