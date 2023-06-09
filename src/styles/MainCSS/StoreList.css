@@ -1,0 +1,23 @@
+.storeList {
+  margin-top: 20px;
+  padding: 0 59.5px;
+}
+
+.benefit {
+  text-align: end;
+}
+
+.gridList {
+  font-size: 18px;
+}
+
+@media screen and (max-width: 600px) {
+  .storeList {
+    padding: 0 20px;
+    width: auto;
+  }
+
+  .gridList {
+    font-size: 14px;
+  }
+}
