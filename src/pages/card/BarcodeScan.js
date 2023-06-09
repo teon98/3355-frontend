@@ -3,7 +3,7 @@ import Quagga from "quagga";
 import { Box, IconButton, Typography } from "@mui/material";
 import CropFreeOutlinedIcon from "@mui/icons-material/CropFreeOutlined";
 import "./Barcode.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TopNavbar from "../../components/TopNavbar";
 
 function Scanner(props) {
@@ -38,7 +38,7 @@ function Scanner(props) {
     return () => {
       Quagga.offDetected(_onDetected);
     };
-  }, []);
+  });
 
   const _onDetected = (result) => {
     props.onDetected(result);
@@ -54,7 +54,7 @@ function Scanner(props) {
 }
 
 function Result(props) {
-  const navi = useNavigate();
+  //const navi = useNavigate();
 
   let { result } = props;
   // console.log(result);

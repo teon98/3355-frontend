@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -97,7 +97,7 @@ const Singup = () => {
 
   //비밀번호 2차체크
   const handlePassDup = (e) => {
-    if (userPass == e.target.value) {
+    if (userPass === e.target.value) {
       const el = document.getElementById("passDupmessage");
       el.innerHTML = "비밀번호가 일치합니다.";
 

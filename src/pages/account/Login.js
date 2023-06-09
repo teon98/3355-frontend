@@ -65,6 +65,7 @@ const Login = () => {
   return (
     <ThemeProvider theme={auththeme}>
       {/* 상단 뒤로가기 nav바 */}
+      <BackNavbar />
       <Box
         sx={{
           display: "flex",

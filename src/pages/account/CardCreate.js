@@ -51,7 +51,7 @@ const CardCreate = () => {
 
   //비밀번호 중복체크
   const handleCardDupPass = (e) => {
-    if (cardPass == e.target.value) {
+    if (cardPass === e.target.value) {
       const el = document.getElementById("passDupmessage");
       el.innerHTML = "비밀번호가 일치합니다.";
       setCard({ userNo, cardPass });
@@ -82,6 +82,7 @@ const CardCreate = () => {
   return (
     <ThemeProvider theme={auththeme}>
       {/* 상단 뒤로가기 nav바 */}
+      <BackNavbar />
       <Box
         sx={{
           display: "flex",
