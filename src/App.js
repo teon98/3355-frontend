@@ -14,7 +14,7 @@ import CommunityMain from "./pages/community/CommunityMain";
 import Event from "./pages/eventpage/EventPage";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "./styles/FadeStyles.css"
+import "./styles/FadeStyles.css";
 import BarcodeScan from "./pages/card/BarcodeScan";
 import Pay from "./pages/card/Pay";
 import CardCreate from "./pages/account/CardCreate";
