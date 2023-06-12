@@ -9,23 +9,25 @@ import ListTabs from "../../components/MainStoreList";
 const Home = () => {
   return (
     <>
-      <Box>
-        <TopNavbar />
-      </Box>
-      <Box p={3}>
+      <Box sx={{ mx: "24px" }}>
         <Box>
-          <CardAni />
+          <TopNavbar />
         </Box>
         <Box>
-          <AccPoBal />
-        </Box>
+          <Box>
+            <CardAni />
+          </Box>
+          <Box>
+            <AccPoBal />
+          </Box>
 
-        <Box>
-          <CashCharge />
-        </Box>
+          <Box>
+            <CashCharge />
+          </Box>
 
-        <Box>
-          <ListTabs />
+          <Box>
+            <ListTabs />
+          </Box>
         </Box>
       </Box>
     </>
