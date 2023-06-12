@@ -8,32 +8,61 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TopNavbar from "../../components/TopNavbar";
 import axios from "axios";
+import appStyle from "../../App.module.css";
 
 function Pay(props) {
+  const navi = useNavigate();
   const location = useLocation();
-  const storeNo = location.state.store_no;
-  const [storeName, setStoreName] = useState("");
+  const { storeNo, storeName } = location.state;
+  const [payData, setPayData] = useState({ storeNo: storeNo });
+  const [accBal, setAccBal] = useState(0);
+  const [poBal, setPoBal] = useState(0);
+
+  const handleChange = (e) => {
+    const { name, value, max } = e.target;
+    console.log(max);
+    setPayData({ ...payData, [name]: value });
+  };
 
   useEffect(() => {
     axios({
       url: "/home/pay",
       method: "get",
-      params: { storeNo: storeNo },
+      params: { userNo: "110" },
     })
       .then((response) => {
         console.log(response.data);
-        setStoreName(response.data);
+        setAccBal(response.data.accountBalance);
+        setPoBal(response.data.pointBalance);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [storeNo]);
+  }, []);
+
+  const handlePay = () => {
+    axios({
+      url: "/home/pay",
+      method: "post",
+      data: payData,
+    })
+      .then((response) => {
+        navi("/home/pay/complete", {
+          state: {
+            data: response.data,
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
-    <>
+    <Box className={appStyle.gradient} px={3}>
       <TopNavbar />
       <Box>
         <Typography
@@ -44,8 +73,8 @@ function Pay(props) {
         >
           결제 페이지
         </Typography>
-        <Box
-          sx={{
+        <form
+          style={{
             height: "auto",
             backgroundColor: "#eee",
             padding: "24px",
@@ -54,34 +83,58 @@ function Pay(props) {
           }}
         >
           <Grid container spacing={2}>
-            <Typography
-              variant="h6"
-              align="center"
-              sx={{ m: "24px auto 12px" }}
-            >
-              {storeName}
-            </Typography>
-            <Grid item xs={12} sx={{ mb: "12px" }}>
+            <Box sx={{ width: "100%" }}>
+              <Typography
+                variant="h6"
+                align="center"
+                sx={{ m: "24px auto 12px" }}
+              >
+                {storeName}
+              </Typography>
+            </Box>
+            <Grid item xs={12}>
               <TextField
                 label="결제 금액"
                 required
-                // autoFocus
                 fullWidth
                 type="number"
                 id="amount"
                 name="amount"
-                inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                onChange={handleChange}
+                inputProps={{
+                  inputMode: "numeric",
+                  pattern: "[0-9]*",
+                  max: accBal,
+                  style: { textAlign: "right" },
+                }}
                 helperText="결제할 금액을 가맹점에 여쭤보삼"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={5}>
+              <Typography variant="body2" align="left" pl={1}>
+                카드 잔액
+              </Typography>
+            </Grid>
+            <Grid item xs>
+              <Typography variant="body2" align="right" pr={1}>
+                {accBal}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sx={{ mt: "12px" }}>
               <TextField
                 label="포인트"
                 fullWidth
                 type="number"
                 id="point"
                 name="point"
-                inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                onChange={handleChange}
+                inputProps={{
+                  inputMode: "numeric",
+                  pattern: "[0-9]*",
+                  min: "100",
+                  max: poBal,
+                  style: { textAlign: "right" },
+                }}
                 helperText="100 포인트 이상 보유시 사용 가능"
               />
               {/* <FormHelperText>100 포인트 이상 보유시 사용 가능</FormHelperText> */}
@@ -93,7 +146,7 @@ function Pay(props) {
             </Grid>
             <Grid item xs>
               <Typography variant="body2" align="right" pr={1}>
-                100,000
+                {poBal}
               </Typography>
             </Grid>
           </Grid>
@@ -120,17 +173,17 @@ function Pay(props) {
               </Grid>
               <Grid item xs={7}>
                 <Typography variant="body2" align="right" pr={1}>
-                  8,000
+                  {payData.amount ? payData.amount : "-"}
                 </Typography>
               </Grid>
               <Grid item xs={5}>
                 <Typography variant="body2" align="left" pl={0.5}>
-                  포인트
+                  포인트 사용
                 </Typography>
               </Grid>
               <Grid item xs={7}>
                 <Typography variant="body2" align="right" pr={1}>
-                  - 300
+                  - {payData.point}
                 </Typography>
               </Grid>
               <Grid item xs={5} mt={1}>
@@ -140,7 +193,9 @@ function Pay(props) {
               </Grid>
               <Grid item xs={7} mt={1}>
                 <Typography variant="body1" align="right" pr={1}>
-                  7,700
+                  {payData.amount
+                    ? payData.amount - (payData.point ? payData.point : 0)
+                    : "-"}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
@@ -152,17 +207,18 @@ function Pay(props) {
             </Grid>
           </Box>
           <Button
-            type="submit"
+            type="button"
             fullWidth
             variant="contained"
             sx={{ mb: 1 }}
             size="large"
+            onClick={handlePay}
           >
             결제
           </Button>
-        </Box>
+        </form>
       </Box>
-    </>
+    </Box>
   );
 }
 

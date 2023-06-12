@@ -18,6 +18,9 @@ import "./styles/FadeStyles.css";
 import BarcodeScan from "./pages/card/BarcodeScan";
 import Pay from "./pages/card/Pay";
 import CardCreate from "./pages/account/CardCreate";
+import PayComplete from "./pages/card/PayComplete";
+import FindPass from "./pages/account/FindPass";
+import ChangePass from "./pages/account/ChangePass";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -60,11 +63,14 @@ const App = () => {
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/signup" element={<Singup />} />
               <Route path="/auth/cardCreate" element={<CardCreate />} />
+              <Route path="/auth/findPass" element={<FindPass />} />
+              <Route path="/auth/ChangePass" element={<ChangePass />} />
               {/* 홈(==카드) */}
               <Route path="/home" element={<LowerNavbar />}>
                 <Route index element={<Home />} />
                 <Route path="barcode" element={<BarcodeScan />} />
                 <Route path="pay" element={<Pay />} />
+                <Route path="pay/complete" element={<PayComplete />} />
                 <Route path="payment" element={<PaymentDetails />} />
                 <Route path="point" element={<PointDetail />} />
               </Route>

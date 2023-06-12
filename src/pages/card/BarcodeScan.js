@@ -3,8 +3,10 @@ import Quagga from "quagga";
 import { Box, IconButton, Typography } from "@mui/material";
 import CropFreeOutlinedIcon from "@mui/icons-material/CropFreeOutlined";
 import "./Barcode.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TopNavbar from "../../components/TopNavbar";
+import appStyle from "../../App.module.css";
+import axios from "axios";
 
 function Scanner(props) {
   useEffect(() => {
@@ -21,7 +23,7 @@ function Scanner(props) {
           halfSample: true,
         },
         numOfWorkers: 2,
-        frequency: 4,
+        frequency: 1,
         decoder: {
           readers: ["code_128_reader"],
         },
@@ -54,8 +56,6 @@ function Scanner(props) {
 }
 
 function Result(props) {
-  //const navi = useNavigate();
-
   let { result } = props;
   // console.log(result);
   if (!result) {
@@ -64,7 +64,6 @@ function Result(props) {
     // console.log(result.codeResult);
     console.log("code", result.codeResult.code);
     console.log("format", result.codeResult.format);
-    // navi("/payment", { state: { store_no: result.codeResult.code } });
     return (
       <>
         <p style={{ margin: "0" }}>{result.codeResult.code}</p>
@@ -75,6 +74,7 @@ function Result(props) {
 }
 
 function BarcodeScan(props) {
+  const navi = useNavigate();
   const [scanning, setScanning] = useState(false);
   const [result, setResult] = useState(null);
 
@@ -82,21 +82,42 @@ function BarcodeScan(props) {
     setScanning(!scanning);
   };
 
-  const _onDetected = (result) => {
-    setResult(result);
+  const _onDetected = (newResult) => {
+    if (!result || result.codeResult.code !== newResult.codeResult.code)
+      setResult(newResult);
   };
 
+  useEffect(() => {
+    if (result) {
+      axios({
+        url: "/home/barcode",
+        method: "get",
+        params: { storeNo: result?.codeResult.code },
+      })
+        .then((response) => {
+          console.log("axios 결과: ", response.data);
+          if (response.data)
+            navi("/home/pay", {
+              state: {
+                storeNo: result.codeResult.code,
+                storeName: response.data,
+              },
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [navi, result]);
+
   return (
-    <>
+    <Box className={appStyle.gradient} p={3}>
       <TopNavbar />
-      <Typography
-        variant="h6"
-        align="center"
-        color="white"
-        sx={{ m: "24px auto 12px" }}
-      >
-        바코드를 스캔하세요
-      </Typography>
+      <Box>
+        <Typography variant="h6" align="center" sx={{ m: "24px 0 0" }}>
+          바코드를 스캔하세요
+        </Typography>
+      </Box>
       <Box
         sx={{
           margin: "24px 0",
@@ -127,7 +148,12 @@ function BarcodeScan(props) {
           </Link>
         )}
       </Box>
-      <Box style={{ backgroundColor: "lightgray", display: "flex" }}>
+      <Box
+        style={{
+          backgroundColor: "lightgray",
+          display: "flex",
+        }}
+      >
         <IconButton
           aria-label="barcode-scan"
           size="large"
@@ -137,7 +163,7 @@ function BarcodeScan(props) {
           <CropFreeOutlinedIcon fontSize="inherit" />
         </IconButton>
       </Box>
-    </>
+    </Box>
   );
 }
 

@@ -36,12 +36,11 @@ const Singup = () => {
   const [user, setUser] = useState({});
 
   //조건들 정규식
-  const emailRegEx =
-    /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
-  const passRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]{7}$/;
+  const emailRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}gmail.com$/;
+  const passRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]{5,7}$/;
   const birthRegEx = /^[0-9]{6}$/;
   const genderRegEx = /^[0-9]{1}$/;
-  const nickRegEx = /^[A-Za-z0-9_ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{5}$/;
+  const nickRegEx = /^[A-Za-z0-9_ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,5}$/;
 
   //성공여부확인
   // const [userEmailBoo, setUserEmailBoo] = useState(false);
