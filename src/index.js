@@ -9,7 +9,7 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 //Provider: 어떤 컴포넌트에 제공할지 useSelector:어떤 state값을 쓰고싶은지
 //useDispatch: state값을 변경시킬때 사용
 
-//초기상태정의
+//초기상태정의 - User 정보 저장하는 Redux
 const initialState = { userNo: 0 };
 
 //로컬 스토리지에서 상태 불러오기
