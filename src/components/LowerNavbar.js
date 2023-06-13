@@ -36,7 +36,7 @@ const LowerNavbar = () => {
       {/* 하단 footer는 고정 */}
       <Paper
         sx={{
-          position: "absolute",
+          position: "fixed",
           bottom: 0,
           left: 0,
           right: 0,
