@@ -4,10 +4,8 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import CreditCardRoundedIcon from "@mui/icons-material/CreditCardRounded";
 import LocalActivityRoundedIcon from "@mui/icons-material/LocalActivityRounded";
 import GroupsRoundedIcon from "@mui/icons-material/GroupsRounded";
-
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
-
 import { createTheme, ThemeProvider } from "@mui/material";
 
 //폰트 GmarketSans로 지정
@@ -35,13 +33,10 @@ const LowerNavbar = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* cotent가 들어가는 부분 */}
-      <Outlet />
-
       {/* 하단 footer는 고정 */}
       <Paper
         sx={{
-          position: "absolute",
+          position: "fixed",
           bottom: 0,
           left: 0,
           right: 0,
