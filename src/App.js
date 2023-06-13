@@ -48,39 +48,38 @@ const App = () => {
         }
         disableGutters
       >
-            <Routes location={location}>
-              {/* 렌더화면 */}
-              <Route path="/" element={<Render />} />
-              {/* 계정 */}
-              <Route path="/auth/login" element={<Login />} />
-              <Route path="/auth/signup" element={<Singup />} />
-              <Route path="/auth/cardCreate" element={<CardCreate />} />
-              <Route path="/auth/findPass" element={<FindPass />} />
-              <Route path="/auth/ChangePass" element={<ChangePass />} />
-              <Route path="/auth/logout" element={<Logout />} />
-              {/* 홈(==카드) */}
-              <Route path="/home" element={<LowerNavbar />}>
-                <Route index element={<Home />} />
-                <Route path="barcode" element={<BarcodeScan />} />
-                <Route path="pay" element={<Pay />} />
-                <Route path="pay/complete" element={<PayComplete />} />
-                <Route path="payment" element={<PaymentDetails />} />
-                <Route path="point" element={<PointDetail />} />
-              </Route>
-              {/* 커뮤니티 */}
-              <Route path="/community" element={<LowerNavbar />}>
-                <Route index element={<CommunityMain />} />
-              </Route>
-              {/* 마이페이지 */}
-              <Route path="/mypage" element={<LowerNavbar />}>
-                <Route index element={<Mypage />} />
-              </Route>
-              {/* 이벤트 */}
-              <Route path="/event" element={<LowerNavbar />}>
-                <Route index element={<Event />}></Route>
-              </Route>
-            </Routes>
-
+        <Routes location={location}>
+          {/* 렌더화면 */}
+          <Route path="/" element={<Render />} />
+          {/* 계정 */}
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/signup" element={<Singup />} />
+          <Route path="/auth/cardCreate" element={<CardCreate />} />
+          <Route path="/auth/findPass" element={<FindPass />} />
+          <Route path="/auth/ChangePass" element={<ChangePass />} />
+          <Route path="/auth/logout" element={<Logout />} />
+          {/* 홈(==카드) */}
+          <Route path="/home" element={<Navbar />}>
+            <Route index element={<Home />} />
+            <Route path="barcode" element={<BarcodeScan />} />
+            <Route path="pay" element={<Pay />} />
+            <Route path="pay/complete" element={<PayComplete />} />
+            <Route path="payment" element={<PaymentDetails />} />
+            <Route path="point" element={<PointDetail />} />
+          </Route>
+          {/* 커뮤니티 */}
+          <Route path="/community" element={<Navbar />}>
+            <Route index element={<CommunityMain />} />
+          </Route>
+          {/* 마이페이지 */}
+          <Route path="/mypage" element={<Navbar />}>
+            <Route index element={<Mypage />} />
+          </Route>
+          {/* 이벤트 */}
+          <Route path="/event" element={<Navbar />}>
+            <Route index element={<Event />}></Route>
+          </Route>
+        </Routes>
       </Container>
     </ThemeProvider>
   );
