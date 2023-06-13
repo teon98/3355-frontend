@@ -37,7 +37,7 @@ const Singup = () => {
 
   //조건들 정규식
   const emailRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}gmail.com$/;
-  const passRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]{5,7}$/;
+  const passRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]{5,8}$/;
   const birthRegEx = /^[0-9]{6}$/;
   const genderRegEx = /^[0-9]{1}$/;
   const nickRegEx = /^[A-Za-z0-9_ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,5}$/;
@@ -90,7 +90,7 @@ const Singup = () => {
       setUserPass(e.target.value);
     } else {
       const el = document.getElementById("passmessage");
-      el.innerHTML = "비밀번호는 영문 숫자만 가능하며 8자리입니다.";
+      el.innerHTML = "비밀번호는 영문 숫자만 가능하며 5~8자리입니다.";
     }
   };
 
@@ -150,7 +150,7 @@ const Singup = () => {
       el.innerHTML = "중복체크를 진행해주세요";
     } else {
       const el = document.getElementById("nickmessage");
-      el.innerHTML = "영문 숫자 한글 5자를 입력해주세요.";
+      el.innerHTML = "영문 숫자 한글 2~5자를 입력해주세요.";
       // setUserNicknameBoo(false);
     }
   };
