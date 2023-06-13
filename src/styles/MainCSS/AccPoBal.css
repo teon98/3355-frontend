@@ -11,11 +11,11 @@
 }
 
 .card1 {
-  width: 200px;
   background-color: #f5f5f5;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s;
+  width: 200px;
 }
 
 .card1:hover {

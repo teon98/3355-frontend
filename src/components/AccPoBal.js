@@ -45,7 +45,7 @@ const AccPoBal = () => {
                 카드 잔액
               </Typography>
               <Typography className="balance" variant="body1" component="p">
-                {cardBalance} 원
+                {cardBalance.toLocaleString()} 원
               </Typography>
             </CardContent>
           </Card>
@@ -58,7 +58,7 @@ const AccPoBal = () => {
                 포인트 잔액
               </Typography>
               <Typography className="balance" variant="body1" component="p">
-                {pointBalance} 원
+                {pointBalance.toLocaleString()} 원
               </Typography>
             </CardContent>
           </Card>
