@@ -1,17 +1,10 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import TopNavbar from "../../components/TopNavbar";
 import axios from "axios";
 import appStyle from "../../App.module.css";
+import Receipt from "../../components/Receipt";
 
 function Pay(props) {
   const navi = useNavigate();
@@ -53,12 +46,22 @@ function Pay(props) {
         navi("/home/pay/complete", {
           state: {
             data: response.data,
+            payData: payData,
           },
         });
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const useMaxPoint = () => {
+    if (payData.amount) {
+      let usePoint = poBal > payData.amount ? payData.amount : poBal;
+      document.getElementById("point").value = usePoint;
+      setPayData({ ...payData, point: usePoint });
+    }
+    console.log("payData", payData);
   };
 
   return (
@@ -145,7 +148,13 @@ function Pay(props) {
               </Typography>
             </Grid>
             <Grid item xs>
-              <Typography variant="body2" align="right" pr={1}>
+              <Typography
+                variant="body2"
+                align="right"
+                pr={1}
+                sx={{ textDecoration: "underline" }}
+                onClick={useMaxPoint}
+              >
                 {poBal}
               </Typography>
             </Grid>
@@ -160,51 +169,7 @@ function Pay(props) {
               mb: "-4px",
             }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12} mb={1}>
-                <Typography variant="body1" align="left" pl={0.5}>
-                  최종 결제 금액
-                </Typography>
-              </Grid>
-              <Grid item xs={5}>
-                <Typography variant="body2" align="left" pl={0.5}>
-                  실제 금액
-                </Typography>
-              </Grid>
-              <Grid item xs={7}>
-                <Typography variant="body2" align="right" pr={1}>
-                  {payData.amount ? payData.amount : "-"}
-                </Typography>
-              </Grid>
-              <Grid item xs={5}>
-                <Typography variant="body2" align="left" pl={0.5}>
-                  포인트 사용
-                </Typography>
-              </Grid>
-              <Grid item xs={7}>
-                <Typography variant="body2" align="right" pr={1}>
-                  - {payData.point}
-                </Typography>
-              </Grid>
-              <Grid item xs={5} mt={1}>
-                <Typography variant="body1" align="left" pl={0.5}>
-                  결제 금액
-                </Typography>
-              </Grid>
-              <Grid item xs={7} mt={1}>
-                <Typography variant="body1" align="right" pr={1}>
-                  {payData.amount
-                    ? payData.amount - (payData.point ? payData.point : 0)
-                    : "-"}
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox color="primary" />}
-                  label="[필수] 전자결제대행 이용 동의"
-                />
-              </Grid>
-            </Grid>
+            <Receipt payData={payData} flag={true} />
           </Box>
           <Button
             type="button"
