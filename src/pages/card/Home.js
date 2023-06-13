@@ -10,20 +10,15 @@ const Home = () => {
     <>
       <Box sx={{ mx: "24px" }}>
         <Box>
-          <TopNavbar />
-        </Box>
-        <Box>
           <Box>
             <CardAni />
           </Box>
           <Box>
             <AccPoBal />
           </Box>
-
           <Box>
             <CashCharge />
           </Box>
-
           <Box>
             <ListTabs />
           </Box>
