@@ -30,17 +30,14 @@ const Login = () => {
   //유저 입력정보 저장변수
   const [userEmail, setUserEmail] = useState();
   const [userPass, setUserPass] = useState();
-  const [user, setUser] = useState();
 
   //유저,비밀번호 저장
   const handleEmail = (e) => {
     setUserEmail(e.target.value);
-    setUser({ userEmail, userPass });
   };
 
   const handlePass = (e) => {
     setUserPass(e.target.value);
-    setUser({ userEmail, userPass });
   };
 
   //비밀번호찾기 버튼
@@ -48,6 +45,7 @@ const Login = () => {
     navi("/auth/findPass");
   };
 
+  //리덕스 변수 사용하기
   const userNo = useSelector((state) => state.userNo);
   const dispatch = useDispatch();
   //로그인버튼
