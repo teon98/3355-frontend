@@ -59,7 +59,6 @@ function PayComplete(props) {
 
   return (
     <Box className={appStyle.gradient} p={3}>
-      <TopNavbar />
       <Box sx={{ display: "flex", height: "80vh", alignItems: "center" }}>
         <Box
           sx={{

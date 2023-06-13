@@ -65,8 +65,7 @@ function Pay(props) {
   };
 
   return (
-    <Box className={appStyle.gradient} px={3}>
-      <TopNavbar />
+    <Box className={appStyle.gradient} p={3}>
       <Box>
         <Typography
           variant="h6"

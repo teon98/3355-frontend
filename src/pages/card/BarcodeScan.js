@@ -112,7 +112,6 @@ function BarcodeScan(props) {
 
   return (
     <Box className={appStyle.gradient} p={3}>
-      <TopNavbar />
       <Box>
         <Typography variant="h6" align="center" sx={{ m: "24px 0 0" }}>
           바코드를 스캔하세요
