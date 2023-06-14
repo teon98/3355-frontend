@@ -53,9 +53,6 @@ function Breakdown(props) {
   const [end, setEnd] = useState(new Date());
 
   const [list, setList] = useState([]);
-  let balance = list[1]?.substring(list[1]?.indexOf(":") + 1);
-
-  // balance = balance.toLocaleString();
 
   const userNo = 110; // 사용자 번호
   useEffect(() => {
@@ -82,17 +79,15 @@ function Breakdown(props) {
       >
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h6">
-              {list[0]?.substring(list[0]?.indexOf(":") + 1)}
-            </Typography>
+            <Typography variant="subtitle2">{list[0]}</Typography>
           </Grid>
           <Grid item xs={12} mb={2}>
             <Typography variant="h4">
-              {Number(balance).toLocaleString()}원
+              {list[1]?.amountHistory.toLocaleString()}원
             </Typography>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={5.4}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 value={start}
@@ -105,7 +100,19 @@ function Breakdown(props) {
               />
             </LocalizationProvider>
           </Grid>
-          <Grid item xs={6}>
+          <Grid
+            item
+            xs
+            sx={{
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h6">~</Typography>
+          </Grid>
+          <Grid item xs={5.4}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 value={end}
@@ -188,46 +195,24 @@ function Breakdown(props) {
             </Divider>
           </Grid>
         </Grid>
-        <Grid container spacing={0.2} px={1} mb={3}>
-          <Grid item xs={6}>
-            <Typography variant="body1" align="left">
-              명수네 떡볶이
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="body1" align="right">
-              - 8,300원
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography
-              variant="body2"
-              align="left"
-              sx={{ fontWeight: "lighter" }}
-            >
-              23/06/13 19:25
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography
-              variant="body2"
-              align="right"
-              sx={{ fontWeight: "lighter" }}
-            >
-              238,600원
-            </Typography>
-          </Grid>
-        </Grid>
-        {list.map((item, idx) => (
-          <Grid container spacing={0.2} px={1} mb={3} key={idx}>
+
+        {list.slice(1).map((item, idx) => (
+          <Grid container spacing={0.2} px={1} mb={4} key={idx}>
             <Grid item xs={6}>
               <Typography variant="body1" align="left">
-                {item}
+                {item.storeName}
               </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="body1" align="right">
-                - 8,300원
+              <Typography
+                variant="body1"
+                align="right"
+                sx={{
+                  fontWeight: "bold",
+                  color: item.type === "+" ? "blue" : "black",
+                }}
+              >
+                {item.type === "-" ? "-" : ""} {item.amount.toLocaleString()} 원
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -236,7 +221,7 @@ function Breakdown(props) {
                 align="left"
                 sx={{ fontWeight: "lighter" }}
               >
-                23/06/13 19:25
+                {item.date}
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -245,19 +230,12 @@ function Breakdown(props) {
                 align="right"
                 sx={{ fontWeight: "lighter" }}
               >
-                238,600원
+                {item.amountHistory.toLocaleString()}
               </Typography>
             </Grid>
           </Grid>
         ))}
       </Paper>
-      {/* <Box>
-        {list.map((item, idx) => (
-          <Typography variant="h6" component="p" key={idx}>
-            {item}
-          </Typography>
-        ))}
-      </Box> */}
     </>
   );
 }
