@@ -1,7 +1,15 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import TopNavbar from "../../components/TopNavbar";
 import axios from "axios";
 import appStyle from "../../App.module.css";
 import Receipt from "../../components/Receipt";
@@ -10,15 +18,35 @@ function Pay(props) {
   const navi = useNavigate();
   const location = useLocation();
   const { storeNo, storeName } = location.state;
-  const [payData, setPayData] = useState({ storeNo: storeNo });
+  const [payData, setPayData] = useState({ storeNo: storeNo, point: "0" });
   const [accBal, setAccBal] = useState(0);
   const [poBal, setPoBal] = useState(0);
+  const [availablePoint, setAvailablePoint] = useState(true);
+  const [checkboxChecked, setCheckboxChecked] = useState(false); // 체크박스 상태를 추적하는 상태 변수
 
   const handleChange = (e) => {
     const { name, value, max } = e.target;
-    console.log(max);
-    setPayData({ ...payData, [name]: value });
+
+    let confirmedValue = Number(value) > max ? max : value;
+    document.getElementById(name).value = confirmedValue;
+    setPayData({ ...payData, [name]: confirmedValue });
   };
+
+  const handlePointBlur = (e) => {
+    let confirmedValue;
+    if (Number(e.target.value) <= 0) {
+      confirmedValue = "0";
+      document.getElementById("point").value = "";
+    } else {
+      confirmedValue = Number(e.target.value) < 100 ? "100" : e.target.value;
+      document.getElementById("point").value = confirmedValue;
+    }
+    setPayData({ ...payData, point: confirmedValue });
+  };
+
+  useEffect(() => {
+    console.log("pay data", payData);
+  }, [payData]);
 
   useEffect(() => {
     axios({
@@ -27,7 +55,7 @@ function Pay(props) {
       params: { userNo: "110" },
     })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setAccBal(response.data.accountBalance);
         setPoBal(response.data.pointBalance);
       })
@@ -35,6 +63,12 @@ function Pay(props) {
         console.log(error);
       });
   }, []);
+
+  useEffect(() => {
+    if (poBal < 100) {
+      setAvailablePoint(false);
+    }
+  }, [poBal]);
 
   const handlePay = () => {
     axios({
@@ -57,28 +91,28 @@ function Pay(props) {
 
   const useMaxPoint = () => {
     if (payData.amount) {
-      let usePoint = poBal > payData.amount ? payData.amount : poBal;
-      document.getElementById("point").value = usePoint;
-      setPayData({ ...payData, point: usePoint });
+      let maxPoint = poBal > payData.amount ? payData.amount : poBal;
+      document.getElementById("point").value = maxPoint;
+      setPayData({ ...payData, point: maxPoint });
     }
-    console.log("payData", payData);
   };
 
   return (
-    <Box className={appStyle.gradient} p={3}>
+    <Box className={appStyle.notgradient} p={3}>
       <Box>
         <Typography
           variant="h6"
           align="center"
-          color="white"
+          color="black"
           sx={{ m: "24px auto 12px" }}
         >
           결제 페이지
         </Typography>
-        <form
-          style={{
+        <Paper
+          elevation={3}
+          sx={{
             height: "auto",
-            backgroundColor: "#eee",
+            backgroundColor: "white",
             padding: "24px",
             textAlign: "center",
             borderRadius: "12px",
@@ -129,6 +163,8 @@ function Pay(props) {
                 type="number"
                 id="point"
                 name="point"
+                disabled={availablePoint}
+                onBlur={handlePointBlur}
                 onChange={handleChange}
                 inputProps={{
                   inputMode: "numeric",
@@ -139,19 +175,24 @@ function Pay(props) {
                 }}
                 helperText="100 포인트 이상 보유시 사용 가능"
               />
-              {/* <FormHelperText>100 포인트 이상 보유시 사용 가능</FormHelperText> */}
             </Grid>
             <Grid item xs={5}>
               <Typography variant="body2" align="left" pl={1}>
                 보유 포인트
               </Typography>
             </Grid>
-            <Grid item xs>
+            <Grid item xs sx={{ textAlign: "right" }}>
               <Typography
                 variant="body2"
+                component="span"
                 align="right"
                 pr={1}
-                sx={{ textDecoration: "underline" }}
+                sx={{
+                  textDecoration: "underline",
+                  "&:hover": {
+                    cursor: "pointer",
+                  },
+                }}
                 onClick={useMaxPoint}
               >
                 {poBal}
@@ -160,15 +201,29 @@ function Pay(props) {
           </Grid>
           <Box
             sx={{
-              backgroundColor: "lightgray",
+              backgroundColor: "#eee",
               padding: "16px 12px 8px",
               borderTopLeftRadius: "16px",
               borderTopRightRadius: "16px",
               mt: "32px",
-              mb: "-4px",
+              mb: "0",
             }}
           >
             <Receipt payData={payData} flag={true} />
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={checkboxChecked}
+                      onChange={(e) => setCheckboxChecked(e.target.checked)}
+                    />
+                  }
+                  label="[필수] 전자결제대행 이용 동의"
+                />
+              </Grid>
+            </Grid>
           </Box>
           <Button
             type="button"
@@ -177,10 +232,11 @@ function Pay(props) {
             sx={{ mb: 1 }}
             size="large"
             onClick={handlePay}
+            disabled={!checkboxChecked} // 체크박스가 선택되지 않은 경우 버튼 비활성화
           >
             결제
           </Button>
-        </form>
+        </Paper>
       </Box>
     </Box>
   );
