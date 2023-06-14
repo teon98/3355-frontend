@@ -12,8 +12,8 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 //초기상태정의 - User 정보 저장하는 Redux
 const initialState = { userNo: 0 };
 
-//로컬 스토리지에서 상태 불러오기
-const savedState = localStorage.getItem("reduxState");
+//세션 스토리지에서 상태 불러오기
+const savedState = sessionStorage.getItem("reduxState");
 const persistedState = savedState ? JSON.parse(savedState) : initialState;
 
 //리듀서 안의 변수를 어떻게 변경시킬지
@@ -28,7 +28,7 @@ const store = createStore(reducer);
 
 //상태저장
 store.subscribe(() => {
-  localStorage.setItem("reduxState", JSON.stringify(store.getState()));
+  sessionStorage.setItem("reduxState", JSON.stringify(store.getState()));
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
