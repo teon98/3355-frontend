@@ -41,6 +41,10 @@
     width: 150px;
   }
 
+  .card1:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
   .card1 .title {
     text-align: center;
     font-size: 20px;

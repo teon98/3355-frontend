@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
 
 function Receipt({ payData, flag }) {
@@ -27,7 +27,7 @@ function Receipt({ payData, flag }) {
         </Grid>
         <Grid item xs={7}>
           <Typography variant="body2" align="right" pr={1}>
-            - {payData.point}
+            - {Number(payData.point) === 0 ? "" : payData.point}
           </Typography>
         </Grid>
         <Grid item xs={5} mt={1}>
@@ -42,14 +42,6 @@ function Receipt({ payData, flag }) {
               : "-"}
           </Typography>
         </Grid>
-        {flag && (
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox color="primary" />}
-              label="[필수] 전자결제대행 이용 동의"
-            />
-          </Grid>
-        )}
       </Grid>
     </>
   );

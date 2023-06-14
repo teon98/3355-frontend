@@ -1,13 +1,15 @@
 import React from "react";
+import Breakdown from "../../components/Breakdown";
+import { Box, Typography } from "@mui/material";
 
 const PaymentDetails = () => {
   return (
-    <div>
-      <h1>결제내역 상세 페이지</h1>
-      <p>1000</p>
-      <p>2000</p>
-      <p>3000</p>
-    </div>
+    <Box p={3}>
+      <Typography variant="h6" align="center" sx={{ m: "16px auto" }}>
+        결제내역 상세 페이지
+      </Typography>
+      <Breakdown />
+    </Box>
   );
 };
 
