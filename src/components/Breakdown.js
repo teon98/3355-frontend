@@ -12,19 +12,43 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
 import axios from "axios";
+import "../styles/MainCSS/Pay.css";
 
 const options = ["전체", "입금", "출금"];
+const userNo = 110; // 사용자 번호
 
 function Breakdown(props) {
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [list, setList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
+
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const [start, setStart] = useState(new Date(2023, 0, 1));
+  const [end, setEnd] = useState(new Date());
+  // const [vision, setVision] = useState(true);
+
+  useEffect(() => {
+    axios({
+      url: `/home/history/${userNo}`,
+      method: "get",
+    })
+      .then((response) => {
+        console.log(response.data);
+        setList(response.data);
+        setFilteredList(response.data.slice(1));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleClick = (event) => {
     console.log(event.target.innerText);
@@ -44,29 +68,36 @@ function Breakdown(props) {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
-  const [start, setStart] = useState(new Date(2023, 0, 1));
-  const [end, setEnd] = useState(new Date());
-
-  const [list, setList] = useState([]);
-
-  const userNo = 110; // 사용자 번호
   useEffect(() => {
-    axios({
-      url: `/home/history/${userNo}`,
-      method: "get",
-    })
-      .then((response) => {
-        console.log(response.data);
-        setList(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+    console.log("======================");
+    console.log(dateFormat(start));
+    console.log(dateFormat(end));
+    console.log("----------------------");
+
+    filteredList.map((item, idx) => {
+      let sliceDate = item.date.toString().substring(0, 8);
+      console.log(dateFormat(end).toString());
+      console.log(sliceDate.toString());
+
+      console.log("시작", dateFormat(start).toString() <= sliceDate.toString());
+      console.log("끝", sliceDate.toString() <= dateFormat(end).toString());
+
+      return null;
+    });
+  }, [list, start, end, filteredList]);
+
+  function dateFormat(date) {
+    return (
+      date.getFullYear().toString().substring(2, 4) +
+      "/" +
+      (date.getMonth() + 1).toString().padStart(2, "0") +
+      "/" +
+      date.getDate().toString().padStart(2, "0")
+    );
+  }
 
   const filteredList = list.slice(1).filter((item) => {
     if (selectedIndex === 0) {
@@ -221,7 +252,7 @@ function Breakdown(props) {
                 align="right"
                 sx={{
                   fontWeight: "bold",
-                  color: item.type === "+" ? "blue" : "black",
+                  color: item.type === "+" ? "#A055FF" : "#303030",
                 }}
               >
                 {item.type === "-" ? "-" : ""} {item.amount.toLocaleString()} 원
