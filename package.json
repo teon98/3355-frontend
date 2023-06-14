@@ -18,6 +18,7 @@
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
     "jsbarcode": "^3.11.5",
+    "jwt-decode": "^3.1.2",
     "quagga": "^0.12.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -20,6 +20,7 @@ import PayComplete from "./pages/card/PayComplete";
 import FindPass from "./pages/account/FindPass";
 import ChangePass from "./pages/account/ChangePass";
 import Logout from "./pages/account/Logout";
+import GoogleSignup from "./pages/account/GoogleSingup";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -54,6 +55,7 @@ const App = () => {
           {/* 계정 */}
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Singup />} />
+          <Route path="/auth/googlesignup" element={<GoogleSignup />} />
           <Route path="/auth/cardCreate" element={<CardCreate />} />
           <Route path="/auth/findPass" element={<FindPass />} />
           <Route path="/auth/ChangePass" element={<ChangePass />} />
