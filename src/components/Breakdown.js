@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Chip,
   ClickAwayListener,
@@ -69,6 +68,16 @@ function Breakdown(props) {
       });
   }, []);
 
+  const filteredList = list.slice(1).filter((item) => {
+    if (selectedIndex === 0) {
+      return true; // 전체
+    } else if (selectedIndex === 1) {
+      return item.type === "+"; // 입금
+    } else if (selectedIndex === 2) {
+      return item.type === "-"; // 출금
+    }
+  });
+
   return (
     <>
       <Paper
@@ -90,11 +99,13 @@ function Breakdown(props) {
           <Grid item xs={5.4}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
+                dateFormat="MMMM d, yyyy h:mm aa"
                 value={start}
                 label="시작 날짜"
                 sx={{ width: "100%" }}
                 onChange={(newStart) => {
                   setStart(newStart);
+                  console.log(newStart);
                 }}
                 TextField={(params) => <TextField {...params} />}
               />
@@ -119,6 +130,7 @@ function Breakdown(props) {
                 label="종료 날짜"
                 onChange={(newEnd) => {
                   setEnd(newEnd);
+                  console.log(newEnd);
                 }}
                 TextField={(params) => <TextField {...params} />}
               />
@@ -196,7 +208,7 @@ function Breakdown(props) {
           </Grid>
         </Grid>
 
-        {list.slice(1).map((item, idx) => (
+        {filteredList.map((item, idx) => (
           <Grid container spacing={0.2} px={1} mb={4} key={idx}>
             <Grid item xs={6}>
               <Typography variant="body1" align="left">
