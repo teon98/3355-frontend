@@ -1,8 +1,13 @@
 import { Box } from "@mui/material";
 import React from "react";
+import MyFollowerList from "../../components/community/MyFollowerList";
 
 const CommunityMain = () => {
-  return <Box></Box>;
+  return (
+    <Box>
+      <MyFollowerList />
+    </Box>
+  );
 };
 
 export default CommunityMain;
