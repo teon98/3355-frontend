@@ -4,6 +4,7 @@ import CardAni from "../../components/CardAni";
 import AccPoBal from "../../components/AccPoBal";
 import CashCharge from "../../components/CashCharge";
 import ListTabs from "../../components/MainStoreList";
+import Test from "../../components/Test";
 
 const Home = () => {
   return (
@@ -21,6 +22,9 @@ const Home = () => {
           </Box>
           <Box>
             <ListTabs />
+          </Box>
+          <Box>
+            <Test />
           </Box>
         </Box>
       </Box>
