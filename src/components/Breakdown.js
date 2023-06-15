@@ -12,48 +12,24 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
-import axios from "axios";
 import "../styles/MainCSS/Pay.css";
+import LocalParkingRoundedIcon from "@mui/icons-material/LocalParkingRounded";
+import StarsRoundedIcon from "@mui/icons-material/StarsRounded";
 
 const options = ["전체", "입금", "출금"];
-const userNo = 110; // 사용자 번호
 
-function Breakdown(props) {
-  const [list, setList] = useState([]);
-  const [filteredList, setFilteredList] = useState([]);
-
+function Breakdown({ list, flag }) {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const [start, setStart] = useState(new Date(2023, 0, 1));
   const [end, setEnd] = useState(new Date());
-  // const [vision, setVision] = useState(true);
-
-  useEffect(() => {
-    axios({
-      url: `/home/history/${userNo}`,
-      method: "get",
-    })
-      .then((response) => {
-        console.log(response.data);
-        setList(response.data);
-        setFilteredList(response.data.slice(1));
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-  const handleClick = (event) => {
-    console.log(event.target.innerText);
-    // console.info(`You clicked ${options[selectedIndex]}`);
-  };
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -71,24 +47,6 @@ function Breakdown(props) {
     setOpen(false);
   };
 
-  useEffect(() => {
-    console.log("======================");
-    console.log(dateFormat(start));
-    console.log(dateFormat(end));
-    console.log("----------------------");
-
-    filteredList.map((item, idx) => {
-      let sliceDate = item.date.toString().substring(0, 8);
-      console.log(dateFormat(end).toString());
-      console.log(sliceDate.toString());
-
-      console.log("시작", dateFormat(start).toString() <= sliceDate.toString());
-      console.log("끝", sliceDate.toString() <= dateFormat(end).toString());
-
-      return null;
-    });
-  }, [list, start, end, filteredList]);
-
   function dateFormat(date) {
     return (
       date.getFullYear().toString().substring(2, 4) +
@@ -99,13 +57,26 @@ function Breakdown(props) {
     );
   }
 
-  const filteredList = list.slice(1).filter((item) => {
+  const optionedList = list.slice(1).filter((item) => {
     if (selectedIndex === 0) {
       return true; // 전체
     } else if (selectedIndex === 1) {
       return item.type === "+"; // 입금
     } else if (selectedIndex === 2) {
       return item.type === "-"; // 출금
+    } else {
+      return false;
+    }
+  });
+  const filteredList = optionedList.filter((item) => {
+    let sliceDate = item.date.toString().substring(0, 8);
+    if (
+      dateFormat(start).toString() <= sliceDate.toString() &&
+      sliceDate.toString() <= dateFormat(end).toString()
+    ) {
+      return true;
+    } else {
+      return false;
     }
   });
 
@@ -121,23 +92,32 @@ function Breakdown(props) {
           <Grid item xs={12}>
             <Typography variant="subtitle2">{list[0]}</Typography>
           </Grid>
-          <Grid item xs={12} mb={2}>
-            <Typography variant="h4">
-              {list[1]?.amountHistory.toLocaleString()}원
+          <Grid
+            item
+            xs={12}
+            mb={2}
+            // sx={{ display: "flex", alignItems: "center" }}
+          >
+            <Typography
+              variant="h4"
+              component="div"
+              sx={{ fontSize: "32px", display: "flex", alignItems: "center" }}
+            >
+              {list[1]?.amountHistory.toLocaleString()}
+              {flag ? (
+                <StarsRoundedIcon sx={{ color: "olive", fontSize: "32px" }} />
+              ) : (
+                "원"
+              )}
             </Typography>
           </Grid>
 
           <Grid item xs={5.4}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                dateFormat="MMMM d, yyyy h:mm aa"
                 value={start}
                 label="시작 날짜"
-                sx={{ width: "100%" }}
-                onChange={(newStart) => {
-                  setStart(newStart);
-                  console.log(newStart);
-                }}
+                onChange={(newStart) => setStart(newStart)}
                 TextField={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
@@ -159,10 +139,7 @@ function Breakdown(props) {
               <DatePicker
                 value={end}
                 label="종료 날짜"
-                onChange={(newEnd) => {
-                  setEnd(newEnd);
-                  console.log(newEnd);
-                }}
+                onChange={(newEnd) => setEnd(newEnd)}
                 TextField={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
@@ -182,7 +159,9 @@ function Breakdown(props) {
                       aria-haspopup="menu"
                       onClick={handleToggle}
                       sx={{
-                        width: "80px",
+                        color: "#A055FF",
+                        width: "90px",
+                        borderRadius: "16px",
                         alignItems: "flex-end",
                         justifyContent: "space-between",
                       }}
@@ -218,10 +197,9 @@ function Breakdown(props) {
                                   <MenuItem
                                     key={option}
                                     selected={index === selectedIndex}
-                                    onClick={(event) => {
-                                      handleMenuItemClick(event, index);
-                                      handleClick(event);
-                                    }}
+                                    onClick={(event) =>
+                                      handleMenuItemClick(event, index)
+                                    }
                                   >
                                     {option}
                                   </MenuItem>
@@ -255,7 +233,8 @@ function Breakdown(props) {
                   color: item.type === "+" ? "#A055FF" : "#303030",
                 }}
               >
-                {item.type === "-" ? "-" : ""} {item.amount.toLocaleString()} 원
+                {item.type === "-" ? "-" : ""} {item.amount.toLocaleString()}
+                {flag ? "" : " 원"}
               </Typography>
             </Grid>
             <Grid item xs={6}>
