@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
-import GoogleLoginButton from "./account/GoogleLoginButton ";
+import GoogleLoginButton from "./account/GoogleLoginButton";
 
 const auththeme = createTheme({
   typography: {

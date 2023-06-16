@@ -102,12 +102,7 @@ function PayComplete(props) {
             <Divider />
             <Grid container spacing={3} mt={0.1} mb={2.5}>
               <Grid item xs={5}>
-                <Typography
-                  variant="body1"
-                  align="left"
-                  pl={0.5}
-                  onClick={handleTooltipOpen}
-                >
+                <Typography variant="body1" align="left" pl={0.5}>
                   포인트 적립
                 </Typography>
               </Grid>

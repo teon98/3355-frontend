@@ -12,7 +12,7 @@ import PointDetail from "./pages/card/PointDetail";
 import CommunityMain from "./pages/community/CommunityMain";
 import Event from "./pages/eventpage/EventPage";
 import { createTheme, ThemeProvider } from "@mui/material";
-import BarcodeScan from "./pages/card/BarcodeScan";
+import BarcodeScan from "./components/BarcodeScan";
 import Pay from "./pages/card/Pay";
 import CardCreate from "./pages/account/CardCreate";
 import Navbar from "./pages/Navbar";
@@ -63,7 +63,7 @@ const App = () => {
           {/* 홈(==카드) */}
           <Route path="/home" element={<Navbar />}>
             <Route index element={<Home />} />
-            <Route path="barcode" element={<BarcodeScan />} />
+            {/* <Route path="barcode" element={<BarcodeScan />} /> */}
             <Route path="pay" element={<Pay />} />
             <Route path="pay/complete" element={<PayComplete />} />
             <Route path="payment" element={<PaymentDetails />} />
