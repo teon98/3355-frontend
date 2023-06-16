@@ -11,12 +11,10 @@ const Home = () => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
-    console.log("열렸다");
     setOpen(true);
   };
 
   const handleClose = () => {
-    console.log("닫혔다");
     setOpen(false);
   };
 

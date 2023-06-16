@@ -9,8 +9,12 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export default function AccBalDialog({ open, handleClose }) {
+  //리덕스 변수 사용하기
+  const userNo = useSelector((state) => state.userNo);
+
   const [chargeAmount, setChargeAmount] = useState("");
   const [cardPass, setCardPass] = useState("");
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
@@ -29,7 +33,6 @@ export default function AccBalDialog({ open, handleClose }) {
 
   const handleCharge = async () => {
     try {
-      const userNo = "110";
       const data = {
         userNo,
         chargeAmount,

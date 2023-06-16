@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import "../styles/MainCSS/Barcode.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function Scanner(props) {
   useEffect(() => {
@@ -53,6 +54,11 @@ function Scanner(props) {
 }
 
 function BarcodeScan(props) {
+  // 스크롤을 상단에 고정시킴
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const navi = useNavigate();
   const [scanning, setScanning] = useState(true);
   const [result, setResult] = useState(null);
