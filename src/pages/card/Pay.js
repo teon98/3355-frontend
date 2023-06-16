@@ -13,12 +13,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import appStyle from "../../App.module.css";
 import Receipt from "../../components/Receipt";
+import { useSelector } from "react-redux";
 
 function Pay(props) {
+  //리덕스 변수 사용하기
+  const userNo = useSelector((state) => state.userNo);
+
   const navi = useNavigate();
   const location = useLocation();
   const { storeNo, storeName } = location.state;
-  const [payData, setPayData] = useState({ storeNo: storeNo, point: "0" });
+  const [payData, setPayData] = useState({
+    userNo: userNo,
+    storeNo: storeNo,
+    point: "0",
+  });
   const [accBal, setAccBal] = useState(0);
   const [poBal, setPoBal] = useState(0);
   const [availablePoint, setAvailablePoint] = useState(true);
@@ -52,7 +60,7 @@ function Pay(props) {
     axios({
       url: "/home/pay",
       method: "get",
-      params: { userNo: "110" },
+      params: { userNo: userNo },
     })
       .then((response) => {
         // console.log(response.data);

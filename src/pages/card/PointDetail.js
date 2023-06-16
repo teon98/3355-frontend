@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import Breakdown from "../../components/Breakdown";
 import axios from "axios";
-
-const userNo = 110; // 사용자 번호
+import { useSelector } from "react-redux";
 
 const PointDetail = () => {
+  //리덕스 변수 사용하기
+  const userNo = useSelector((state) => state.userNo);
   const [list, setList] = useState([]);
 
   useEffect(() => {

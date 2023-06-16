@@ -16,8 +16,12 @@ import Receipt from "../../components/Receipt";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import HelpOutlineRoundedIcon from "@mui/icons-material/HelpOutlineRounded";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function PayComplete(props) {
+  //리덕스 변수 사용하기
+  const userNo = useSelector((state) => state.userNo);
+
   const navi = useNavigate();
   // const location = useLocation();
   // let str = location.state.data;
@@ -38,7 +42,7 @@ function PayComplete(props) {
     axios({
       url: "/home/pay/complete",
       method: "get",
-      params: { userNo: "110" },
+      params: { userNo: userNo },
     })
       .then((response) => {
         console.log(response.data);
