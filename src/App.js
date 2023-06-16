@@ -20,8 +20,9 @@ import PayComplete from "./pages/card/PayComplete";
 import FindPass from "./pages/account/FindPass";
 import ChangePass from "./pages/account/ChangePass";
 import Logout from "./pages/account/Logout";
-import UploadTest from "./components/community/UploadTest";
 import GoogleSignup from "./pages/account/GoogleSingup";
+import ProfileHome from "./components/community/ProfileHome";
+import ProfileEdit from "./components/community/ProfileEdit";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -73,7 +74,8 @@ const App = () => {
           {/* 커뮤니티 */}
           <Route path="/community" element={<Navbar />}>
             <Route index element={<CommunityMain />} />
-            <Route path="uploadImg" element={<UploadTest />} />
+            <Route path="profileHome" element={<ProfileHome />} />
+            <Route path="profileEdit" element={<ProfileEdit />} />
           </Route>
           {/* 마이페이지 */}
           <Route path="/mypage" element={<Navbar />}>
