@@ -145,7 +145,7 @@ const GoogleSignup = () => {
     console.log(user);
 
     axios({
-      url: `/user/insert.sam`,
+      url: `/user/signGoogleInsert.sam`,
       method: "post",
       data: user,
     })
