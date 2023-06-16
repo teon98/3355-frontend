@@ -20,11 +20,11 @@ const UploadTest = () => {
     }
 
     //경로 넣어주기
-    data.append("defaultpath", process.env.REACT_APP_IMGPATH);
-    data.append("path", "profile");
+    data.append("profileImg", img);
+    data.append("userNo", 110);
 
     axios
-      .post("/uploadImg", data, {
+      .post("/profile/s3Upload", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -53,6 +53,11 @@ function Scanner(props) {
 }
 
 function BarcodeScan(props) {
+  // 스크롤을 상단에 고정시킴
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const navi = useNavigate();
   const [scanning, setScanning] = useState(true);
   const [result, setResult] = useState(null);
