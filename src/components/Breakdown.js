@@ -105,7 +105,7 @@ function Breakdown({ list, flag }) {
             >
               {list[1]?.amountHistory.toLocaleString()}
               {flag ? (
-                <StarsRoundedIcon sx={{ color: "olive", fontSize: "32px" }} />
+                <StarsRoundedIcon sx={{ color: "#FBBC05", fontSize: "32px" }} />
               ) : (
                 "원"
               )}
@@ -234,7 +234,7 @@ function Breakdown({ list, flag }) {
                 }}
               >
                 {item.type === "-" ? "-" : ""} {item.amount.toLocaleString()}
-                {flag ? "" : " 원"}
+                {flag ? " P" : " 원"}
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -253,6 +253,7 @@ function Breakdown({ list, flag }) {
                 sx={{ fontWeight: "lighter" }}
               >
                 {item.amountHistory.toLocaleString()}
+                {flag ? " P" : " 원"}
               </Typography>
             </Grid>
           </Grid>
