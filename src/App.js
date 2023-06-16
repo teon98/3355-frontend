@@ -12,7 +12,7 @@ import PointDetail from "./pages/card/PointDetail";
 import CommunityMain from "./pages/community/CommunityMain";
 import Event from "./pages/eventpage/EventPage";
 import { createTheme, ThemeProvider } from "@mui/material";
-import BarcodeScan from "./pages/card/BarcodeScan";
+import BarcodeScan from "./components/BarcodeScan";
 import Pay from "./pages/card/Pay";
 import CardCreate from "./pages/account/CardCreate";
 import Navbar from "./pages/Navbar";
@@ -21,6 +21,7 @@ import FindPass from "./pages/account/FindPass";
 import ChangePass from "./pages/account/ChangePass";
 import Logout from "./pages/account/Logout";
 import UploadTest from "./components/community/UploadTest";
+import GoogleSignup from "./pages/account/GoogleSingup";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -55,6 +56,7 @@ const App = () => {
           {/* 계정 */}
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Singup />} />
+          <Route path="/auth/googlesignup" element={<GoogleSignup />} />
           <Route path="/auth/cardCreate" element={<CardCreate />} />
           <Route path="/auth/findPass" element={<FindPass />} />
           <Route path="/auth/ChangePass" element={<ChangePass />} />
@@ -62,7 +64,7 @@ const App = () => {
           {/* 홈(==카드) */}
           <Route path="/home" element={<Navbar />}>
             <Route index element={<Home />} />
-            <Route path="barcode" element={<BarcodeScan />} />
+            {/* <Route path="barcode" element={<BarcodeScan />} /> */}
             <Route path="pay" element={<Pay />} />
             <Route path="pay/complete" element={<PayComplete />} />
             <Route path="payment" element={<PaymentDetails />} />

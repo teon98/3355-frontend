@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Stack } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackNavbar from "../../components/BackNavbar";
 
@@ -16,19 +14,22 @@ const auththeme = createTheme({
   },
   palette: {
     primary: {
-      main: "#FFFFFF", //배경색
-      contrastText: "#17B7BD", //글자색
-    },
-    secondary: {
       main: "#17B7BD", //배경색
       contrastText: "#FFFFFF", //글자색
     },
+    secondary: {
+      main: "#FFFFFF", //배경색
+      contrastText: "#17B7BD", //글자색
+    },
   },
 });
-const Singup = () => {
+
+const GoogleSignup = () => {
+  const { state } = useLocation();
+  const userEmail = state;
+
   //유저 변수들
   const navi = useNavigate({});
-  const [userEmail, setUserEmail] = useState();
   const [userPass, setUserPass] = useState();
   const [userBirth, setUserBirth] = useState();
   const [userGender, setUserGender] = useState();
@@ -36,8 +37,6 @@ const Singup = () => {
   const [user, setUser] = useState({});
 
   //조건들 정규식
-  const emailRegEx =
-    /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   const passRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]{5,8}$/;
   const birthRegEx = /^[0-9]{6}$/;
   const genderRegEx = /^[0-9]{1}$/;
@@ -49,39 +48,6 @@ const Singup = () => {
   // const [userBirthBoo, setUserBirthBoo] = useState(false);
   // const [userGenderBoo, setUserGenderBoo] = useState(false);
   // const [userNicknameBoo, setUserNicknameBoo] = useState(false);
-
-  //이메일 체크
-  const handleEmail = (e) => {
-    if (emailRegEx.test(e.target.value)) {
-      console.log(e.target.value);
-      setUserEmail(e.target.value);
-
-      const el = document.getElementById("emailmessage");
-      el.innerHTML = "중복체크를 진행해주세요.";
-    } else {
-      // setUserEmailBoo(false);
-      const el = document.getElementById("emailmessage");
-      el.innerHTML = "이메일의 형식이 올바르지 않습니다.";
-    }
-  };
-
-  const emailCheck = () => {
-    console.log(userEmail);
-    axios({
-      url: `/user/emailDup.sam/${userEmail}`,
-      method: "get",
-    })
-      .then((res) => {
-        console.log(res.data);
-        const el = document.getElementById("emailmessage");
-        el.innerHTML = res.data;
-
-        setUser({ userEmail, userPass, userBirth, userGender, userNickname });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   //비밀번호 체크
   const handlePass = (e) => {
@@ -179,7 +145,7 @@ const Singup = () => {
     console.log(user);
 
     axios({
-      url: `/user/insert.sam`,
+      url: `/user/signGoogleInsert.sam`,
       method: "post",
       data: user,
     })
@@ -225,16 +191,7 @@ const Singup = () => {
         >
           <Box>
             이메일:
-            <input onChange={handleEmail} name="userEmail"></input>
-            <p id="emailmessage">이메일 형식에 맞게 입력해주세요</p>
-            <button
-              id="userBtn"
-              type="button"
-              className="btn btn-default"
-              onClick={emailCheck}
-            >
-              이메일 중복체크
-            </button>
+            <p id="emailmessage">{userEmail}</p>
           </Box>
           <Box>
             패스워드:
@@ -322,5 +279,4 @@ const Singup = () => {
     </ThemeProvider>
   );
 };
-
-export default Singup;
+export default GoogleSignup;

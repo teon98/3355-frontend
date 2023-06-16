@@ -10,8 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import TopNavbar from "../../components/TopNavbar";
+import { useNavigate } from "react-router-dom";
 import appStyle from "../../App.module.css";
 import Receipt from "../../components/Receipt";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
@@ -59,7 +58,6 @@ function PayComplete(props) {
 
   return (
     <Box className={appStyle.gradient} p={3}>
-      <TopNavbar />
       <Box sx={{ display: "flex", height: "80vh", alignItems: "center" }}>
         <Box
           sx={{
@@ -104,12 +102,7 @@ function PayComplete(props) {
             <Divider />
             <Grid container spacing={3} mt={0.1} mb={2.5}>
               <Grid item xs={5}>
-                <Typography
-                  variant="body1"
-                  align="left"
-                  pl={0.5}
-                  onClick={handleTooltipOpen}
-                >
+                <Typography variant="body1" align="left" pl={0.5}>
                   포인트 적립
                 </Typography>
               </Grid>

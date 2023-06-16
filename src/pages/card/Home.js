@@ -1,14 +1,28 @@
-import React from "react";
-import { Box } from "@mui/material";
+import React, { useState } from "react";
+import { Box, IconButton } from "@mui/material";
 import CardAni from "../../components/CardAni";
 import AccPoBal from "../../components/AccPoBal";
 import CashCharge from "../../components/CashCharge";
 import ListTabs from "../../components/MainStoreList";
+import CropFreeIcon from "@mui/icons-material/CropFree";
+import BarcodeDialog from "../../components/BarcodeDialog";
 
 const Home = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    console.log("열렸다");
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    console.log("닫혔다");
+    setOpen(false);
+  };
+
   return (
     <>
-      <Box sx={{ mx: "24px" }}>
+      <Box px={3} pb={8}>
         <Box>
           <Box>
             <CardAni />
@@ -16,13 +30,24 @@ const Home = () => {
           <Box>
             <AccPoBal />
           </Box>
-
           <Box>
             <CashCharge />
           </Box>
-
           <Box>
             <ListTabs />
+          </Box>
+          <Box
+            sx={{
+              mt: 8,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <IconButton aria-label="delete" onClick={handleClickOpen}>
+              <CropFreeIcon sx={{ color: "#666666", fontSize: 32 }} />
+            </IconButton>
+            <BarcodeDialog open={open} handleClose={handleClose} />
           </Box>
         </Box>
       </Box>

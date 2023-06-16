@@ -77,6 +77,10 @@ export default function AccBalDialog({ open, handleClose }) {
               id="charge-amount"
               label="충전 금액 입력"
               type="number"
+              inputProps={{
+                inputMode: "numeric",
+                pattern: "[0-9]*",
+              }}
               InputProps={{
                 endAdornment: "원",
               }}
@@ -92,6 +96,8 @@ export default function AccBalDialog({ open, handleClose }) {
               label="카드 비밀번호"
               type="password"
               inputProps={{
+                inputMode: "numeric",
+                pattern: "[0-9]*",
                 maxLength: 4,
               }}
               fullWidth

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Quagga from "quagga";
-import { Box, IconButton, Typography } from "@mui/material";
-import CropFreeOutlinedIcon from "@mui/icons-material/CropFreeOutlined";
-import "./Barcode.css";
-import { Link, useNavigate } from "react-router-dom";
-import TopNavbar from "../../components/TopNavbar";
-import appStyle from "../../App.module.css";
+import { Box, Typography } from "@mui/material";
+import "../styles/MainCSS/Barcode.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Scanner(props) {
@@ -55,32 +52,18 @@ function Scanner(props) {
   );
 }
 
-function Result(props) {
-  let { result } = props;
-  // console.log(result);
-  if (!result) {
-    return null;
-  } else {
-    // console.log(result.codeResult);
-    console.log("code", result.codeResult.code);
-    console.log("format", result.codeResult.format);
-    return (
-      <>
-        <p style={{ margin: "0" }}>{result.codeResult.code}</p>
-        <p style={{ margin: "0" }}>{result.codeResult.format}</p>
-      </>
-    );
-  }
-}
-
 function BarcodeScan(props) {
   const navi = useNavigate();
-  const [scanning, setScanning] = useState(false);
+  const [scanning, setScanning] = useState(true);
   const [result, setResult] = useState(null);
 
-  const _scan = () => {
-    setScanning(!scanning);
-  };
+  // useEffect(() => {
+  //   setScanning(open);
+  // }, [open]);
+
+  useEffect(() => {
+    console.log(scanning);
+  }, [scanning]);
 
   const _onDetected = (newResult) => {
     if (!result || result.codeResult.code !== newResult.codeResult.code)
@@ -89,13 +72,15 @@ function BarcodeScan(props) {
 
   useEffect(() => {
     if (result) {
+      setScanning(false);
+      // document.getElementById("interactive").remove();
+
       axios({
         url: "/home/barcode",
         method: "get",
         params: { storeNo: result?.codeResult.code },
       })
         .then((response) => {
-          console.log("axios 결과: ", response.data);
           if (response.data)
             navi("/home/pay", {
               state: {
@@ -108,11 +93,10 @@ function BarcodeScan(props) {
           console.log(error);
         });
     }
-  }, [navi, result]);
+  }, [navi, result, scanning]);
 
   return (
-    <Box className={appStyle.gradient} p={3}>
-      <TopNavbar />
+    <Box sx={{ height: "100%" }} p={3}>
       <Box>
         <Typography variant="h6" align="center" sx={{ m: "24px 0 0" }}>
           바코드를 스캔하세요
@@ -127,41 +111,6 @@ function BarcodeScan(props) {
         }}
       >
         {scanning ? <Scanner onDetected={_onDetected} /> : null}
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: "#eee",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: "8px",
-        }}
-      >
-        <Result result={result} />
-        {result && (
-          <Link
-            to={"/home/pay"}
-            state={{ store_no: result.codeResult.code }}
-            // style={{ visibility: "hidden" }}
-          >
-            Pay
-          </Link>
-        )}
-      </Box>
-      <Box
-        style={{
-          backgroundColor: "lightgray",
-          display: "flex",
-        }}
-      >
-        <IconButton
-          aria-label="barcode-scan"
-          size="large"
-          onClick={_scan}
-          sx={{ margin: "8px auto" }}
-        >
-          <CropFreeOutlinedIcon fontSize="inherit" />
-        </IconButton>
       </Box>
     </Box>
   );

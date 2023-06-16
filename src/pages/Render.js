@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
+import GoogleLoginButton from "./account/GoogleLoginButton";
 
 const auththeme = createTheme({
   typography: {
@@ -108,6 +109,8 @@ const Render = () => {
                 Sign UP
               </Button>
             </Link>
+
+            <GoogleLoginButton></GoogleLoginButton>
           </Stack>
           <Box sx={{ mt: "30px" }}>
             <Typography variant="body2" align="center" color="#E4F7F7">
