@@ -49,7 +49,9 @@ function ListTabs() {
       <Tabs
         value={value}
         onChange={handleChange}
-        aria-label="basic tabs example"
+        textColor="secondary"
+        indicatorColor="secondary"
+        aria-label="secondary tabs example"
       >
         <Tab label="가게" {...a11yProps(0)} />
         <Tab label="식품" {...a11yProps(1)} />
