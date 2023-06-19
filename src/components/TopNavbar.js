@@ -25,6 +25,11 @@ import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import "../styles/MainCSS/TopNavbar.css";
 
+import HomeIcon from "@mui/icons-material/Home";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import PeopleIcon from "@mui/icons-material/People";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+
 const GradientAppBar = styled(AppBar)`
   background: linear-gradient(360deg, #17b7bd 4.53%, #7cde9d 75.31%);
 `;
@@ -96,44 +101,84 @@ const TopNavbar = () => {
     <Drawer anchor="left" open={isSidebarOpen} onClose={closeSidebar}>
       <Box className="drawerContent">
         <List>
-          <ListItem button onClick={handleNavigate} data-name="/home">
-            <ListItemIcon>
-              <SettingsRoundedIcon />
-            </ListItemIcon>
-            <ListItemText primary="My Card" />
-          </ListItem>
+          <Link to="/home" className="link" onClick={closeSidebar}>
+            <ListItem className="headIcon">
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="My Card" />
+            </ListItem>
+          </Link>
+          <Link to="/home/payment" className="link" onClick={closeSidebar}>
+            <ListItem>
+              <ListItemText primary="결제 바로가기" />
+            </ListItem>
+          </Link>
+          <Link to="/home/payment" className="link" onClick={closeSidebar}>
+            <ListItem>
+              <ListItemText primary="결제 내역 확인하기" />
+            </ListItem>
+          </Link>
+          <Link to="/home/point" className="link" onClick={closeSidebar}>
+            <ListItem>
+              <ListItemText primary="포인트 내역 확인하기" />
+            </ListItem>
+          </Link>
           <Divider />
-          <ListItem button onClick={handleNavigate}>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary="Event" />
-          </ListItem>
+          <Link to="/event" className="link" onClick={closeSidebar}>
+            <ListItem>
+              <ListItemIcon>
+                <CardGiftcardIcon />
+              </ListItemIcon>
+              <ListItemText primary="Event" />
+            </ListItem>
+          </Link>
+          <Link
+            to="/event"
+            sx={{ fontSize: "3px" }}
+            className="link"
+            onClick={closeSidebar}
+          >
+            <ListItem>
+              <ListItemText primary="이벤트 목록 확인하기" />
+            </ListItem>
+          </Link>
+          <Link to="/event" className="link" onClick={closeSidebar}>
+            <ListItem>
+              <ListItemText primary="출석체크" />
+            </ListItem>
+          </Link>
           <Divider />
-          <ListItem button onClick={handleNavigate}>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary="Community" />
-          </ListItem>
+          <Link to="/community" className="link" onClick={closeSidebar}>
+            <ListItem>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary="Community" />
+            </ListItem>
+          </Link>
           <Divider />
-          <ListItem button onClick={handleNavigate}>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary="Account" />
-          </ListItem>
+          <Link to="/mypage" className="link" onClick={closeSidebar}>
+            <ListItem>
+              <ListItemIcon>
+                <AccountBoxIcon />
+              </ListItemIcon>
+              <ListItemText primary="Account" />
+            </ListItem>
+          </Link>
         </List>
         <Box className="drawerFooter">
           <Divider />
-          <List>
-            <ListItem button onClick={handleNavigate} data-name="/logout">
-              <ListItemIcon>
-                <LogoutRoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary="로그아웃" />
-            </ListItem>
-          </List>
+          <Link to="/logout" className="link" onClick={closeSidebar}>
+            <List>
+              <ListItem>
+                <ListItemIcon>
+                  <LogoutRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary="로그아웃" />
+              </ListItem>
+            </List>
+          </Link>
         </Box>
       </Box>
     </Drawer>
