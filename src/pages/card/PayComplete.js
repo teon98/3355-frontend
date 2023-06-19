@@ -6,6 +6,7 @@ import {
   Fade,
   Grid,
   IconButton,
+  Paper,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -19,8 +20,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 function PayComplete(props) {
-  //리덕스 변수 사용하기
-  const userNo = useSelector((state) => state.userNo);
+  const userNo = useSelector((state) => state.userNo); // 리덕스 변수 사용하기
 
   const navi = useNavigate();
   // const location = useLocation();
@@ -28,14 +28,14 @@ function PayComplete(props) {
   // let payData = location.state.payData;
   const [data, setData] = useState({});
   const [date, setDate] = useState("");
-  const [open, setOpen] = useState(false);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const handleTooltipClose = () => {
-    setOpen(false);
+    setTooltipOpen(false);
   };
 
   const handleTooltipOpen = () => {
-    setOpen(true);
+    setTooltipOpen(true);
   };
 
   useEffect(() => {
@@ -54,16 +54,15 @@ function PayComplete(props) {
   }, []);
 
   useEffect(() => {
-    let str = data?.withdrawDate; // Optional chaining (?.)을 사용하여 null 또는 undefined인 경우에는 undefined를 반환.
-    if (str) {
-      setDate(str.slice(0, -4));
-    }
+    let str = data?.withdrawDate;
+    if (str) setDate(str.slice(0, str.indexOf(".")));
   }, [data]);
 
   return (
-    <Box className={appStyle.gradient} p={3}>
+    <Box className={appStyle.notgradient} p={3}>
       <Box sx={{ display: "flex", height: "80vh", alignItems: "center" }}>
-        <Box
+        <Paper
+          elevation={3}
           sx={{
             backgroundColor: "white",
             padding: "4px 12px",
@@ -105,19 +104,14 @@ function PayComplete(props) {
             </Box>
             <Divider />
             <Grid container spacing={3} mt={0.1} mb={2.5}>
-              <Grid item xs={5}>
-                <Typography variant="body1" align="left" pl={0.5}>
-                  포인트 적립
-                </Typography>
-              </Grid>
-              <Grid item xs={1}>
+              <Grid item xs={6}>
                 <ClickAwayListener onClickAway={handleTooltipClose}>
                   <Tooltip
                     PopperProps={{
                       disablePortal: true,
                     }}
                     onClose={handleTooltipClose}
-                    open={open}
+                    open={tooltipOpen}
                     disableFocusListener
                     disableHoverListener
                     disableTouchListener
@@ -138,15 +132,29 @@ function PayComplete(props) {
                       </Box>
                     }
                   >
-                    <IconButton
-                      aria-label="point-info"
-                      sx={{ padding: "0", marginLeft: "-45px" }}
+                    <Box
+                      id="earnedPoint"
+                      component="span"
                       onClick={handleTooltipOpen}
                     >
-                      <HelpOutlineRoundedIcon
-                        sx={{ fontSize: "16px", color: "black" }}
-                      />
-                    </IconButton>
+                      <Typography
+                        variant="body1"
+                        component="span"
+                        align="left"
+                        pl={0.5}
+                      >
+                        포인트 적립
+                      </Typography>
+                      <IconButton
+                        aria-label="point-info"
+                        disabled
+                        sx={{ p: 0, mx: 1 }}
+                      >
+                        <HelpOutlineRoundedIcon
+                          sx={{ fontSize: "16px", color: "black" }}
+                        />
+                      </IconButton>
+                    </Box>
                   </Tooltip>
                 </ClickAwayListener>
               </Grid>
@@ -169,7 +177,7 @@ function PayComplete(props) {
               />
             </IconButton>
           </Box>
-        </Box>
+        </Paper>
       </Box>
     </Box>
   );

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 const PointDetail = () => {
   //리덕스 변수 사용하기
   const userNo = useSelector((state) => state.userNo);
+
   const [list, setList] = useState([]);
 
   useEffect(() => {

@@ -18,7 +18,6 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
 import "../styles/MainCSS/Pay.css";
-import LocalParkingRoundedIcon from "@mui/icons-material/LocalParkingRounded";
 import StarsRoundedIcon from "@mui/icons-material/StarsRounded";
 
 const options = ["전체", "입금", "출금"];
@@ -58,6 +57,9 @@ function Breakdown({ list, flag }) {
   }
 
   const optionedList = list.slice(1).filter((item) => {
+    // if (item.amount === 0) {
+    //   return false;
+    // } else {
     if (selectedIndex === 0) {
       return true; // 전체
     } else if (selectedIndex === 1) {
@@ -67,6 +69,7 @@ function Breakdown({ list, flag }) {
     } else {
       return false;
     }
+    // }
   });
   const filteredList = optionedList.filter((item) => {
     let sliceDate = item.date.toString().substring(0, 8);
@@ -147,6 +150,7 @@ function Breakdown({ list, flag }) {
           <Grid item xs={12} mb={2}>
             <Divider>
               <Chip
+                id="editChip"
                 label={
                   <>
                     <Button

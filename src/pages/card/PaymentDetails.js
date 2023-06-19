@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 const PaymentDetails = () => {
   //리덕스 변수 사용하기
   const userNo = useSelector((state) => state.userNo);
-  // const dispatch = useDispatch();
 
   const [list, setList] = useState([]);
 
