@@ -24,12 +24,12 @@ function Pay(props) {
   const [payData, setPayData] = useState({
     userNo: userNo,
     storeNo: storeNo,
-    point: point === "" ? 0 : point,
     amount: amount,
+    point: point === "" ? 0 : point,
   });
   const [accBal, setAccBal] = useState(0);
   const [poBal, setPoBal] = useState(0);
-  const [availablePoint, setAvailablePoint] = useState(true);
+  const [disablePoint, setDisablePoint] = useState(true);
   const [checkboxChecked, setCheckboxChecked] = useState(false); // 체크박스 상태
 
   // 테스트 출력 ==============================================================
@@ -37,24 +37,44 @@ function Pay(props) {
     console.log("amount", amount);
     console.log("point", point);
     console.log("pay data", payData);
-  }, [amount, point, payData]);
+  }, [payData]);
   //--------------------------------------------------------------------------
+
+  // amount나 point가 바뀌면 setPayData
+  useEffect(() => {
+    setPayData((prevPayData) => ({
+      ...prevPayData,
+      amount: amount,
+      point: point === "" ? 0 : point,
+    }));
+  }, [amount, point, setPayData]);
 
   // (amount, point) TextField의 값이 변경될 때, 각각의 상태 update
   const handleChange = (e) => {
     const { name, value, max } = e.target;
 
-    const confirmedValue = Number(value) > max ? max : value;
-    if (name === "amount") setAmount(confirmedValue);
-    else setPoint(confirmedValue);
-    setPayData({ ...payData, [name]: confirmedValue });
+    let confirmedValue = Number(value) > max ? max : value;
+    if (name === "amount") {
+      setAmount(confirmedValue);
+      setPoint("");
+    } else {
+      confirmedValue =
+        Number(confirmedValue) > Number(amount) ? amount : confirmedValue;
+      setPoint(confirmedValue);
+    }
+  };
+
+  // point의 blur될때 100미만이면 처리
+  const handleBlurPoint = () => {
+    setPoint(Number(point) < 100 ? "0" : point);
   };
 
   const useMaxPoint = () => {
-    if (payData.amount) {
+    if (Number(poBal) < 100) return;
+
+    if (Number(payData.amount) >= 100) {
       const maxPoint = poBal > Number(payData.amount) ? payData.amount : poBal;
       setPoint(maxPoint.toString());
-      setPayData({ ...payData, point: maxPoint.toString() });
     }
   };
 
@@ -73,10 +93,11 @@ function Pay(props) {
       });
   }, []);
 
-  // 최저 사용 포인트 처리
+  // 포인트가 disabled 처리
   useEffect(() => {
-    if (poBal < 100) setAvailablePoint(false);
-  }, [poBal]);
+    if (Number(amount) < 100 || Number(poBal) < 100) setDisablePoint(true);
+    else setDisablePoint(false);
+  }, [amount, poBal]);
 
   const handlePay = () => {
     axios({
@@ -165,8 +186,9 @@ function Pay(props) {
                 id="point"
                 name="point"
                 value={point}
-                disabled={availablePoint}
+                disabled={disablePoint}
                 onChange={handleChange}
+                onBlur={handleBlurPoint}
                 inputProps={{
                   inputMode: "numeric",
                   pattern: "[0-9]*",
@@ -233,7 +255,7 @@ function Pay(props) {
             sx={{ mb: 1 }}
             size="large"
             onClick={handlePay}
-            disabled={!checkboxChecked || amount <= 0} // 체크박스가 선택되지 않은 경우 버튼 비활성화
+            disabled={!checkboxChecked || Number(amount) <= 0} // 체크박스가 선택되지 않은 경우 버튼 비활성화
           >
             결제
           </Button>

@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import appStyle from "../../App.module.css";
 import Receipt from "../../components/Receipt";
 import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
@@ -23,9 +23,10 @@ function PayComplete(props) {
   const userNo = useSelector((state) => state.userNo); // 리덕스 변수 사용하기
 
   const navi = useNavigate();
-  // const location = useLocation();
-  // let str = location.state.data;
-  // let payData = location.state.payData;
+  const location = useLocation();
+  let payData = location.state.payData;
+  console.log(payData);
+
   const [data, setData] = useState({});
   const [date, setDate] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -59,7 +60,7 @@ function PayComplete(props) {
   }, [data]);
 
   return (
-    <Box className={appStyle.notgradient} p={3}>
+    <Box className={appStyle.notgradient} p={3} pb={5}>
       <Box sx={{ display: "flex", height: "80vh", alignItems: "center" }}>
         <Paper
           elevation={3}
