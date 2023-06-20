@@ -4,7 +4,7 @@ import MyFollowerList from "../../components/community/MyFollowerList";
 
 const CommunityMain = () => {
   return (
-    <Box>
+    <Box sx={{ mx: "24px" }}>
       <MyFollowerList />
     </Box>
   );

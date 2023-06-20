@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 const EditButton = styled(Button)({
   background: "#A055FF",
   width: "100%",
+  marginTop: "25px",
+  marginBottom: "25px",
   "&:hover": {
     background: "#672AB5",
   },
@@ -13,7 +15,7 @@ const EditButton = styled(Button)({
 
 const ProfileEditButton = () => {
   return (
-    <Link to="/community/profileEdit">
+    <Link to="/community/profileEdit" style={{ textDecoration: "none" }}>
       <EditButton variant="contained">프로필 편집</EditButton>
     </Link>
   );

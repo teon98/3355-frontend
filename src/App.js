@@ -23,6 +23,8 @@ import Logout from "./pages/account/Logout";
 import GoogleSignup from "./pages/account/GoogleSingup";
 import ProfileHome from "./components/community/ProfileHome";
 import ProfileEdit from "./components/community/ProfileEdit";
+import MyFollowerList from "./components/community/MyFollowerList";
+import FollowerProfile from "./components/community/FollowerProfile";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -47,6 +49,8 @@ const App = () => {
         className={
           currentPath === "/" || /\/auth/.test(currentPath)
             ? appStyle.gradient
+            : currentPath === "/community/profileEdit"
+            ? appStyle.social
             : appStyle.notgradient
         }
         disableGutters
@@ -76,6 +80,7 @@ const App = () => {
             <Route index element={<CommunityMain />} />
             <Route path="profileHome" element={<ProfileHome />} />
             <Route path="profileEdit" element={<ProfileEdit />} />
+            <Route path=":memberNickName" element={<FollowerProfile />} />
           </Route>
           {/* 마이페이지 */}
           <Route path="/mypage" element={<Navbar />}>
