@@ -13,49 +13,58 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import appStyle from "../../App.module.css";
 import Receipt from "../../components/Receipt";
+import { useSelector } from "react-redux";
 
 function Pay(props) {
+  const userNo = useSelector((state) => state.userNo); // 리덕스 변수 사용하기
   const navi = useNavigate();
-  const location = useLocation();
-  const { storeNo, storeName } = location.state;
-  const [payData, setPayData] = useState({ storeNo: storeNo, point: "0" });
+  const { storeNo, storeName } = useLocation().state;
+  const [amount, setAmount] = useState("");
+  const [point, setPoint] = useState("");
+  const [payData, setPayData] = useState({
+    userNo: userNo,
+    storeNo: storeNo,
+    point: point === "" ? 0 : point,
+    amount: amount,
+  });
   const [accBal, setAccBal] = useState(0);
   const [poBal, setPoBal] = useState(0);
   const [availablePoint, setAvailablePoint] = useState(true);
-  const [checkboxChecked, setCheckboxChecked] = useState(false); // 체크박스 상태를 추적하는 상태 변수
+  const [checkboxChecked, setCheckboxChecked] = useState(false); // 체크박스 상태
 
+  // 테스트 출력 ==============================================================
+  useEffect(() => {
+    console.log("amount", amount);
+    console.log("point", point);
+    console.log("pay data", payData);
+  }, [amount, point, payData]);
+  //--------------------------------------------------------------------------
+
+  // (amount, point) TextField의 값이 변경될 때, 각각의 상태 update
   const handleChange = (e) => {
     const { name, value, max } = e.target;
 
-    let confirmedValue = Number(value) > max ? max : value;
-    document.getElementById(name).value = confirmedValue;
+    const confirmedValue = Number(value) > max ? max : value;
+    if (name === "amount") setAmount(confirmedValue);
+    else setPoint(confirmedValue);
     setPayData({ ...payData, [name]: confirmedValue });
   };
 
-  const handlePointBlur = (e) => {
-    let confirmedValue;
-    if (Number(e.target.value) <= 0) {
-      confirmedValue = "0";
-      document.getElementById("point").value = "";
-    } else {
-      confirmedValue = Number(e.target.value) < 100 ? "100" : e.target.value;
-      document.getElementById("point").value = confirmedValue;
+  const useMaxPoint = () => {
+    if (payData.amount) {
+      const maxPoint = poBal > Number(payData.amount) ? payData.amount : poBal;
+      setPoint(maxPoint.toString());
+      setPayData({ ...payData, point: maxPoint.toString() });
     }
-    setPayData({ ...payData, point: confirmedValue });
   };
-
-  useEffect(() => {
-    console.log("pay data", payData);
-  }, [payData]);
 
   useEffect(() => {
     axios({
       url: "/home/pay",
       method: "get",
-      params: { userNo: "110" },
+      params: { userNo: userNo },
     })
       .then((response) => {
-        // console.log(response.data);
         setAccBal(response.data.accountBalance);
         setPoBal(response.data.pointBalance);
       })
@@ -64,10 +73,9 @@ function Pay(props) {
       });
   }, []);
 
+  // 최저 사용 포인트 처리
   useEffect(() => {
-    if (poBal < 100) {
-      setAvailablePoint(false);
-    }
+    if (poBal < 100) setAvailablePoint(false);
   }, [poBal]);
 
   const handlePay = () => {
@@ -89,24 +97,16 @@ function Pay(props) {
       });
   };
 
-  const useMaxPoint = () => {
-    if (payData.amount) {
-      let maxPoint = poBal > payData.amount ? payData.amount : poBal;
-      document.getElementById("point").value = maxPoint;
-      setPayData({ ...payData, point: maxPoint });
-    }
-  };
-
   return (
     <Box className={appStyle.notgradient} p={3}>
       <Box>
         <Typography
-          variant="h6"
+          variant="h5"
           align="center"
           color="black"
-          sx={{ m: "24px auto 12px" }}
+          sx={{ m: "16px auto" }}
         >
-          결제 페이지
+          결제
         </Typography>
         <Paper
           elevation={3}
@@ -136,6 +136,7 @@ function Pay(props) {
                 type="number"
                 id="amount"
                 name="amount"
+                value={amount}
                 onChange={handleChange}
                 inputProps={{
                   inputMode: "numeric",
@@ -163,8 +164,8 @@ function Pay(props) {
                 type="number"
                 id="point"
                 name="point"
+                value={point}
                 disabled={availablePoint}
-                onBlur={handlePointBlur}
                 onChange={handleChange}
                 inputProps={{
                   inputMode: "numeric",
@@ -232,7 +233,7 @@ function Pay(props) {
             sx={{ mb: 1 }}
             size="large"
             onClick={handlePay}
-            disabled={!checkboxChecked} // 체크박스가 선택되지 않은 경우 버튼 비활성화
+            disabled={!checkboxChecked || amount <= 0} // 체크박스가 선택되지 않은 경우 버튼 비활성화
           >
             결제
           </Button>

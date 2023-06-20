@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Button,
@@ -9,16 +9,30 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export default function AccBalDialog({ open, handleClose }) {
+  //리덕스 변수 사용하기
+  const userNo = useSelector((state) => state.userNo);
+
   const [chargeAmount, setChargeAmount] = useState("");
   const [cardPass, setCardPass] = useState("");
   const [isIncorrectPassword, setIsIncorrectPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [chargeAmountError, setChargeAmountError] = useState("");
+
+  useEffect(() => {
+    if (!open) {
+      // 다이얼로그가 닫힐 때 초기화
+      setChargeAmount("");
+      setCardPass("");
+      setIsIncorrectPassword(false);
+      setChargeAmountError("");
+    }
+  }, [open]);
 
   const handleCharge = async () => {
     try {
-      const userNo = "110";
       const data = {
         userNo,
         chargeAmount,
@@ -58,9 +72,19 @@ export default function AccBalDialog({ open, handleClose }) {
   };
 
   const handleCloseDialog = () => {
-    setChargeAmount("");
-    setCardPass("");
     handleClose();
+  };
+
+  const handleChargeAmountChange = (e) => {
+    const inputValue = e.target.value;
+    // 충전금액을 0 이하로 입력하면 오류메시지 뜨게하기
+    if (inputValue <= 0) {
+      setChargeAmount("");
+      setChargeAmountError("충전 금액을 다시 입력해 주세요");
+    } else {
+      setChargeAmount(inputValue);
+      setChargeAmountError("");
+    }
   };
 
   return (
@@ -87,7 +111,9 @@ export default function AccBalDialog({ open, handleClose }) {
               fullWidth
               variant="standard"
               value={chargeAmount}
-              onChange={(e) => setChargeAmount(e.target.value)}
+              onChange={handleChargeAmountChange}
+              error={Boolean(chargeAmountError)}
+              helperText={chargeAmountError}
               autoComplete="off"
             />
             <TextField

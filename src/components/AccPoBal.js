@@ -10,8 +10,12 @@ import {
 import { Link } from "react-router-dom";
 import "../styles/MainCSS/AccPoBal.css";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const AccPoBal = () => {
+  //리덕스 변수 사용하기
+  const userNo = useSelector((state) => state.userNo);
+
   const [cardBalance, setCardBalance] = useState(0);
   const [pointBalance, setPointBalance] = useState(0);
 
@@ -19,7 +23,7 @@ const AccPoBal = () => {
     axios({
       url: "/home",
       method: "get",
-      params: { userNo: "110" },
+      params: { userNo: userNo },
     })
       .then((response) => {
         console.log(response);

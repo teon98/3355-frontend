@@ -25,6 +25,7 @@ import ProfileHome from "./components/community/ProfileHome";
 import ProfileEdit from "./components/community/ProfileEdit";
 import MyFollowerList from "./components/community/MyFollowerList";
 import FollowerProfile from "./components/community/FollowerProfile";
+import Alarm from "./pages/card/Alarm";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -66,6 +67,8 @@ const App = () => {
           <Route path="/auth/findPass" element={<FindPass />} />
           <Route path="/auth/ChangePass" element={<ChangePass />} />
           <Route path="/auth/logout" element={<Logout />} />
+          {/* 알림 */}
+          <Route path="/alarm" element={<Alarm />} />
           {/* 홈(==카드) */}
           <Route path="/home" element={<Navbar />}>
             <Route index element={<Home />} />

@@ -48,11 +48,7 @@ function CardAni() {
           </Box>
           <Box className="cardNomaster">
             <p className="cardNo">LEE TAEK JOO</p>
-            <img
-              src={masterImage}
-              className="masterimg"
-              alt="마스터카드로고"
-            ></img>
+            <img src={masterImage} className="masterimg" alt="마스터카드로고" />
           </Box>
         </Box>
 

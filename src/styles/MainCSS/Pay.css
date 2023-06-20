@@ -4,6 +4,15 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
-span.MuiChip-label {
+#earnedPoint:hover {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#earnedPoint:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#editChip > span {
   padding: 0 !important;
 }

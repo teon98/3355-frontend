@@ -1,5 +1,5 @@
 .storeList {
-  margin-top: 20px;
+  margin: 20px 0;
   padding: 0 59.5px;
 }
 
@@ -11,9 +11,16 @@
   font-size: 18px;
 }
 
+/* 가게 식품 리스트 */
+.css-19midj6 {
+  padding: 16px;
+  background-color: white;
+  border-radius: 8px;
+}
+
 @media screen and (max-width: 600px) {
   .storeList {
-    padding: 0 20px;
+    padding: 0 5px;
     width: auto;
   }
 
