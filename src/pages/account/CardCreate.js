@@ -3,11 +3,11 @@ import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Box, Stack } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, TextField } from "@mui/material";
 import { useNavigate, useLocation } from "react-router";
 import axios from "axios";
 import BackNavbar from "../../components/BackNavbar";
+import CreditScoreOutlinedIcon from "@mui/icons-material/CreditScoreOutlined";
 
 const auththeme = createTheme({
   typography: {
@@ -28,6 +28,7 @@ const CardCreate = () => {
   //유저 정보 받아오기
   const { state } = useLocation();
   const userNo = state;
+  const [carddisable, setCarddisable] = useState(true);
 
   //카드 변수
   const navi = useNavigate({});
@@ -55,9 +56,11 @@ const CardCreate = () => {
       const el = document.getElementById("passDupmessage");
       el.innerHTML = "비밀번호가 일치합니다.";
       setCard({ userNo, cardPass });
+      setCarddisable(false);
     } else {
       const el = document.getElementById("passDupmessage");
       el.innerHTML = "비밀번호가 일치하지 않습니다.";
+      setCarddisable(true);
     }
   };
 
@@ -87,6 +90,8 @@ const CardCreate = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
+          mx: 3,
+          fontFamily: "GmarketSans",
         }}
       >
         <Box
@@ -110,60 +115,98 @@ const CardCreate = () => {
             minHeight: "150px",
           }}
         >
-          <Box>
-            카드 비밀번호:
-            <input onChange={handleCardPass} name="userPass"></input>
-            <p id="passmessage">카드 비밀번호는 숫자 4자리입니다</p>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              borderBottom: "2px solid white",
+            }}
+          >
+            <CreditScoreOutlinedIcon sx={{ color: "white", mt: 2.3 }} />
+            <TextField
+              id="standard-basic"
+              label="CardPass"
+              variant="standard"
+              onChange={handleCardPass}
+              name="userPass"
+              color="primary"
+              InputProps={{
+                disableUnderline: true,
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "white", // 원하는 색상으로 변경
+                },
+              }}
+              sx={{
+                ml: 2,
+                flex: 8,
+              }}
+            />
           </Box>
-          <Box>
-            카드 비밀번호 2차체크:
-            <input onChange={handleCardDupPass} name="userPassDup"></input>
-            <p id="passDupmessage">패스워드 2차체크</p>
+          <p id="passmessage" style={{ color: "#136162", marginTop: "10px" }}>
+            카드 비밀번호는 숫자 4자리입니다
+          </p>
+          <br></br>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              borderBottom: "2px solid white",
+            }}
+          >
+            <CreditScoreOutlinedIcon sx={{ color: "white", mt: 2.3 }} />
+            <TextField
+              id="standard-basic"
+              label="CardPassConfirm"
+              variant="standard"
+              onChange={handleCardDupPass}
+              name="userPassDup"
+              color="primary"
+              InputProps={{
+                disableUnderline: true,
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "white", // 원하는 색상으로 변경
+                },
+              }}
+              sx={{
+                ml: 2,
+                flex: 8,
+              }}
+            />
           </Box>
-          <Box>
-            <button
-              id="cardBtn"
-              type="button"
-              className="btn btn-default"
-              onClick={handleCardInsert}
-            >
-              카드 생성
-            </button>
-          </Box>
-          <Stack spacing={2}>
-            <Link
-              to="/auth/login"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Button
-                variant="contained"
-                sx={{
-                  fontWeight: "bold",
-                  pt: "15px",
-                  pb: "15px",
-                  width: "100%",
-                }}
-              >
-                Login
-              </Button>
-            </Link>
-            <Link
-              to="/auth/signup"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Button
-                variant="outlined"
-                sx={{
-                  fontWeight: "bold",
-                  pt: "15px",
-                  pb: "15px",
-                  width: "100%",
-                }}
-              >
-                Sign UP
-              </Button>
-            </Link>
-          </Stack>
+          <p
+            id="passDupmessage"
+            style={{ color: "#136162", marginTop: "10px" }}
+          >
+            패스워드 2차체크
+          </p>
+          <br></br>
+
+          <Button
+            variant="outlined"
+            onClick={handleCardInsert}
+            disabled={carddisable}
+            sx={{
+              fontWeight: "bold",
+              pt: "15px",
+              pb: "15px",
+              width: "100%",
+              border: "2px solid white",
+              color: "white",
+              "&:hover": {
+                border: "2px solid white", // 원하는 효과로 수정해주세요
+              },
+            }}
+          >
+            Create
+          </Button>
+
           <Box sx={{ mt: "30px" }}>
             <Typography variant="body2" align="center" color="#E4F7F7">
               신한DS금융SW아카데미_2차프로젝트_삼삼조
