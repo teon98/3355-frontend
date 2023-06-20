@@ -14,7 +14,7 @@ import {
   Toolbar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
 import HeadLogo from "../images/HeadLogo_3355.svg";
@@ -205,12 +205,14 @@ const TopNavbar = () => {
           </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
-            <IconButton size="large" aria-label="알림창">
-              {/* 알림 숫자 표시 - badgeContent 안에서 설정 */}
-              <Badge badgeContent={5} color="error">
-                <NotificationsIcon sx={{ color: "white" }} />
-              </Badge>
-            </IconButton>
+            <Link to="../alarm">
+              <IconButton size="large" aria-label="알림창">
+                {/* 알림 숫자 표시 - badgeContent 안에서 설정 */}
+                <Badge badgeContent={5} color="error">
+                  <NotificationsIcon sx={{ color: "white" }} />
+                </Badge>
+              </IconButton>
+            </Link>
             <IconButton
               size="large"
               aria-label="내 프로필"

@@ -1,0 +1,20 @@
+.alarmList-container {
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.alarmList-tabpanel {
+  display: none;
+  padding: 16px;
+}
+
+.alarmList-tabpanel.active {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .alarmList-tabpanel p {
+    font-size: 14px;
+  }
+}
