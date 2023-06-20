@@ -55,23 +55,27 @@ function ListTabs() {
           <AlarmList value={value} index={0}>
             <Stack spacing={3}>
               <Typography
+                onClick={() => {
+                  alert("헤헤");
+                }}
                 variant="body1"
                 align="left"
                 sx={{ marginTop: "30px" }}
               >
-                <p>택주네 헬스장에서 15000원 결제되었습니다~</p>
+                <p>[택주네 헬스장] 15000원 결제되었습니다~</p>
               </Typography>
               <Divider />
               <Typography variant="body1" align="left">
-                <p>경윤쓰 볼링장에서 2000원 결제되었습니다~</p>
+                <p>[경윤쓰 볼링장] 2000원 결제되었습니다~</p>
               </Typography>
               <Divider />
               <Typography variant="body1" align="left">
-                <p>택주네 헬스장에서 20000원 결제되었습니다~</p>
+                <p>[택주네 헬스장] 20000원 결제되었습니다~</p>
               </Typography>
               <Divider />
             </Stack>
           </AlarmList>
+          {/* 소셜 알림 */}
           <AlarmList value={value} index={1}></AlarmList>
         </Box>
       </Box>
