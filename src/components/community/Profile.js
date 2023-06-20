@@ -16,6 +16,7 @@ const Profile = () => {
   const [levelStyle, setLevelStyle] = useState("");
 
   useEffect(() => {
+    console.log(userNo);
     axios
       .get("/profile", {
         params: {
@@ -36,7 +37,7 @@ const Profile = () => {
 
   return (
     <Box sx={{ display: "flex", my: "20px" }}>
-      <div className="box">
+      <div className="box" style={{ marginRight: "24px" }}>
         <img
           className="profileImg"
           src={!myprofile.profileImg ? defaultImg : myprofile.profileImg}
@@ -54,9 +55,7 @@ const Profile = () => {
         </Box>
         <Typography sx={{ fontSize: "1.3rem" }}>{userNickname}</Typography>
         <Typography color="#323232" sx={{ fontSize: "0.9rem" }}>
-          {!myprofile.profileAbout
-            ? "자기소개를 입력해주세요"
-            : myprofile.profileAbout}
+          {myprofile.profileAbout}
         </Typography>
       </Box>
     </Box>
