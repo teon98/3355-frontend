@@ -3,11 +3,14 @@ import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import BackNavbar from "../../components/BackNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import Swal from "sweetalert2";
 
 const auththeme = createTheme({
   typography: {
@@ -24,6 +27,20 @@ const auththeme = createTheme({
     },
   },
 });
+
+//로그인 실패시 알람
+const Toast = Swal.mixin({
+  toast: true,
+  position: "center-center",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+
 const FindPass = () => {
   const navi = useNavigate({});
 
@@ -54,10 +71,20 @@ const FindPass = () => {
           dispatch({ type: "setUserNo", num: res.data });
           navi("/auth/ChangePass");
         } else {
+          //검색 실패시 알람
+          Toast.fire({
+            icon: "error",
+            title: "E-Mail 또는 NickName을 확인해주세요.",
+          });
           console.log("실패");
         }
       })
       .catch((err) => {
+        //검색 실패시 알람
+        Toast.fire({
+          icon: "error",
+          title: "E-Mail 또는 NickName을 입력해주세요.",
+        });
         console.log(err);
       });
   };
@@ -70,6 +97,8 @@ const FindPass = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
+          mx: 3,
+          fontFamily: "GmarketSans",
         }}
       >
         <Box
@@ -79,7 +108,7 @@ const FindPass = () => {
             alignItems: "center",
             mt: "15%",
             mb: "15%",
-            minHeight: "200px",
+            minHeight: "100px",
           }}
         >
           <img src={logo} alt="logo" width="80px" />
@@ -93,68 +122,91 @@ const FindPass = () => {
             minHeight: "150px",
           }}
         >
-          <Box>
-            <h5> 이메일 </h5>
-            <input
-              type="text"
-              maxLength="20"
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              borderBottom: "2px solid white",
+            }}
+          >
+            <MailOutlineIcon sx={{ color: "white", mt: 2.3 }} />
+            <TextField
+              id="standard-basic"
+              label="E-Mail"
+              variant="standard"
               name="SearchEmial"
               onChange={handleSearchEmail}
+              color="primary"
+              InputProps={{
+                disableUnderline: true,
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "white", // 원하는 색상으로 변경
+                },
+              }}
+              sx={{
+                ml: 2,
+                flex: 8,
+              }}
             />
           </Box>
-          <Box>
-            <h5> 닉네임 </h5>
-            <input
-              type="text"
-              maxLength="15"
+          <br></br>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              borderBottom: "2px solid white",
+            }}
+          >
+            <PersonOutlineIcon sx={{ color: "white", mt: 2.3 }} />
+            <TextField
+              id="standard-basic"
+              label="NickName"
+              variant="standard"
               name="SearchNickName"
               onChange={handleSearchNickName}
+              color="primary"
+              InputProps={{
+                disableUnderline: true,
+              }}
+              InputLabelProps={{
+                style: {
+                  color: "white", // 원하는 색상으로 변경
+                },
+              }}
+              sx={{
+                ml: 2,
+                flex: 8,
+              }}
             />
           </Box>
-          <Box>
-            <button
-              id="findPassBtn"
-              type="button"
-              className="btn btn-default"
-              onClick={handleFindPass}
-            >
-              비밀번호 찾기
-            </button>
-          </Box>
-          <Stack spacing={2}>
-            <Link
-              to="/auth/login"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Button
-                variant="contained"
-                sx={{
-                  fontWeight: "bold",
-                  pt: "15px",
-                  pb: "15px",
-                  width: "100%",
-                }}
-              >
-                Login
-              </Button>
-            </Link>
-            <Link
-              to="/auth/signup"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Button
-                variant="outlined"
-                sx={{
-                  fontWeight: "bold",
-                  pt: "15px",
-                  pb: "15px",
-                  width: "100%",
-                }}
-              >
-                Sign UP
-              </Button>
-            </Link>
-          </Stack>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+
+          <Button
+            variant="outlined"
+            onClick={handleFindPass}
+            sx={{
+              fontWeight: "bold",
+              pt: "15px",
+              pb: "15px",
+              width: "100%",
+              border: "2px solid white",
+              color: "white",
+              "&:hover": {
+                border: "2px solid white", // 원하는 효과로 수정해주세요
+              },
+            }}
+          >
+            Find Pass
+          </Button>
+
           <Box sx={{ mt: "30px" }}>
             <Typography variant="body2" align="center" color="#E4F7F7">
               신한DS금융SW아카데미_2차프로젝트_삼삼조

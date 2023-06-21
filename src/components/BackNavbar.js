@@ -1,6 +1,6 @@
 import { Box, IconButton } from "@mui/material";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import React from "react";
 
@@ -17,9 +17,16 @@ const backtheme = createTheme({
 });
 
 const BackNavbar = () => {
+  const location = useLocation();
+
+  const currentPath = location.pathname;
   const navigate = useNavigate();
   const onClickBtn = () => {
-    navigate(-1);
+    if (currentPath == "/auth/login") {
+      navigate("/");
+    } else {
+      navigate(-1);
+    }
   };
   return (
     <ThemeProvider theme={backtheme}>
