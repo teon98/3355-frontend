@@ -11,7 +11,7 @@ import PaymentDetails from "./pages/card/PaymentDetails";
 import PointDetail from "./pages/card/PointDetail";
 import CommunityMain from "./pages/community/CommunityMain";
 import Event from "./pages/eventpage/EventPage";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { BottomNavigation, createTheme, ThemeProvider } from "@mui/material";
 import BarcodeScan from "./components/BarcodeScan";
 import Pay from "./pages/card/Pay";
 import CardCreate from "./pages/account/CardCreate";
@@ -26,6 +26,8 @@ import ProfileEdit from "./components/community/ProfileEdit";
 import MyFollowerList from "./components/community/MyFollowerList";
 import FollowerProfile from "./components/community/FollowerProfile";
 import Alarm from "./pages/card/Alarm";
+import NewPost from "./pages/community/NewPost";
+import Navbar2 from "./pages/Navbar2";
 import CardLoading from "./pages/account/CardLoading";
 
 //폰트 GmarketSans로 지정
@@ -88,6 +90,10 @@ const App = () => {
             <Route path="profileHome" element={<ProfileHome />} />
             <Route path="profileEdit" element={<ProfileEdit />} />
             <Route path=":memberNickName" element={<FollowerProfile />} />
+          </Route>
+          {/* New Post */}
+          <Route path="/post" element={<Navbar2 />}>
+            <Route index element={<NewPost />}></Route>
           </Route>
           {/* 마이페이지 */}
           <Route path="/mypage" element={<Navbar />}>
