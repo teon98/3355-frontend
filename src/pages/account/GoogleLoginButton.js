@@ -8,8 +8,9 @@ const GoogleLoginButton = () => {
   const clientId =
     "600594856412-lh2dai2bpm509vkagk9h786m745tmm7u.apps.googleusercontent.com";
   const navi = useNavigate({});
+
   return (
-    <>
+    <div>
       <GoogleOAuthProvider clientId={clientId}>
         <GoogleLogin
           onSuccess={(credentialResponse) => {
@@ -37,12 +38,12 @@ const GoogleLoginButton = () => {
           }}
         />
         {/* <GoogleLogout
-          clientId={clientId}
-          buttonText="로그아웃"
-          onLogoutSuccess={logout}
-        /> */}
+      clientId={clientId}
+      buttonText="로그아웃"
+      onLogoutSuccess={logout}
+    /> */}
       </GoogleOAuthProvider>
-    </>
+    </div>
   );
 };
 
