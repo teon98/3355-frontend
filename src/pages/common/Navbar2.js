@@ -1,12 +1,13 @@
 import React from "react";
-import TopNavbar from "../components/TopNavbar";
-import LowerNavbar from "../components/LowerNavbar";
+
+import LowerNavbar from "../../components/common/LowerNavbar";
 import { Outlet } from "react-router-dom";
+import BackNavbar2 from "../../components/common/BackNavbar2";
 
 const Navbar = () => {
   return (
     <div>
-      <TopNavbar />
+      <BackNavbar2 />
       <Outlet />
       <LowerNavbar />
     </div>

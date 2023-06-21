@@ -3,7 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import appStyle from "./App.module.css";
 import Container from "@mui/system/Container";
 import Home from "./pages/card/Home";
-import Render from "./pages/Render";
+import Render from "./pages/common/Render";
 import Login from "./pages/account/Login";
 import Singup from "./pages/account/Singup";
 import Mypage from "./pages/mypage/Mypage";
@@ -15,7 +15,7 @@ import { BottomNavigation, createTheme, ThemeProvider } from "@mui/material";
 import BarcodeScan from "./components/BarcodeScan";
 import Pay from "./pages/card/Pay";
 import CardCreate from "./pages/account/CardCreate";
-import Navbar from "./pages/Navbar";
+import Navbar from "./pages/common/Navbar";
 import PayComplete from "./pages/card/PayComplete";
 import FindPass from "./pages/account/FindPass";
 import ChangePass from "./pages/account/ChangePass";
@@ -26,8 +26,7 @@ import ProfileEdit from "./components/community/ProfileEdit";
 import MyFollowerList from "./components/community/MyFollowerList";
 import FollowerProfile from "./components/community/FollowerProfile";
 import Alarm from "./pages/card/Alarm";
-import NewPost from "./pages/community/NewPost";
-import Navbar2 from "./pages/Navbar2";
+import Navbar2 from "./pages/common/Navbar2";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -86,10 +85,6 @@ const App = () => {
             <Route path="profileHome" element={<ProfileHome />} />
             <Route path="profileEdit" element={<ProfileEdit />} />
             <Route path=":memberNickName" element={<FollowerProfile />} />
-          </Route>
-          {/* New Post */}
-          <Route path="/post" element={<Navbar2 />}>
-            <Route index element={<NewPost />}></Route>
           </Route>
           {/* 마이페이지 */}
           <Route path="/mypage" element={<Navbar />}>

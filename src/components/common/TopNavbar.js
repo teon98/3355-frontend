@@ -17,13 +17,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
-import HeadLogo from "../images/HeadLogo_3355.svg";
+import HeadLogo from "../../images/HeadLogo_3355.svg";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import "../styles/MainCSS/TopNavbar.css";
+import "../../styles/MainCSS/TopNavbar.css";
 
 import HomeIcon from "@mui/icons-material/Home";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";

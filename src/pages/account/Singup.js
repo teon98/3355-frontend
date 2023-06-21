@@ -16,7 +16,7 @@ import {
 import { useNavigate } from "react-router";
 
 import axios from "axios";
-import BackNavbar from "../../components/BackNavbar";
+import BackNavbar from "../../components/common/BackNavbar";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";

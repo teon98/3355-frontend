@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Stack } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import BackNavbar from "../../components/BackNavbar";
+import BackNavbar from "../../components/common/BackNavbar";
 
 const auththeme = createTheme({
   typography: {

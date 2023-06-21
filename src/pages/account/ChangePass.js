@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 
 import axios from "axios";
-import BackNavbar from "../../components/BackNavbar";
+import BackNavbar from "../../components/common/BackNavbar";
 const auththeme = createTheme({
   typography: {
     fontFamily: "GmarketSans",
