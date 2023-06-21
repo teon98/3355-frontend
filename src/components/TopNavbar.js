@@ -14,8 +14,8 @@ import {
   Toolbar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
 import HeadLogo from "../images/HeadLogo_3355.svg";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -29,6 +29,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import PeopleIcon from "@mui/icons-material/People";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const GradientAppBar = styled(AppBar)`
   background: linear-gradient(360deg, #17b7bd 4.53%, #7cde9d 75.31%);
@@ -37,6 +39,25 @@ const GradientAppBar = styled(AppBar)`
 const TopNavbar = () => {
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [badgeCnt, setBadgeCnt] = useState(0);
+
+  const userNo = useSelector((state) => state.userNo); // 리덕스 변수 사용하기
+  const location = useLocation();
+
+  useEffect(() => {
+    axios({
+      url: "/home/alarm-count",
+      method: "get",
+      params: { userNo: userNo },
+    })
+      .then((response) => {
+        console.log(response);
+        setBadgeCnt(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [location]);
 
   const isMenuOpen = Boolean(profileMenuAnchor);
 
@@ -208,7 +229,7 @@ const TopNavbar = () => {
             <Link to="../alarm">
               <IconButton size="large" aria-label="알림창">
                 {/* 알림 숫자 표시 - badgeContent 안에서 설정 */}
-                <Badge badgeContent={5} color="error">
+                <Badge badgeContent={badgeCnt} color="error">
                   <NotificationsIcon sx={{ color: "white" }} />
                 </Badge>
               </IconButton>
