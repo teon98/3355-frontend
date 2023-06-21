@@ -33,7 +33,7 @@ const AccPoBal = () => {
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, []);
 
   return (
     <Box className="root1">
@@ -62,7 +62,7 @@ const AccPoBal = () => {
                 포인트 잔액
               </Typography>
               <Typography className="balance" variant="body1" component="p">
-                {pointBalance.toLocaleString()} 원
+                {pointBalance.toLocaleString()} P
               </Typography>
             </CardContent>
           </Card>

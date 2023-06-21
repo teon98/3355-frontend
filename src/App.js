@@ -28,6 +28,7 @@ import FollowerProfile from "./components/community/FollowerProfile";
 import Alarm from "./pages/card/Alarm";
 import NewPost from "./pages/community/NewPost";
 import Navbar2 from "./pages/Navbar2";
+import CardLoading from "./pages/account/CardLoading";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -50,10 +51,12 @@ const App = () => {
       <Container
         maxWidth="sm"
         className={
-          currentPath === "/" || /\/auth/.test(currentPath)
+          currentPath === "/"
             ? appStyle.gradient
             : currentPath === "/community/profileEdit"
             ? appStyle.social
+            : currentPath.indexOf("/auth") >= 0
+            ? appStyle.auth
             : appStyle.notgradient
         }
         disableGutters
@@ -69,6 +72,7 @@ const App = () => {
           <Route path="/auth/findPass" element={<FindPass />} />
           <Route path="/auth/ChangePass" element={<ChangePass />} />
           <Route path="/auth/logout" element={<Logout />} />
+          <Route path="/auth/cardLoding" element={<CardLoading />} />
           {/* 알림 */}
           <Route path="/alarm" element={<Alarm />} />
           {/* 홈(==카드) */}

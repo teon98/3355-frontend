@@ -16,9 +16,9 @@ const CashCharge = () => {
   };
 
   return (
-    <Box display="flex" mt={2}>
+    <Box display="flex">
       <Stack direction="row" spacing={2} className="reCharge">
-        <p>충전페이지로 이동</p>
+        <p>잔액 충전</p>
         <Button
           variant="outlined"
           startIcon={<AddCircleOutlineIcon />}
