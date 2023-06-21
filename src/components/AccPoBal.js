@@ -33,7 +33,7 @@ const AccPoBal = () => {
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, []);
 
   return (
     <Box className="root1">
