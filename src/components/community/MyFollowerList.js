@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -54,7 +54,12 @@ const MyFollowerList = () => {
 
   //1. 내 정보가 가져와지는가
   return (
-    <Box sx={{ display: "flex" }}>
+    <Stack
+      direction="row"
+      spacing={2}
+      sx={{ overflow: "auto", whiteSpace: "nowrap", my: "10px" }}
+      className="scroll"
+    >
       <div className="profileBox">
         <div
           className="box"
@@ -74,8 +79,8 @@ const MyFollowerList = () => {
       </div>
 
       {followlist.map((item, index) => (
-        <div className="profileBox">
-          <div className="foloowbox" key={index}>
+        <div className="profileBox" key={index}>
+          <div className="foloowbox">
             <Link to={`/community/${item.nickname}`}>
               <img
                 className="profileImg"
@@ -89,7 +94,7 @@ const MyFollowerList = () => {
           </p>
         </div>
       ))}
-    </Box>
+    </Stack>
   );
 };
 
