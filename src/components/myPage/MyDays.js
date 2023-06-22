@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import "../../styles/ProfileStyles.css";
 import { useSelector } from "react-redux";
-import axios from "axios";
+
 import { MyContext } from "../../pages/mypage/Mypage";
 
 const MyDays = () => {

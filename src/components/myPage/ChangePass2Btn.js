@@ -15,7 +15,7 @@ const EditButton = styled(Button)({
 
 const ChangePass2Btn = () => {
   return (
-    <Link to="/community/profileEdit" style={{ textDecoration: "none" }}>
+    <Link to="/mypage/mypass" style={{ textDecoration: "none" }}>
       <EditButton variant="contained">비밀번호 수정</EditButton>
     </Link>
   );
