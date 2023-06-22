@@ -36,17 +36,19 @@ const CardCreate = () => {
   const [card, setCard] = useState({});
 
   //카드 정규식
-  const cardRegEx = /^[0-9]{4}/;
+  const cardRegEx = /^[0-9]{4}$/;
 
   //비밀번호 체크
   const handleCardPass = (e) => {
     if (cardRegEx.test(e.target.value)) {
       const el = document.getElementById("passmessage");
       el.innerHTML = "사용 가능한 비밀번호입니다.";
+      el.style.color = "#136162";
       setCardPass(e.target.value);
     } else {
       const el = document.getElementById("passmessage");
       el.innerHTML = "숫자 4자리를 입력해주세요.";
+      el.style.color = "red";
     }
   };
 
@@ -55,11 +57,13 @@ const CardCreate = () => {
     if (cardPass === e.target.value) {
       const el = document.getElementById("passDupmessage");
       el.innerHTML = "비밀번호가 일치합니다.";
+      el.style.color = "#136162";
       setCard({ userNo, cardPass });
       setCarddisable(false);
     } else {
       const el = document.getElementById("passDupmessage");
       el.innerHTML = "비밀번호가 일치하지 않습니다.";
+      el.style.color = "red";
       setCarddisable(true);
     }
   };
@@ -75,7 +79,7 @@ const CardCreate = () => {
       .then((res) => {
         console.log(card);
         console.log(res.data);
-        navi("/auth/login");
+        navi("/auth/cardLoding");
       })
       .catch((err) => {
         console.log(err);
@@ -101,7 +105,7 @@ const CardCreate = () => {
             alignItems: "center",
             mt: "15%",
             mb: "15%",
-            minHeight: "200px",
+            minHeight: "100px",
           }}
         >
           <img src={logo} alt="logo" width="80px" />
@@ -184,7 +188,7 @@ const CardCreate = () => {
             id="passDupmessage"
             style={{ color: "#136162", marginTop: "10px" }}
           >
-            패스워드 2차체크
+            카드 비밀번호 2차체크
           </p>
           <br></br>
 

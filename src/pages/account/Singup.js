@@ -6,9 +6,9 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Box,
+  Checkbox,
   FormControl,
   FormControlLabel,
-  FormLabel,
   IconButton,
   Radio,
   RadioGroup,
@@ -19,10 +19,11 @@ import axios from "axios";
 import BackNavbar from "../../components/common/BackNavbar";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
+import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 const auththeme = createTheme({
   typography: {
@@ -39,6 +40,7 @@ const auththeme = createTheme({
     },
   },
 });
+
 const Singup = () => {
   //유저 변수들
   const navi = useNavigate({});
@@ -48,11 +50,12 @@ const Singup = () => {
   const [userGender, setUserGender] = useState(1);
   const [userNickname, setUserNickname] = useState();
   const [user, setUser] = useState({});
+  const [checkboxChecked, setCheckboxChecked] = useState(false); // 체크박스 상태
 
   //조건들 정규식
   const emailRegEx =
     /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-  const passRegEx = /^[A-Za-z0-9_]+[A-Za-z0-9]{4,7}$/;
+  const passRegEx = /^[A-Za-z0-9]{4,8}$/;
   const birthRegEx = /^[0-9]{6}$/;
   const genderRegEx = /^[0-9]{1}$/;
   const nickRegEx = /^[A-Za-z0-9_ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,5}$/;
@@ -63,6 +66,7 @@ const Singup = () => {
   const [userBirthBoo, setUserBirthBoo] = useState(false);
   const [userGenderBoo, setUserGenderBoo] = useState(false);
   const [userNicknameBoo, setUserNicknameBoo] = useState(false);
+  const [userCheck, setUsercheck] = useState(false);
 
   //버튼잠금
   const [emaildisable, setEmailDisable] = useState(true);
@@ -76,13 +80,21 @@ const Singup = () => {
       userPassBoo === true &&
       userBirthBoo === true &&
       userGenderBoo === true &&
-      userNicknameBoo === true
+      userNicknameBoo === true &&
+      userCheck === true
     ) {
       setUserDisable(false);
     } else {
       setUserDisable(true);
     }
-  }, [userEmailBoo, userPassBoo, userBirthBoo, userGenderBoo, userNicknameBoo]);
+  }, [
+    userEmailBoo,
+    userPassBoo,
+    userBirthBoo,
+    userGenderBoo,
+    userNicknameBoo,
+    userCheck,
+  ]);
 
   //이메일 체크
   const handleEmail = (e) => {
@@ -90,11 +102,13 @@ const Singup = () => {
       setUserEmail(e.target.value);
       const el = document.getElementById("emailmessage");
       el.innerHTML = "중복체크를 진행해주세요.";
+      el.style.color = "#136162";
       setEmailDisable(false);
       setUserEmailBoo(true);
     } else {
       const el = document.getElementById("emailmessage");
       el.innerHTML = "이메일의 형식이 올바르지 않습니다.";
+      el.style.color = "red";
       setEmailDisable(true);
       setUserEmailBoo(false);
     }
@@ -106,11 +120,16 @@ const Singup = () => {
       method: "get",
     })
       .then((res) => {
-        console.log(res.data);
-        const el = document.getElementById("emailmessage");
-        el.innerHTML = res.data;
-
-        setUser({ userEmail, userPass, userBirth, userGender, userNickname });
+        if (res.data === "성공") {
+          const el = document.getElementById("emailmessage");
+          el.innerHTML = "사용 가능한 이메일입니다.";
+          el.style.color = "#136162";
+          setUser({ userEmail, userPass, userBirth, userGender, userNickname });
+        } else {
+          const el = document.getElementById("emailmessage");
+          el.innerHTML = "이미 사용중인 이메일입니다.";
+          el.style.color = "red";
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -122,10 +141,12 @@ const Singup = () => {
     if (passRegEx.test(e.target.value)) {
       const el = document.getElementById("passmessage");
       el.innerHTML = "사용 가능한 비밀번호입니다.";
+      el.style.color = "#136162";
       setUserPass(e.target.value);
     } else {
       const el = document.getElementById("passmessage");
-      el.innerHTML = "비밀번호는 영문 숫자만 가능하며 5~8자리입니다.";
+      el.innerHTML = "비밀번호는 영문 숫자만 가능하며 4~8자리입니다.";
+      el.style.color = "red";
     }
   };
 
@@ -141,12 +162,14 @@ const Singup = () => {
     if (userPass === e.target.value) {
       const el = document.getElementById("passDupmessage");
       el.innerHTML = "비밀번호가 일치합니다.";
+      el.style.color = "#136162";
 
       setUser({ userEmail, userPass, userBirth, userGender, userNickname });
       setUserPassBoo(true);
     } else {
       const el = document.getElementById("passDupmessage");
       el.innerHTML = "비밀번호가 일치하지 않습니다.";
+      el.style.color = "red";
       setUserPassBoo(false);
     }
   };
@@ -156,6 +179,7 @@ const Singup = () => {
     if (birthRegEx.test(e.target.value)) {
       const el = document.getElementById("birthmessage");
       el.innerHTML = "생년월일이 확인되었습니다.";
+      el.style.color = "#136162";
       setUserBirth(e.target.value);
 
       setUser({ userEmail, userPass, userBirth, userGender, userNickname });
@@ -163,6 +187,7 @@ const Singup = () => {
     } else {
       const el = document.getElementById("birthmessage");
       el.innerHTML = "생년월일 6자리를 입력해주세요.";
+      el.style.color = "red";
       setUserBirthBoo(false);
     }
   };
@@ -186,28 +211,37 @@ const Singup = () => {
 
       const el = document.getElementById("nickmessage");
       el.innerHTML = "중복체크를 진행해주세요";
+      el.style.color = "#136162";
 
       setNickDisable(false);
-      setUserNicknameBoo(true);
     } else {
       const el = document.getElementById("nickmessage");
       el.innerHTML = "영문 숫자 한글 2~5자를 입력해주세요.";
+      el.style.color = "red";
 
       setNickDisable(true);
       setUserNicknameBoo(false);
     }
   };
 
+  //별명 중복체크
   const nickCheck = () => {
     axios({
       url: `/user/nicknameDup.sam/${userNickname}`,
       method: "get",
     })
       .then((res) => {
-        console.log(res.data);
-        const el = document.getElementById("nickmessage");
-        el.innerHTML = res.data;
-        setUser({ userEmail, userPass, userBirth, userGender, userNickname });
+        if (res.data === "성공") {
+          setUserNicknameBoo(true);
+          const el = document.getElementById("nickmessage");
+          el.innerHTML = "사용 가능한 닉네임입니다.";
+          el.style.color = "#136162";
+          setUser({ userEmail, userPass, userBirth, userGender, userNickname });
+        } else {
+          const el = document.getElementById("nickmessage");
+          el.innerHTML = "이미 사용중인 닉네임입니다.";
+          el.style.color = "red";
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -249,7 +283,7 @@ const Singup = () => {
             alignItems: "center",
             mt: "15%",
             mb: "15%",
-            minHeight: "200px",
+            minHeight: "100px",
           }}
         >
           <img src={logo} alt="logo" width="80px" />
@@ -289,7 +323,7 @@ const Singup = () => {
               }}
               sx={{
                 ml: 2,
-                flex: 8,
+                flex: 7.7,
               }}
             />
             <Button
@@ -300,7 +334,7 @@ const Singup = () => {
               onClick={emailCheck}
               disabled={emaildisable}
               sx={{
-                flex: 2,
+                flex: 2.3,
                 border: "2px solid white",
                 borderRadius: "50px",
                 "&:hover": {
@@ -342,7 +376,7 @@ const Singup = () => {
               }}
               sx={{
                 ml: 2,
-                flex: 8,
+                flex: 7.7,
               }}
             />
             <Button
@@ -353,7 +387,7 @@ const Singup = () => {
               onClick={nickCheck}
               disabled={nickdisable}
               sx={{
-                flex: 2,
+                flex: 2.3,
                 border: "2px solid white",
                 borderRadius: "50px",
                 "&:hover": {
@@ -377,7 +411,7 @@ const Singup = () => {
               borderBottom: "2px solid white",
             }}
           >
-            <LockOpenIcon sx={{ color: "white", mt: 2.3 }} />
+            <HttpsOutlinedIcon sx={{ color: "white", mt: 2.3 }} />
             <TextField
               id="standard-basic"
               label="PassWord"
@@ -412,7 +446,7 @@ const Singup = () => {
             </IconButton>
           </Box>
           <p id="passmessage" style={{ color: "#136162", marginTop: "10px" }}>
-            패스워드는 영문 숫자 8자리입니다
+            패스워드는 영문 숫자 4~8자리입니다
           </p>
           <br></br>
 
@@ -424,7 +458,7 @@ const Singup = () => {
               borderBottom: "2px solid white",
             }}
           >
-            <LockOpenIcon sx={{ color: "white", mt: 2.3 }} />
+            <HttpsOutlinedIcon sx={{ color: "white", mt: 2.3 }} />
             <TextField
               id="standard-basic"
               label="Confirm PassWord"
@@ -492,26 +526,26 @@ const Singup = () => {
               }}
               sx={{
                 ml: 2,
-                flex: 7.5,
+                flex: 5,
               }}
             />
             <FormControl
               sx={{
                 ml: 2,
-                flex: 7.5,
+                flex: 5,
               }}
+              style={{ color: "white" }}
             >
-              <FormLabel
+              {/* <FormLabel
                 id="demo-row-radio-buttons-group-label"
                 style={{ color: "white" }}
               >
                 Gender
-              </FormLabel>
+              </FormLabel> */}
               <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
-                defaultValue={1}
                 onChange={handleGender}
               >
                 <FormControlLabel value="1" control={<Radio />} label="Male" />
@@ -527,6 +561,54 @@ const Singup = () => {
             생년월일 6자리를 입력해주세요
           </p>
           <br></br>
+
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={checkboxChecked}
+                  onChange={(e) => {
+                    if (userCheck === false) {
+                      Swal.fire({
+                        title: "개인 정보 관리 동의서",
+                        html: `<div style="text-align: left; font-size: 14px; line-height: 1.5;font-family: GmarketSans;">
+                          <p><strong>[조직명]</strong>은(는) 귀하의 개인정보를 중요시하며, 관련 법규를 준수하여 안전하게 처리하고 있습니다. 본 동의문은 귀하의 개인정보를 수집, 보유, 이용, 제공 및 파기하는 경우에 적용됩니다. 아래의 내용을 주의 깊게 읽고, 동의 여부를 결정해 주시기 바랍니다.</p>
+                          
+                          <p style="text-align: center; font-size: 14px; line-height: 1.5; ">수집 및 이용 목적</p>
+                          <ul>
+                            <li>목적 1: 서비스 제공을 위한 회원 가입, 인증, 계약 이행 등</li>
+                            <li>목적 2: 고객 지원 및 문의 응대</li>
+                            <li>목적 3: 이벤트 참여 및 경품 배송 등</li>
+                          </ul>
+                          
+                          <p><strong>수집하는 개인정보의 항목</strong></p>
+                          <p>귀하의 개인정보 항목은 다음과 같이 수집됩니다:</p>
+                          
+                          <p><strong>개인정보의 보유 및 이용 기간</strong></p>
+                          <p>귀하의 개인정보는 수집 및 이용 목적 달성 시까지 보유 및 이용되며, 목적 달성 후에는 즉시 파기됩니다. 다만, 관련 법령에 따라 보존할 필요가 있는 경우에는 해당 기간 동안 보관됩니다.</p>
+                          
+                          <p><strong>개인정보의 제공</strong></p>
+                          <ul>
+                            <li>제공 항목 1: 성명, 연락처 / 제공받는 자 1: 배송업체</li>
+                            <li>제공 항목 2: 이메일 / 제공받는 자 2: 마케팅 파트너</li>
+                          </ul>
+                          
+                          <p><strong>개인정보의 파기</strong></p>
+                          <p>귀하의 개인정보는 수집 및 이용 목적 달성 후에는 지체 없이 파기됩니다. 파기 절차, 방법 및 시기는 다음과 같습니다:</p>
+                        </div>`,
+                        confirmButtonText: "확인",
+                      });
+                    }
+                    setCheckboxChecked(e.target.checked);
+                    setUsercheck(!userCheck);
+                  }}
+                />
+              }
+              label="[필수] 개인정보 관리 동의"
+            />
+          </Box>
+
           <Button
             variant="outlined"
             onClick={handleInsert}

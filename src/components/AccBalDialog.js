@@ -5,14 +5,14 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import "../styles/MainCSS/AccPoBalDialog.css";
 
 export default function AccBalDialog({ open, handleClose }) {
-  //리덕스 변수 사용하기
   const userNo = useSelector((state) => state.userNo);
 
   const [chargeAmount, setChargeAmount] = useState("");
@@ -23,7 +23,6 @@ export default function AccBalDialog({ open, handleClose }) {
 
   useEffect(() => {
     if (!open) {
-      // 다이얼로그가 닫힐 때 초기화
       setChargeAmount("");
       setCardPass("");
       setIsIncorrectPassword(false);
@@ -58,8 +57,12 @@ export default function AccBalDialog({ open, handleClose }) {
 
     setIsSubmitting(true);
 
+    if (chargeAmount === "") {
+      setChargeAmountError("충전 금액을 입력해 주세요");
+      setIsSubmitting(false);
+      return;
+    }
     await handleCharge();
-
     setIsSubmitting(false);
   };
 
@@ -77,7 +80,7 @@ export default function AccBalDialog({ open, handleClose }) {
 
   const handleChargeAmountChange = (e) => {
     const inputValue = e.target.value;
-    // 충전금액을 0 이하로 입력하면 오류메시지 뜨게하기
+
     if (inputValue <= 0) {
       setChargeAmount("");
       setChargeAmountError("충전 금액을 다시 입력해 주세요");
@@ -92,9 +95,9 @@ export default function AccBalDialog({ open, handleClose }) {
       <Dialog open={open} onClose={handleCloseDialog}>
         <DialogTitle>잔액 충전하기</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            충전 금액과 카드 비밀번호를 입력해주세요~
-          </DialogContentText>
+          <Typography variant="body1" className="dialogTitle">
+            충전 금액과 카드 비밀번호를 입력해주세요
+          </Typography>
           <form autoComplete="off" onSubmit={handleFormSubmit}>
             <TextField
               margin="dense"

@@ -109,8 +109,9 @@ const Render = () => {
                 Sign UP
               </Button>
             </Link>
-
-            <GoogleLoginButton></GoogleLoginButton>
+            <Box sx={{ margin: "0 auto" }}>
+              <GoogleLoginButton></GoogleLoginButton>
+            </Box>
           </Stack>
           <Box sx={{ mt: "30px" }}>
             <Typography variant="body2" align="center" color="#E4F7F7">
