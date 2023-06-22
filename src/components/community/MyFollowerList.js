@@ -5,26 +5,9 @@ import { useSelector } from "react-redux";
 import defaultImg from "../../images/default.png";
 import { Link, useNavigate } from "react-router-dom";
 
-const MyFollowerList = () => {
+const MyFollowerList = (myprofile) => {
   const userNo = useSelector((state) => state.userNo);
   const [followlist, setFollowlist] = useState([]);
-  const [myprofile, setMyprofile] = useState("");
-
-  //내 프로필
-  useEffect(() => {
-    axios
-      .get("/commu/userProfile", {
-        params: {
-          userNo: userNo,
-        },
-      })
-      .then((res) => {
-        setMyprofile(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
 
   //팔로워 목록 가져오기
   useEffect(() => {
@@ -69,7 +52,7 @@ const MyFollowerList = () => {
           <img
             name="myProfile"
             className="profileImg"
-            src={myprofile}
+            src={myprofile.myprofile}
             alt="프로필 이미지"
           />
         </div>

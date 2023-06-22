@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, TextField } from "@mui/material";
 import { useNavigate, useLocation } from "react-router";
 import axios from "axios";
-import BackNavbar from "../../components/BackNavbar";
+import BackNavbar from "../../components/common/BackNavbar";
 import CreditScoreOutlinedIcon from "@mui/icons-material/CreditScoreOutlined";
 
 const auththeme = createTheme({

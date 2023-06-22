@@ -1,11 +1,11 @@
 import React from "react";
-import logo from "../images/Logo_3355.svg";
+import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
-import GoogleLoginButton from "./account/GoogleLoginButton";
+import GoogleLoginButton from "../account/GoogleLoginButton";
 
 const auththeme = createTheme({
   typography: {

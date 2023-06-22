@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box, Stack, TextField } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import BackNavbar from "../../components/BackNavbar";
+import BackNavbar from "../../components/common/BackNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";

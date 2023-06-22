@@ -75,7 +75,7 @@ const ProfileEdit = () => {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setProfileImg(() => {
-          //console.log(reader.result);
+          console.log(file);
           return reader.result;
         });
       };
