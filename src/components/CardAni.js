@@ -13,7 +13,6 @@ import axios from "axios";
 function CardAni() {
   //유저 정보
   const userNo = useSelector((state) => state.userNo);
-  const [userNickname, setUserNickname] = useState();
   const [color1, setColor1] = useState();
   const [color2, setColor2] = useState();
   const [cardCode, setCardCode] = useState("");
@@ -35,7 +34,6 @@ function CardAni() {
         console.log(error);
       });
   }, []);
-  
 
   //카드 커스텀 가져오기
   useEffect(() => {
@@ -65,13 +63,6 @@ function CardAni() {
       });
   }, []);
 
-import axios from "axios";
-import { useSelector } from "react-redux";
-
-function CardAni() {
-  const userNo = useSelector((state) => state.userNo);
-
-
   // 카드 뒤집기 애니메이션
   const [isFlipped, setIsFlipped] = useState(false);
   const handleClick = () => {
@@ -90,8 +81,6 @@ function CardAni() {
     };
     generateBarcode();
   }, [barcodeNumber]);
-
-
 
   return (
     <Box className="allcard">
