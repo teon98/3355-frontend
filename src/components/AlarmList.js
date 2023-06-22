@@ -1,10 +1,24 @@
-import { Box, Divider, Stack, Tab, Tabs, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Divider,
+  Grid,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/MainCSS/AlarmList.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import comingsoon from "../images/comingsoon.jpg";
 
 function AlarmList({ children, value, index }) {
   const getTabPanelClassName = () => {
@@ -81,6 +95,9 @@ function ListTabs() {
       });
   };
 
+  const webView = useMediaQuery("(min-width:600px)");
+  console.log(webView);
+
   return (
     <Box display="flex" justifyContent="center">
       <Box className="alarmList-container">
@@ -98,38 +115,83 @@ function ListTabs() {
           </Tabs>
 
           <AlarmList value={value} index={0}>
-            <Stack spacing={3}>
-              {list.map((item, idx) => (
-                <Box
-                  key={item.alarmNo}
-                  name={item.alarmNo}
-                  className={`alarmList-item ${
-                    item.alarmStatus ? "active" : ""
-                  }`}
-                  style={{
-                    color: item.alarmStatus ? "#b7b7b7" : "",
-                  }}
-                  onClick={() => readOne(item.alarmNo, item.alarmCategory)}
-                >
-                  <Typography
-                    variant="body1"
-                    align="left"
+            {list.map((item, idx) => (
+              <Box
+                key={idx}
+                sx={{ cursor: "pointer" }}
+                onClick={() => readOne(item.alarmNo, item.alarmCategory)}
+              >
+                <Divider />
+                <Grid container sx={{ my: "16px" }}>
+                  <Grid
+                    item
+                    xs={webView ? 8 : 12}
                     sx={{
-                      marginTop: "20px",
-                      display: "flex",
-                      alignItems: "center",
-                      cursor: "pointer",
+                      pl: 2,
+                      color: item.alarmStatus ? "#b7b7b7" : "",
                     }}
                   >
-                    {item.alarmMsg}
-                  </Typography>
-                  <Divider />
-                </Box>
-              ))}
-            </Stack>
+                    <Typography variant="body1" align="left">
+                      {item.alarmMsg.indexOf("] 0원 결제") > 0
+                        ? item.alarmMsg.replace("] 0원 결제", "] 포인트 결제")
+                        : item.alarmMsg}
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs
+                    sx={{
+                      pr: 2,
+                      fontWeight: "lighter",
+                      color: item.alarmStatus ? "#b7b7b7" : "",
+                    }}
+                  >
+                    <Typography
+                      variant="body1"
+                      align="right"
+                      sx={{
+                        fontSize: webView ? "12px" : "11px !important",
+                        mt: "4px",
+                      }}
+                    >
+                      {item.alarmDate
+                        .substr(2, item.alarmDate.indexOf(".") - 2)
+                        .replace(/(\d{2})-(\d{2})-(\d{2})/, "$1/$2/$3")}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+            ))}
+            <Divider />
           </AlarmList>
           {/* 소셜 알림 */}
-          <AlarmList value={value} index={1}></AlarmList>
+          <AlarmList value={value} index={1}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "450px",
+              }}
+            >
+              <Card sx={{ maxWidth: 345, my: "16px", height: "min-content" }}>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  src={comingsoon}
+                  alt="coming soon"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Coming Soon...
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" mb={-1}>
+                    추후 도입될 기능입니다.
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Box>
+          </AlarmList>
         </Box>
       </Box>
     </Box>

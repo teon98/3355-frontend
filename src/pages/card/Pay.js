@@ -33,11 +33,11 @@ function Pay(props) {
   const [checkboxChecked, setCheckboxChecked] = useState(false); // 체크박스 상태
 
   // 테스트 출력 ==============================================================
-  useEffect(() => {
-    console.log("amount", amount);
-    console.log("point", point);
-    console.log("pay data", payData);
-  }, [payData]);
+  // useEffect(() => {
+  //   console.log("amount", amount);
+  //   console.log("point", point);
+  //   console.log("pay data", payData);
+  // }, [payData]);
   //--------------------------------------------------------------------------
 
   useEffect(() => {
@@ -175,7 +175,7 @@ function Pay(props) {
             </Grid>
             <Grid item xs>
               <Typography variant="body2" align="right" pr={1}>
-                {accBal}
+                {accBal.toLocaleString()}
               </Typography>
             </Grid>
             <Grid item xs={12} sx={{ mt: "12px" }}>
@@ -218,7 +218,7 @@ function Pay(props) {
                 }}
                 onClick={useMaxPoint}
               >
-                {poBal}
+                {poBal.toLocaleString()}
               </Typography>
             </Grid>
           </Grid>
