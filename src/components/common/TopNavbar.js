@@ -31,7 +31,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import BarcodeDialog from "./BarcodeDialog";
+import BarcodeDialog from "../BarcodeDialog";
 
 const GradientAppBar = styled(AppBar)`
   background: linear-gradient(360deg, #17b7bd 4.53%, #7cde9d 75.31%);

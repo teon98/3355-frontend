@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import BackNavbar from "../../components/BackNavbar";
+import BackNavbar from "../../components/common/BackNavbar";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";

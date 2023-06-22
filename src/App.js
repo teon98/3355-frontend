@@ -23,11 +23,8 @@ import Logout from "./pages/account/Logout";
 import GoogleSignup from "./pages/account/GoogleSingup";
 import ProfileHome from "./components/community/ProfileHome";
 import ProfileEdit from "./components/community/ProfileEdit";
-import MyFollowerList from "./components/community/MyFollowerList";
 import FollowerProfile from "./components/community/FollowerProfile";
 import Alarm from "./pages/card/Alarm";
-import NewPost from "./pages/community/NewPost";
-import Navbar2 from "./pages/Navbar2";
 import CardLoading from "./pages/account/CardLoading";
 import CardCustom from "./pages/mypage/CardCustom";
 

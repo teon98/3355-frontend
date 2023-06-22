@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
 import { Box, createTheme } from "@mui/material";
 
-import BackNavbar from "../../components/BackNavbar";
+import BackNavbar from "../../components/common/BackNavbar";
 import LinearWithValueLabel from "./Loding";
 import CardAni from "../../components/CardAni";
 
