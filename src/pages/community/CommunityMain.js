@@ -15,6 +15,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import PostNew from "../../components/community/PostNew";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import FollowerAllPost from "../../components/community/FollowerAllPost";
 
 const theme = createTheme({
   typography: {
@@ -70,7 +71,7 @@ const CommunityMain = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ mx: "24px" }}>
+      <Box sx={{ mx: "24px", pb: "70px" }}>
         <MyFollowerList myprofile={myImg} />
         <PostNew myImg={myImg} myNickname={myNickname} />
 
