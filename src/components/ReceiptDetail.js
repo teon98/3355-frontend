@@ -30,6 +30,8 @@ function ReceiptDetail({ data }) {
     if (str) setDate(str.slice(0, str.indexOf(".")));
   }, [data]);
 
+  let vision = data.amount !== data.point;
+
   return (
     <Box
       sx={{
@@ -62,67 +64,72 @@ function ReceiptDetail({ data }) {
       <Box my={2}>
         <Receipt payData={data} flag={false} />
       </Box>
-      <Divider />
-      <Grid container spacing={3} mt={0.1} mb={2.5}>
-        <Grid item xs={6}>
-          <ClickAwayListener onClickAway={handleTooltipClose}>
-            <Tooltip
-              PopperProps={{
-                disablePortal: true,
-              }}
-              onClose={handleTooltipClose}
-              open={tooltipOpen}
-              disableFocusListener
-              disableHoverListener
-              disableTouchListener
-              TransitionComponent={Fade}
-              TransitionProps={{ timeout: 700 }}
-              title={
-                <Box
-                  sx={{
-                    padding: "4px",
-                    fontSize: "16px",
-                    fontWeight: "lighter",
-                    lineHeight: "1.5em",
+
+      {vision && (
+        <>
+          <Divider />
+          <Grid container spacing={3} mt={0.1} mb={2.5}>
+            <Grid item xs={6}>
+              <ClickAwayListener onClickAway={handleTooltipClose}>
+                <Tooltip
+                  PopperProps={{
+                    disablePortal: true,
                   }}
+                  onClose={handleTooltipClose}
+                  open={tooltipOpen}
+                  disableFocusListener
+                  disableHoverListener
+                  disableTouchListener
+                  TransitionComponent={Fade}
+                  TransitionProps={{ timeout: 700 }}
+                  title={
+                    <Box
+                      sx={{
+                        padding: "4px",
+                        fontSize: "16px",
+                        fontWeight: "lighter",
+                        lineHeight: "1.5em",
+                      }}
+                    >
+                      실 결제 금액 ⨉ 회원 등급별 적립률
+                      <br />( {data.amount} - {data.point} ) ⨉ {data.levelRatio}
+                    </Box>
+                  }
                 >
-                  실 결제 금액 ⨉ 회원 등급별 적립률
-                  <br />( {data.amount} - {data.point} ) ⨉ {data.levelRatio}
-                </Box>
-              }
-            >
-              <Box
-                id="earnedPoint"
-                component="span"
-                onClick={handleTooltipOpen}
-              >
-                <Typography
-                  variant="body1"
-                  component="span"
-                  align="left"
-                  pl={0.5}
-                >
-                  포인트 적립
-                </Typography>
-                <IconButton
-                  aria-label="point-info"
-                  disabled
-                  sx={{ p: 0, mx: 1 }}
-                >
-                  <HelpOutlineRoundedIcon
-                    sx={{ fontSize: "16px", color: "black" }}
-                  />
-                </IconButton>
-              </Box>
-            </Tooltip>
-          </ClickAwayListener>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body1" align="right" pr={1}>
-            + {data.pointSave}
-          </Typography>
-        </Grid>
-      </Grid>
+                  <Box
+                    id="earnedPoint"
+                    component="span"
+                    onClick={handleTooltipOpen}
+                  >
+                    <Typography
+                      variant="body1"
+                      component="span"
+                      align="left"
+                      pl={0.5}
+                    >
+                      포인트 적립
+                    </Typography>
+                    <IconButton
+                      aria-label="point-info"
+                      disabled
+                      sx={{ p: 0, mx: 1 }}
+                    >
+                      <HelpOutlineRoundedIcon
+                        sx={{ fontSize: "16px", color: "black" }}
+                      />
+                    </IconButton>
+                  </Box>
+                </Tooltip>
+              </ClickAwayListener>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body1" align="right" pr={1}>
+                + {data.pointSave}
+              </Typography>
+            </Grid>
+          </Grid>
+        </>
+      )}
     </Box>
   );
 }

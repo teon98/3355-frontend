@@ -1,36 +1,32 @@
-import { Box, Dialog } from "@mui/material";
+import { Dialog } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ReceiptDetail from "./ReceiptDetail";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
-function ReceiptDialog({ date, openDialog, handleCloseDetail }) {
-  const userNo = useSelector((state) => state.userNo); // 리덕스 변수 사용하기
-
+function ReceiptDialog({ no, openDialog, handleCloseDetail }) {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    axios({
-      url: `/home/history/detail`,
-      method: "get",
-      params: { userNo: userNo, date: date },
-    })
-      .then((response) => {
-        console.log("쿄쿄", response.data);
-        setData(response.data);
+    if (no) {
+      axios({
+        url: `/home/history/detail`,
+        method: "get",
+        params: { withdrawNo: no },
       })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [date]);
+        .then((response) => {
+          console.log(response.data);
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [no]);
 
   return (
     <>
       <Dialog open={openDialog} onClose={handleCloseDetail}>
-        <Box sx={{ p: 4, mx: "auto", backgroundColor: "transparent" }}>
-          <Box>{date}</Box>
-          <ReceiptDetail data={data} />
-        </Box>
+        <ReceiptDetail data={data} />
       </Dialog>
     </>
   );

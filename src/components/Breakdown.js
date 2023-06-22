@@ -57,9 +57,6 @@ function Breakdown({ list, flag }) {
   }
 
   const optionedList = list.slice(1).filter((item) => {
-    // if (item.amount === 0) {
-    //   return false;
-    // } else {
     if (selectedIndex === 0) {
       return true; // 전체
     } else if (selectedIndex === 1) {
@@ -69,7 +66,6 @@ function Breakdown({ list, flag }) {
     } else {
       return false;
     }
-    // }
   });
   const filteredList = optionedList.filter((item) => {
     let sliceDate = item.date.toString().substring(0, 8);
@@ -89,10 +85,10 @@ function Breakdown({ list, flag }) {
     setOpenDialog(false);
   };
 
-  const [date, setDate] = useState();
+  const [no, setNo] = useState();
 
-  const handleClick = (clickedDate) => {
-    setDate(clickedDate);
+  const handleClick = (clickedNo) => {
+    setNo(clickedNo);
     setOpenDialog(true);
   };
 
@@ -237,7 +233,10 @@ function Breakdown({ list, flag }) {
             px={1}
             mb={4}
             key={idx}
-            onClick={() => handleClick(item.date)}
+            sx={{ cursor: item.no ? "pointer" : "default" }}
+            onClick={() => {
+              if (item.no) handleClick(item.no);
+            }}
           >
             <Grid item xs={6}>
               <Typography variant="body1" align="left">
@@ -253,8 +252,11 @@ function Breakdown({ list, flag }) {
                   color: item.type === "+" ? "#A055FF" : "#303030",
                 }}
               >
-                {item.type === "-" ? "-" : ""} {item.amount.toLocaleString()}
-                {flag ? " P" : " 원"}
+                {Number(item.amount) === 0 ? "" : item.type === "-" ? "-" : ""}{" "}
+                {Number(item.amount) === 0
+                  ? "포인트 결제"
+                  : item.amount.toLocaleString()}
+                {Number(item.amount) === 0 ? "" : flag ? " P" : " 원"}
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -280,7 +282,7 @@ function Breakdown({ list, flag }) {
         ))}
       </Paper>
       <ReceiptDialog
-        date={date}
+        no={no}
         openDialog={openDialog}
         handleCloseDetail={handleCloseDetail}
       />
