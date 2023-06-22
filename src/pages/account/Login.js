@@ -64,8 +64,8 @@ const Login = () => {
   //로그인버튼
   const handleLogin = (e) => {
     axios({
-      url: `/login`,
-      method: "post",
+      url: `/user/login.sam`,
+      method: "get",
       params: { userEmail: userEmail, userPass: userPass },
     })
       .then((res) => {

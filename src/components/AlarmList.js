@@ -4,15 +4,20 @@ import PropTypes from "prop-types";
 import "../styles/MainCSS/AlarmList.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function AlarmList({ children, value, index }) {
+  const getTabPanelClassName = () => {
+    return `alarmList-tabpanel ${value === index ? "active" : ""}`;
+  };
+
   return (
     <Box
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      className={`alarmList-tabpanel ${value === index ? "active" : ""}`} // 새로운 클래스를 추가합니다.
+      className={getTabPanelClassName()} // Set dynamic class name
     >
       {children}
     </Box>
@@ -33,14 +38,15 @@ function a11yProps(index) {
 }
 
 function ListTabs() {
-  //리덕스 변수 사용하기
   const userNo = useSelector((state) => state.userNo);
   const [value, setValue] = useState(0);
   const [list, setList] = useState([]);
+  const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   useEffect(() => {
     axios({
       url: "/home/alarm/",
@@ -55,6 +61,26 @@ function ListTabs() {
         console.log(error);
       });
   }, []);
+
+  const readOne = (alarmNo, alarmCategory) => {
+    axios({
+      url: "/home/readSingle",
+      params: { alarmNo: alarmNo },
+      method: "put",
+    })
+      .then((response) => {
+        console.log(response.data);
+        if (alarmCategory === "point") {
+          navigate("../home/point");
+        } else {
+          navigate("../home/payment");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Box display="flex" justifyContent="center">
       <Box className="alarmList-container">
@@ -74,12 +100,26 @@ function ListTabs() {
           <AlarmList value={value} index={0}>
             <Stack spacing={3}>
               {list.map((item, idx) => (
-                <Box key={idx}>
+                <Box
+                  key={item.alarmNo}
+                  name={item.alarmNo}
+                  className={`alarmList-item ${
+                    item.alarmStatus ? "active" : ""
+                  }`}
+                  style={{
+                    color: item.alarmStatus ? "#b7b7b7" : "",
+                  }}
+                  onClick={() => readOne(item.alarmNo, item.alarmCategory)}
+                >
                   <Typography
-                    onClick={() => {}}
                     variant="body1"
                     align="left"
-                    sx={{ marginTop: "30px" }}
+                    sx={{
+                      marginTop: "20px",
+                      display: "flex",
+                      alignItems: "center",
+                      cursor: "pointer",
+                    }}
                   >
                     {item.alarmMsg}
                   </Typography>

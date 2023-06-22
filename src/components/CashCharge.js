@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import "../styles/MainCSS/CashCharge.css";
-import AccBalDialog from "./AccBalDialog"; // AccBalDialog 컴포넌트를 가져옵니다.
+import AccBalDialog from "./AccBalDialog";
 
 const CashCharge = () => {
   const [open, setOpen] = useState(false);

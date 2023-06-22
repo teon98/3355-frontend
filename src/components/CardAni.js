@@ -7,8 +7,12 @@ import masterImage from "../images/CardImg/mastercard.png";
 
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import { Box } from "@mui/material";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 function CardAni() {
+  const userNo = useSelector((state) => state.userNo);
+
   // 카드 뒤집기 애니메이션
   const [isFlipped, setIsFlipped] = useState(false);
   const handleClick = () => {
@@ -17,9 +21,7 @@ function CardAni() {
 
   // 바코드 생성
   const [imageUrl, setImageUrl] = useState("");
-  // const storeInfo = ""; // 가게 정보 담기
   const barcodeNumber = `185382543520 `; // 바코드 번호에 가게 정보 포함.
-  const cardcode = "3355-1853-8254-3520";
 
   useEffect(() => {
     const generateBarcode = () => {
@@ -30,8 +32,27 @@ function CardAni() {
     generateBarcode();
   }, [barcodeNumber]);
 
+  const [cardCode, setCardCode] = useState("");
+  const [userNick, setUserNick] = useState("");
+
+  useEffect(() => {
+    axios({
+      url: "/home/cardCodeNick",
+      params: { userNo: userNo },
+      method: "get",
+    })
+      .then((response) => {
+        console.log(response.data);
+        setCardCode(response.data.cardCode);
+        setUserNick(response.data.userNick);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
-    <section>
+    <Box className="allcard">
       <Box
         className={`card ${isFlipped ? "is-flipped" : ""}`}
         onClick={handleClick}
@@ -47,7 +68,7 @@ function CardAni() {
             <img src={magImage} className="magimg" alt="마그네틱이미지" />
           </Box>
           <Box className="cardNomaster">
-            <p className="cardNo">LEE TAEK JOO</p>
+            <Box className="cardNo">{userNick}</Box>
             <img src={masterImage} className="masterimg" alt="마스터카드로고" />
           </Box>
         </Box>
@@ -57,12 +78,12 @@ function CardAni() {
           {imageUrl && (
             <Box>
               <img src={imageUrl} alt="Barcode" />
-              <p>{cardcode}</p>
+              <Box>{cardCode}</Box>
             </Box>
           )}
         </Box>
       </Box>
-    </section>
+    </Box>
   );
 }
 
