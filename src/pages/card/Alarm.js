@@ -2,12 +2,26 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import AlarmList from "../../components/AlarmList";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 function Alarm(props) {
   const navigate = useNavigate();
+  const userNo = useSelector((state) => state.userNo);
 
   const handleConfirmClick = () => {
-    navigate("../home");
+    axios({
+      url: "/home/readAll",
+      params: { userNo: userNo },
+      method: "put",
+    })
+      .then((response) => {
+        console.log(response.data);
+        navigate("../home");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, IconButton } from "@mui/material";
 import CardAni from "../../components/CardAni";
 import AccPoBal from "../../components/AccPoBal";
@@ -8,6 +8,10 @@ import CropFreeIcon from "@mui/icons-material/CropFree";
 import BarcodeDialog from "../../components/BarcodeDialog";
 
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -15,6 +19,7 @@ const Home = () => {
   };
 
   const handleClose = () => {
+    window.location.reload();
     setOpen(false);
   };
 

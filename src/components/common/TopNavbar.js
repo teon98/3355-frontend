@@ -31,6 +31,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import BarcodeDialog from "./BarcodeDialog";
 
 const GradientAppBar = styled(AppBar)`
   background: linear-gradient(360deg, #17b7bd 4.53%, #7cde9d 75.31%);
@@ -118,6 +119,16 @@ const TopNavbar = () => {
     setIsSidebarOpen(false);
   };
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const sidebar = (
     <Drawer anchor="left" open={isSidebarOpen} onClose={closeSidebar}>
       <Box className="drawerContent">
@@ -130,12 +141,18 @@ const TopNavbar = () => {
               <ListItemText primary="My Card" />
             </ListItem>
           </Link>
-          <Link to="/home/payment" className="link" onClick={closeSidebar}>
-            <ListItem>
-              <ListItemText primary="결제 바로가기" />
-            </ListItem>
-          </Link>
-          <Link to="/home/payment" className="link" onClick={closeSidebar}>
+
+          <ListItem>
+            <ListItemText primary="결제 바로가기" onClick={handleClickOpen} />
+            <BarcodeDialog open={open} handleClose={handleClose} />
+          </ListItem>
+
+          <Link
+            to="/home/payment"
+            className="link"
+            onClick={closeSidebar}
+            onClose={closeSidebar}
+          >
             <ListItem>
               <ListItemText primary="결제 내역 확인하기" />
             </ListItem>
@@ -206,7 +223,7 @@ const TopNavbar = () => {
   );
 
   return (
-    <Box>
+    <Box id="top-nav-bar">
       <GradientAppBar position="static">
         <Toolbar sx={{ minHeight: "64px" }}>
           <IconButton
