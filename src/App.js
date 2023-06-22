@@ -29,6 +29,7 @@ import Alarm from "./pages/card/Alarm";
 import NewPost from "./pages/community/NewPost";
 import Navbar2 from "./pages/Navbar2";
 import CardLoading from "./pages/account/CardLoading";
+import CardCustom from "./pages/mypage/CardCustom";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -94,6 +95,7 @@ const App = () => {
           {/* 마이페이지 */}
           <Route path="/mypage" element={<Navbar />}>
             <Route index element={<Mypage />} />
+            <Route path="custom" element={<CardCustom />} />
           </Route>
           {/* 이벤트 */}
           <Route path="/event" element={<Navbar />}>
