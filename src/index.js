@@ -1,11 +1,11 @@
-import React, { useMemo, useRef } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { createStore } from "redux";
-import { Provider, useSelector, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 //Provider: 어떤 컴포넌트에 제공할지 useSelector:어떤 state값을 쓰고싶은지
 //useDispatch: state값을 변경시킬때 사용
 

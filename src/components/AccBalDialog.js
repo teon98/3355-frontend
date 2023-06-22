@@ -37,7 +37,6 @@ export default function AccBalDialog({ open, handleClose }) {
         chargeAmount,
         cardPass,
       };
-
       const response = await axios.post("/home/charge", data);
       handleResponse(response.data);
     } catch (error) {

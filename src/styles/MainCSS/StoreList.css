@@ -3,6 +3,11 @@
   padding: 0 59.5px;
 }
 
+.gridList {
+  width: auto !important;
+  margin-left: 0 !important;
+}
+
 .benefit {
   text-align: end;
 }

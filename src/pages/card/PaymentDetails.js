@@ -5,8 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const PaymentDetails = () => {
-  //리덕스 변수 사용하기
-  const userNo = useSelector((state) => state.userNo);
+  const userNo = useSelector((state) => state.userNo); // 리덕스 변수 사용하기
 
   const [list, setList] = useState([]);
 

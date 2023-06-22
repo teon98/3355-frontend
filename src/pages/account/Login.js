@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Alert, Box, Stack, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import BackNavbar from "../../components/BackNavbar";
+import BackNavbar from "../../components/common/BackNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
