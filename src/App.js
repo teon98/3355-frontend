@@ -27,6 +27,7 @@ import FollowerProfile from "./components/community/FollowerProfile";
 import Alarm from "./pages/card/Alarm";
 import CardLoading from "./pages/account/CardLoading";
 import CardCustom from "./pages/mypage/CardCustom";
+import MyChangePass from "./pages/mypage/MyChangePass";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -51,7 +52,8 @@ const App = () => {
         className={
           currentPath === "/"
             ? appStyle.gradient
-            : currentPath === "/community/profileEdit"
+            : currentPath === "/community/profileEdit" ||
+              currentPath.indexOf("/my") >= 0
             ? appStyle.social
             : currentPath.indexOf("/auth") >= 0
             ? appStyle.auth
@@ -93,6 +95,7 @@ const App = () => {
           <Route path="/mypage" element={<Navbar />}>
             <Route index element={<Mypage />} />
             <Route path="custom" element={<CardCustom />} />
+            <Route path="mypass" element={<MyChangePass />} />
           </Route>
           {/* 이벤트 */}
           <Route path="/event" element={<Navbar />}>

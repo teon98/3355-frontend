@@ -33,11 +33,11 @@
   backface-visibility: hidden;
 }
 
-/* .card .front {
+.card .front {
   background: linear-gradient(to right, #213e26, #05fa5f);
   color: white;
   z-index: 9999;
-} */
+}
 
 .card .back {
   background: orange;
@@ -122,4 +122,8 @@
     width: 80px;
     margin-right: 10px;
   }
+}
+
+.chromepicker {
+  width: 100% !important;
 }
