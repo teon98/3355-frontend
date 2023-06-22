@@ -8,7 +8,7 @@ import { Box, TextField } from "@mui/material";
 import { useNavigate } from "react-router";
 
 import axios from "axios";
-import BackNavbar from "../../components/BackNavbar";
+import BackNavbar from "../../components/common/BackNavbar";
 import LockResetOutlinedIcon from "@mui/icons-material/LockResetOutlined";
 import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
 import { useSelector } from "react-redux";

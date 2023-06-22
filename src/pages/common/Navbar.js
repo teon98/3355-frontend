@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import TopNavbar from "../components/TopNavbar";
-import LowerNavbar from "../components/LowerNavbar";
+import TopNavbar from "../../components/common/TopNavbar";
+import LowerNavbar from "../../components/common/LowerNavbar";
 import { Outlet, useLocation } from "react-router-dom";
 
 const Navbar = () => {
