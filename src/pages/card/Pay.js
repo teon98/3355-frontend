@@ -40,6 +40,21 @@ function Pay(props) {
   }, [payData]);
   //--------------------------------------------------------------------------
 
+  useEffect(() => {
+    axios({
+      url: "/home/pay",
+      method: "get",
+      params: { userNo: userNo },
+    })
+      .then((response) => {
+        setAccBal(response.data.accountBalance);
+        setPoBal(response.data.pointBalance);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   // amount나 point가 바뀌면 setPayData
   useEffect(() => {
     setPayData((prevPayData) => ({
@@ -77,21 +92,6 @@ function Pay(props) {
       setPoint(maxPoint.toString());
     }
   };
-
-  useEffect(() => {
-    axios({
-      url: "/home/pay",
-      method: "get",
-      params: { userNo: userNo },
-    })
-      .then((response) => {
-        setAccBal(response.data.accountBalance);
-        setPoBal(response.data.pointBalance);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   // 포인트가 disabled 처리
   useEffect(() => {

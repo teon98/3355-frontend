@@ -12,13 +12,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
 import "../styles/MainCSS/Pay.css";
-import StarsRoundedIcon from "@mui/icons-material/StarsRounded";
+import ReceiptDialog from "./ReceiptDialog";
 
 const options = ["전체", "입금", "출금"];
 
@@ -83,6 +83,19 @@ function Breakdown({ list, flag }) {
     }
   });
 
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleCloseDetail = () => {
+    setOpenDialog(false);
+  };
+
+  const [date, setDate] = useState();
+
+  const handleClick = (clickedDate) => {
+    setDate(clickedDate);
+    setOpenDialog(true);
+  };
+
   return (
     <>
       <Paper
@@ -107,11 +120,7 @@ function Breakdown({ list, flag }) {
               sx={{ fontSize: "32px", display: "flex", alignItems: "center" }}
             >
               {list[1]?.amountHistory.toLocaleString()}
-              {flag ? (
-                <StarsRoundedIcon sx={{ color: "#FBBC05", fontSize: "32px" }} />
-              ) : (
-                "원"
-              )}
+              {flag ? "P" : "원"}
             </Typography>
           </Grid>
 
@@ -222,7 +231,14 @@ function Breakdown({ list, flag }) {
         </Grid>
 
         {filteredList.map((item, idx) => (
-          <Grid container spacing={0.2} px={1} mb={4} key={idx}>
+          <Grid
+            container
+            spacing={0.2}
+            px={1}
+            mb={4}
+            key={idx}
+            onClick={() => handleClick(item.date)}
+          >
             <Grid item xs={6}>
               <Typography variant="body1" align="left">
                 {item.storeName}
@@ -263,6 +279,11 @@ function Breakdown({ list, flag }) {
           </Grid>
         ))}
       </Paper>
+      <ReceiptDialog
+        date={date}
+        openDialog={openDialog}
+        handleCloseDetail={handleCloseDetail}
+      />
     </>
   );
 }
