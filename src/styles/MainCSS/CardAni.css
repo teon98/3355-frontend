@@ -33,11 +33,11 @@
   backface-visibility: hidden;
 }
 
-.card .front {
+/* .card .front {
   background: linear-gradient(to right, #213e26, #05fa5f);
   color: white;
   z-index: 9999;
-}
+} */
 
 .card .back {
   background: orange;
