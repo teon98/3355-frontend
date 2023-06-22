@@ -206,7 +206,7 @@ const TopNavbar = () => {
   );
 
   return (
-    <Box>
+    <Box id="top-nav-bar">
       <GradientAppBar position="static">
         <Toolbar sx={{ minHeight: "64px" }}>
           <IconButton

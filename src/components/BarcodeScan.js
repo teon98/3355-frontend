@@ -87,13 +87,14 @@ function BarcodeScan(props) {
         params: { storeNo: result?.codeResult.code },
       })
         .then((response) => {
-          if (response.data)
+          if (response.data) {
             navi("/home/pay", {
               state: {
                 storeNo: result.codeResult.code,
                 storeName: response.data,
               },
             });
+          }
         })
         .catch((error) => {
           console.log(error);
