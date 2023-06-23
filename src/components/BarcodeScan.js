@@ -4,7 +4,6 @@ import { Box, Typography } from "@mui/material";
 import "../styles/MainCSS/Barcode.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 function Scanner(props) {
   useEffect(() => {
