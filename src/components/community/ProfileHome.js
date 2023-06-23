@@ -10,7 +10,7 @@ const ProfileHome = () => {
   const userNo = useSelector((state) => state.userNo);
 
   return (
-    <Box sx={{ px: "24px" }}>
+    <Box sx={{ px: "24px", pb: "70px" }}>
       <Profile />
       <ProfileView />
       <ProfileEditButton />

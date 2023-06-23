@@ -36,13 +36,13 @@ const ProfilePost = (props) => {
           //console.log(item.tags);
 
           //이미지
-          const img_string = item.postImg.slice(1, -1);
+          const img_string = item.post.postImg.slice(1, -1);
           const img_arr = img_string.split(",");
 
           //태그
           var tag_list_view = "";
-          for (var i = 0; i < item.tags.length; i++) {
-            var tag_string = item.tags[i]["tag"]["tagContent"];
+          for (var i = 0; i < item.post.tags.length; i++) {
+            var tag_string = item.post.tags[i]["tag"]["tagContent"];
 
             tag_list_view += "#" + tag_string + " ";
           }
@@ -52,7 +52,7 @@ const ProfilePost = (props) => {
               <img src={img_arr[0]} alt="post_1"></img>
               <ImageListItemBar
                 title={tag_list_view}
-                subtitle={item.user.userNickname}
+                subtitle={item.post.user.userNickname}
                 actionIcon={
                   <IconButton sx={{ color: "white" }}>
                     <Typography variant="body2" mr={"3px"}>

@@ -27,6 +27,7 @@ import FollowerProfile from "./components/community/FollowerProfile";
 import Alarm from "./pages/card/Alarm";
 import CardLoading from "./pages/account/CardLoading";
 import CardCustom from "./pages/mypage/CardCustom";
+import FollowerProfileHome from "./components/community/FollowerProfileHome";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -87,7 +88,7 @@ const App = () => {
             <Route index element={<CommunityMain />} />
             <Route path="profileHome" element={<ProfileHome />} />
             <Route path="profileEdit" element={<ProfileEdit />} />
-            <Route path=":memberNickName" element={<FollowerProfile />} />
+            <Route path=":memberNickName" element={<FollowerProfileHome />} />
           </Route>
           {/* 마이페이지 */}
           <Route path="/mypage" element={<Navbar />}>
