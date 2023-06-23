@@ -165,7 +165,7 @@ function Pay(props) {
                   max: accBal,
                   style: { textAlign: "right" },
                 }}
-                helperText="결제할 금액을 가맹점에 여쭤보삼"
+                helperText="결제할 금액을 가맹점에 문의하세요"
               />
             </Grid>
             <Grid item xs={5}>

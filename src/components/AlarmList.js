@@ -155,7 +155,12 @@ function ListTabs() {
                       }}
                     >
                       {item.alarmDate
-                        .substr(2, item.alarmDate.indexOf(".") - 2)
+                        .substr(
+                          2,
+                          item.alarmDate.indexOf(".") > 0
+                            ? item.alarmDate.indexOf(".") - 2
+                            : item.alarmDate.length
+                        )
                         .replace(/(\d{2})-(\d{2})-(\d{2})/, "$1/$2/$3")}
                     </Typography>
                   </Grid>
