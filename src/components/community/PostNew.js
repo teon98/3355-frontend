@@ -1,9 +1,10 @@
 import { Box } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import postst from "../../styles/CommunityStyles.module.css";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import axios from "axios";
+import FollowerAllPost from "./FollowerAllPost";
 
 const PostNew = (myprofile) => {
   const userNo = useSelector((state) => state.userNo);
@@ -97,7 +98,10 @@ const PostNew = (myprofile) => {
     setTagArray(removeTag);
   };
 
-  const postSubmit = () => {
+  //게시물
+  const [followerPosts, setFollowerPosts] = useState([]);
+
+  const postSubmit = useCallback(() => {
     //formData 생성
     var formData = new FormData();
     for (var i = 0; i < imageArray.length; i++) {
@@ -107,6 +111,22 @@ const PostNew = (myprofile) => {
     formData.append("userNo", userNo);
     for (var i = 0; i < tagArray.length; i++) {
       formData.append("tagList", tagArray[i]);
+    }
+
+    function loadPost(userNo) {
+      axios
+        .get("/post/main", {
+          params: {
+            userNo: userNo,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setFollowerPosts(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
 
     axios
@@ -121,103 +141,124 @@ const PostNew = (myprofile) => {
         setTagArray([]);
         setImageArray([]);
         setViewImage([]);
+        loadPost(userNo);
       })
       .catch((err) => {
         console.log(err);
         alert("입력이 잘못되었습니다.");
       });
-  };
+  });
+
+  useEffect(() => {
+    axios
+      .get("/post/main", {
+        params: {
+          userNo: userNo,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setFollowerPosts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
-    <Box
-      sx={{
-        background: "white",
-        my: "18px",
-        borderRadius: "20px",
-      }}
-      className={postst.postnew}
-    >
-      <div className={postst.inputHead}>
-        <div className={postst.profileHead}>
-          <div className={postst.box}>
-            <img
-              className={postst.profileImg}
-              src={myprofile.myImg}
-              alt="내 프로필 이미지"
-            />
-          </div>
-          <div className={postst.name}>{myprofile.myNickname}</div>
-        </div>
-        <div>
-          <div className={postst.taginputhead}>
-            <input
-              type="text"
-              placeholder="원하는 태그명을 입력하세요"
-              value={inputTag}
-              onChange={handleChange}
-              className={postst.taginput}
-              onKeyPress={handleOnKeyPress}
-            />
-            <input
-              type="button"
-              value="버튼생성"
-              onClick={tagCreate}
-              className={postst.createTagbutton}
-            />
-          </div>
-          <div className={postst.tagbody}>
-            {tagArray.map((item, index) => {
-              const dynamicStyle = {
-                background: backPallete[index % 7],
-                color: colorPallete[index % 7],
-              };
-
-              const combineStyle = { ...dynamicStyle, ...tagstyled };
-              return (
-                <div
-                  key={index}
-                  ref={tagRef}
-                  style={combineStyle}
-                  onClick={() => removeTag(index)}
-                >
-                  {item}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* 이미지 업로드 */}
-      <div className={postst.inputFooter}>
-        <label htmlFor="viewFile">
-          <div className={postst.viewButton}>
-            <AddPhotoAlternateIcon />
-          </div>
-        </label>
-        <input
-          name="viewFile"
-          id="viewFile"
-          type="file"
-          multiple
-          onChange={uploadImgChange}
-          ref={imagesRef}
-          className={postst.viewFile}
-        />
-        <div className={postst.preview}>
-          {viewImage.map((image, index) => (
-            <div key={index} className={postst.previewItem}>
-              <img src={image} alt="이미지" width="35px" height="35px" />
+    <>
+      <Box
+        sx={{
+          background: "white",
+          my: "18px",
+          borderRadius: "20px",
+        }}
+        className={postst.postnew}
+      >
+        <div className={postst.inputHead}>
+          <div className={postst.profileHead}>
+            <div className={postst.box}>
+              <img
+                className={postst.profileImg}
+                src={myprofile.myImg}
+                alt="내 프로필 이미지"
+              />
             </div>
-          ))}
+            <div className={postst.name}>{myprofile.myNickname}</div>
+          </div>
+          <div>
+            <div className={postst.taginputhead}>
+              <input
+                type="text"
+                placeholder="원하는 태그명을 입력하세요"
+                value={inputTag}
+                onChange={handleChange}
+                className={postst.taginput}
+                onKeyPress={handleOnKeyPress}
+              />
+              <input
+                type="button"
+                value="버튼생성"
+                onClick={tagCreate}
+                className={postst.createTagbutton}
+              />
+            </div>
+            <div className={postst.tagbody}>
+              {tagArray.map((item, index) => {
+                const dynamicStyle = {
+                  background: backPallete[index % 7],
+                  color: colorPallete[index % 7],
+                };
+
+                const combineStyle = { ...dynamicStyle, ...tagstyled };
+                return (
+                  <div
+                    key={index}
+                    ref={tagRef}
+                    style={combineStyle}
+                    onClick={() => removeTag(index)}
+                  >
+                    {item}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
-        <input
-          onClick={postSubmit}
-          className={postst.submitButton}
-          type="button"
-          value="등록"
-        />
-      </div>
-    </Box>
+
+        {/* 이미지 업로드 */}
+        <div className={postst.inputFooter}>
+          <label htmlFor="viewFile">
+            <div className={postst.viewButton}>
+              <AddPhotoAlternateIcon />
+            </div>
+          </label>
+          <input
+            name="viewFile"
+            id="viewFile"
+            type="file"
+            multiple
+            onChange={uploadImgChange}
+            ref={imagesRef}
+            className={postst.viewFile}
+          />
+          <div className={postst.preview}>
+            {viewImage.map((image, index) => (
+              <div key={index} className={postst.previewItem}>
+                <img src={image} alt="이미지" width="35px" height="35px" />
+              </div>
+            ))}
+          </div>
+          <input
+            onClick={postSubmit}
+            className={postst.submitButton}
+            type="button"
+            value="등록"
+          />
+        </div>
+      </Box>
+      <FollowerAllPost userNo={userNo} followerPosts={followerPosts} />
+    </>
   );
 };
 
