@@ -12,6 +12,7 @@ import axios from "axios";
 const ProfilePost = (props) => {
   const [myPosts, setMyPosts] = useState([]);
 
+  console.log(props);
   useEffect(() => {
     axios
       .get("/post/my", {
