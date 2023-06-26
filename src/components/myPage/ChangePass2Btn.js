@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const EditButton = styled(Button)({
-  background: "#f2f1f8",
+  background: "white",
   width: "100%",
   marginTop: "25px",
   marginBottom: "25px",

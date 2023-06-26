@@ -69,6 +69,7 @@ const Mypage = () => {
       >
         <Profile />
         <MyDays />
+        <br></br>
         <StampBtn />
         <CardCustomBtn />
         <MyCouponBtn />

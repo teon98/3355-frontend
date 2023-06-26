@@ -26,7 +26,7 @@ const auththeme = createTheme({
   },
 });
 
-const ProfileEdit = () => {
+const MyProfileEdit = () => {
   const userNo = useSelector((state) => state.userNo);
 
   const [myprofile, setMyprofile] = useState("");
@@ -104,7 +104,7 @@ const ProfileEdit = () => {
         },
       })
       .then((res) => {
-        navi("/community/profileHome");
+        navi("/mypage");
       })
       .catch((err) => {
         console.log(err);
@@ -183,4 +183,4 @@ const ProfileEdit = () => {
   );
 };
 
-export default ProfileEdit;
+export default MyProfileEdit;

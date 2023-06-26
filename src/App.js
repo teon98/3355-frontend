@@ -29,6 +29,7 @@ import CardLoading from "./pages/account/CardLoading";
 import CardCustom from "./pages/mypage/CardCustom";
 import FollowerProfileHome from "./components/community/FollowerProfileHome";
 import MyChangePass from "./pages/mypage/MyChangePass";
+import MyProfileEdit from "./components/myPage/MyProfileEdit";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -101,6 +102,7 @@ const App = () => {
             <Route index element={<Mypage />} />
             <Route path="custom" element={<CardCustom />} />
             <Route path="mypass" element={<MyChangePass />} />
+            <Route path="myprofileedit" element={<MyProfileEdit />} />
           </Route>
           {/* 이벤트 */}
           <Route path="/event" element={<Navbar />}>
