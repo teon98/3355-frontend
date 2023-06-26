@@ -5,11 +5,11 @@ import MyDays from "../../components/myPage/MyDays";
 import StampBtn from "../../components/myPage/StampBtn";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useContext } from "react";
 import CardCustomBtn from "../../components/myPage/CardCustomBtn";
 import MyCouponBtn from "../../components/myPage/MyCouponBtn";
 import ChangePass2Btn from "../../components/myPage/ChangePass2Btn";
 import WithdrawBtn from "../../components/myPage/WithdrawBtn";
+import { useNavigate } from "react-router-dom";
 
 const MyContext = createContext();
 const Mypage = () => {
@@ -17,6 +17,14 @@ const Mypage = () => {
   const userNo = useSelector((state) => state.userNo);
   const [userWork, setUserWork] = useState();
   const [userStamp, setUserStamp] = useState();
+  const navi = useNavigate({});
+
+  //로그인이 안되있으면 메인페이지로 돌아감
+  useEffect(() => {
+    if (userNo === 0) {
+      navi("/");
+    }
+  });
 
   //운동일자
   useEffect(() => {

@@ -13,10 +13,9 @@ import axios from "axios";
 function CardAni() {
   //유저 정보
   const userNo = useSelector((state) => state.userNo);
-  const [color1, setColor1] = useState();
-  const [color2, setColor2] = useState();
   const [cardCode, setCardCode] = useState("");
   const [userNick, setUserNick] = useState("");
+  const [retter, setRetter] = useState(" "); //글씨
 
   //카드 번호 닉네임기가져오기
   useEffect(() => {
@@ -43,11 +42,9 @@ function CardAni() {
       params: { userNo: userNo },
     })
       .then((res) => {
-        setColor1(res.data.customColor1);
-        setColor2(res.data.customColor2);
-        console.log("색" + res.data.customColor1);
         const el = document.getElementsByClassName("front");
         for (let i = 0; i < el.length; i++) {
+          //색갈설정~
           el[i].style.background =
             "linear-gradient(to right," +
             res.data.customColor1 +
@@ -56,7 +53,11 @@ function CardAni() {
             ")";
           el[i].style.color = "white";
           el[i].style.zIndex = "9999";
+          el[i].style.position = "relative";
         }
+        const el2 = document.getElementById("ret"); //글시설정
+        el2.innerHTML = res.data.customLettering;
+        el2.style.color = res.data.customColor3;
       })
 
       .catch((err) => {
@@ -91,11 +92,12 @@ function CardAni() {
       >
         <Box
           class="front"
-          // style={{
-          //   background: "linear-gradient(to right, #213e26, #05fa5f)",
-          //   color: "white",
-          //   zIndex: 9999,
-          // }}
+          style={{
+            background: "linear-gradient(to right, gray, gray)",
+            color: "white",
+            zIndex: 9999,
+            position: "relative",
+          }}
         >
           <h3>SamSam</h3>
           <Box className="magicon">
@@ -109,6 +111,23 @@ function CardAni() {
           <Box className="cardNomaster">
             <Box className="cardNo">{userNick}</Box>
             <img src={masterImage} className="masterimg" alt="마스터카드로고" />
+          </Box>
+          <Box
+            className="retbox"
+            sx={{ position: "absolute", right: "10px", zIndex: 9999 }}
+          >
+            <Box
+              id="retup"
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                textAlign: "right",
+              }}
+            >
+              <p className="ret" id="ret" style={{ color: "white" }}>
+                {retter}
+              </p>
+            </Box>
           </Box>
         </Box>
 

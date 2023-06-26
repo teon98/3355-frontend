@@ -9,12 +9,14 @@ import { MyContext } from "../../pages/mypage/Mypage";
 
 //버튼모양
 const EditButton = styled(Button)({
-  background: "#A055FF",
+  background: "#f2f1f8",
   width: "100%",
   marginTop: "25px",
   marginBottom: "25px",
+  borderBottom: "2px solid green",
+  borderRight: "2px solid green",
   "&:hover": {
-    background: "#672AB5",
+    background: "#7cde9d",
   },
 });
 
@@ -63,7 +65,11 @@ const StampBtn = () => {
 
   return (
     <Box>
-      <EditButton variant="contained" onClick={handleStamp}>
+      <EditButton
+        variant="contained"
+        onClick={handleStamp}
+        style={{ color: "green" }}
+      >
         출석체크
       </EditButton>
     </Box>
