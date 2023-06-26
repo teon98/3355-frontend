@@ -77,6 +77,7 @@ const TopNavbar = () => {
   // 메뉴 아이템으로 이동
   const handleNavigate = (e) => {
     // console.log(e.target.dataset.name);
+    handleMenuClose();
     navigator(e.target.dataset.name);
   };
 

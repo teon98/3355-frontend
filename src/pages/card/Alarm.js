@@ -1,7 +1,8 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
 import AlarmList from "../../components/AlarmList";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -24,31 +25,49 @@ function Alarm(props) {
       });
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
-      <Box p={3} pb={10}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          spacing={2}
-          sx={{
-            justifyContent: { xs: "center", sm: "space-between" },
-            width: "100%",
-            marginBottom: "20px",
-          }}
-        >
-          <Link to={"../home"}>
-            <ArrowBackIcon sx={{ minWidth: 0 }} />
-          </Link>
-          <Typography sx={{ flex: 1, textAlign: "center" }}>알림</Typography>
-          <Button
-            variant="outlined"
-            sx={{ minWidth: 0 }}
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        sx={{
+          backgroundColor: "#F2F1F8",
+          width: "100%",
+          height: "80px",
+          m: "0 auto 8px",
+          position: "sticky",
+          top: "0",
+          zIndex: "4",
+        }}
+      >
+        <Grid item xs={4} textAlign="left">
+          <IconButton
+            aria-label="go back"
+            sx={{ ml: "8px" }}
+            onClick={handleGoBack}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+        </Grid>
+        <Grid item xs={4} sx={{ pr: "16px", textAlign: "center" }}>
+          <Typography>알림</Typography>
+        </Grid>
+        <Grid item xs={4} textAlign="right" sx={{ pr: "16px" }}>
+          <IconButton
+            aria-label="read all"
+            sx={{ mr: "8px" }}
             onClick={handleConfirmClick}
           >
-            확인
-          </Button>
-        </Stack>
+            <DoneAllIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
+      <Box p={3} pt={0}>
         <AlarmList />
       </Box>
     </>

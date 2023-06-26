@@ -45,6 +45,7 @@ function CardAni() {
       .then((res) => {
         setColor1(res.data.customColor1);
         setColor2(res.data.customColor2);
+        console.log("색" + res.data.customColor1);
         const el = document.getElementsByClassName("front");
         for (let i = 0; i < el.length; i++) {
           el[i].style.background =

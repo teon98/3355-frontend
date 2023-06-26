@@ -10,6 +10,10 @@ import health1 from "../images/ListImg/healthImg1.png";
 import health2 from "../images/ListImg/bowlinglogo1.png";
 import health3 from "../images/ListImg/baseballlogo2.png";
 import health4 from "../images/ListImg/soccerlogo.png";
+import chicken1 from "../images/ListImg/Rankinglogo.png";
+import chicken2 from "../images/ListImg/masitdaklogo.png";
+import chicken3 from "../images/ListImg/kookminlogo.png";
+import chicken4 from "../images/ListImg/heodaklogo.png";
 import { Divider } from "@mui/material";
 
 function MainStoreList({ children, value, index }) {
@@ -58,6 +62,7 @@ function ListTabs() {
         <Tab label="가게" {...a11yProps(0)} />
         <Tab label="식품" {...a11yProps(1)} />
       </Tabs>
+
       {/* 가게목록 */}
       <MainStoreList value={value} index={0}>
         <Grid container spacing={2} className="gridList">
@@ -203,7 +208,155 @@ function ListTabs() {
           </Grid>
         </Grid>
       </MainStoreList>
-      <MainStoreList value={value} index={1}></MainStoreList>
+
+      {/* 식품 */}
+      <MainStoreList value={value} index={1}>
+        <Grid container spacing={2} className="gridList">
+          <Grid
+            item
+            xs={5}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={chicken1}
+              style={{
+                objectFit: "cover",
+                width: "80%",
+                height: "100%",
+              }}
+              alt="랭킹닭컴 이미지"
+            />
+          </Grid>
+          <Grid
+            item
+            xs={7}
+            className="benefit"
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <Typography
+              component="span"
+              sx={{
+                fontSize: "inherit",
+                alignItems: "center",
+                marginLeft: "30%",
+              }}
+              align="center"
+            >
+              랭킹닭컴
+            </Typography>
+          </Grid>
+          <Divider sx={{ width: "100%" }} />
+          <Grid
+            item
+            xs={5}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={chicken2}
+              style={{ objectFit: "cover", width: "120%", height: "100%" }}
+              alt="맛있닭 이미지"
+            />
+          </Grid>
+          <Grid
+            item
+            xs={7}
+            className="benefit"
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <Typography
+              component="span"
+              sx={{
+                fontSize: "inherit",
+                alignItems: "center",
+                marginLeft: "30%",
+              }}
+              align="center"
+            >
+              맛있닭
+            </Typography>
+          </Grid>
+          <Divider sx={{ width: "100%" }} />
+          <Grid
+            item
+            xs={5}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={chicken3}
+              style={{
+                objectFit: "cover",
+                width: "80%",
+                height: "80%",
+              }}
+              alt="국민상점 이미지"
+            />
+          </Grid>
+          <Grid
+            item
+            xs={7}
+            className="benefit"
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <Typography
+              component="span"
+              sx={{
+                fontSize: "inherit",
+                alignItems: "center",
+                marginLeft: "30%",
+              }}
+              align="center"
+            >
+              국민상점
+            </Typography>
+          </Grid>
+          <Divider sx={{ width: "100%" }} />
+          <Grid
+            item
+            xs={5}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={chicken4}
+              style={{ objectFit: "cover", width: "80%", height: "120%" }}
+              alt="허닭 이미지"
+            />
+          </Grid>
+          <Grid
+            item
+            xs={7}
+            className="benefit"
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <Typography
+              component="span"
+              sx={{
+                fontSize: "inherit",
+                alignItems: "center",
+                marginLeft: "30%",
+              }}
+              align="center"
+            >
+              허닭
+            </Typography>
+          </Grid>
+        </Grid>
+      </MainStoreList>
     </Box>
   );
 }

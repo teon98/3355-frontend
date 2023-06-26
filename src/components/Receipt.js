@@ -2,6 +2,7 @@ import { Grid, Typography } from "@mui/material";
 import React from "react";
 
 function Receipt({ payData, flag }) {
+  const { amount, point } = payData;
   return (
     <>
       <Grid container spacing={flag ? 2 : 3}>
@@ -17,7 +18,7 @@ function Receipt({ payData, flag }) {
         </Grid>
         <Grid item xs={7}>
           <Typography variant="body2" align="right" pr={1}>
-            {payData.amount ? payData.amount : "-"}
+            {amount ? Number(amount).toLocaleString() : "-"}
           </Typography>
         </Grid>
         <Grid item xs={5}>
@@ -27,7 +28,12 @@ function Receipt({ payData, flag }) {
         </Grid>
         <Grid item xs={7}>
           <Typography variant="body2" align="right" pr={1}>
-            - {Number(payData.point) === 0 ? "" : payData.point}
+            -{" "}
+            {isNaN(point)
+              ? ""
+              : Number(point) === 0
+              ? ""
+              : Number(point).toLocaleString()}
           </Typography>
         </Grid>
         <Grid item xs={5} mt={1}>
@@ -37,8 +43,8 @@ function Receipt({ payData, flag }) {
         </Grid>
         <Grid item xs={7} mt={1}>
           <Typography variant="body1" align="right" pr={1}>
-            {payData.amount
-              ? payData.amount - (payData.point ? payData.point : 0)
+            {amount
+              ? (Number(amount) - (point ? Number(point) : 0)).toLocaleString()
               : "-"}
           </Typography>
         </Grid>
