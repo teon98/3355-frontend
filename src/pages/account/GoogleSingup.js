@@ -6,15 +6,19 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Box,
   Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   FormControlLabel,
   IconButton,
   Radio,
   RadioGroup,
-  Stack,
   TextField,
 } from "@mui/material";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackNavbar from "../../components/common/BackNavbar";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -220,6 +224,22 @@ const GoogleSignup = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+  //다이얼로그
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setCheckboxChecked(false); //체크박스체크
+    setUsercheck(false); //유저동의체크
+  };
+  const handleDraw = () => {
+    setOpen(false); //다이알로그 오픈
+    setCheckboxChecked(true); //체크박스체크
+    setUsercheck(true); //유저동의체크
   };
 
   return (
@@ -504,14 +524,138 @@ const GoogleSignup = () => {
                 <Checkbox
                   color="primary"
                   checked={checkboxChecked}
-                  onChange={(e) => {
-                    setCheckboxChecked(e.target.checked);
-                    setUsercheck(!userCheck);
-                  }}
+                  onClick={handleClickOpen}
                 />
               }
               label="[필수] 개인정보 관리 동의"
             />
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle
+                id="alert-dialog-title"
+                style={{ color: "black", textAlign: "center" }}
+              >
+                {`개인 정보 관리 동의서
+          `}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText
+                  id="alert-dialog-description"
+                  style={{ color: "black" }}
+                >
+                  <div
+                    style={{
+                      textAlign: "left",
+                      fontSize: "12px",
+                      lineHeight: 1.5,
+                      fontFamily: "GmarketSans",
+                    }}
+                  >
+                    <p>
+                      <strong>[삼삼오오]</strong>은(는) 귀하의 개인정보를
+                      중요시하며, 관련 법규를 준수하여 안전하게 처리하고
+                      있습니다. 본 동의문은 귀하의 개인정보를 수집, 보유, 이용,
+                      제공 및 파기하는 경우에 적용됩니다. 아래의 내용을 주의
+                      깊게 읽고, 동의 여부를 결정해 주시기 바랍니다.
+                    </p>
+                    <br></br>
+
+                    <p
+                      style={{
+                        textAlign: "center",
+                        fontSize: "14px",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      수집 및 이용 목적
+                    </p>
+                    <ul>
+                      <li>
+                        ● 목적 1: 서비스 제공을 위한 회원 가입, 인증, 계약 이행
+                        등
+                      </li>
+                      <li> ● 목적 2: 고객 지원 및 문의 응대</li>
+                      <li> ● 목적 3: 이벤트 참여 및 경품 배송 등</li>
+                    </ul>
+                    <br />
+
+                    <p
+                      style={{
+                        textAlign: "center",
+                        fontSize: "14px",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      수집하는 개인정보의 항목
+                    </p>
+                    <p>귀하의 개인정보 항목은 다음과 같이 수집됩니다:</p>
+                    <p>● 수집항목 1 : 이메일</p>
+                    <p>● 수집항목 2 : 생년월일</p>
+                    <p>● 수집항목 3 : 성별</p>
+                    <br />
+                    <p
+                      style={{
+                        textAlign: "center",
+                        fontSize: "14px",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      개인정보의 보유 및 이용 기간
+                    </p>
+                    <p>
+                      귀하의 개인정보는 수집 및 이용 목적 달성 시까지 보유 및
+                      이용되며, 목적 달성 후에는 즉시 파기됩니다. 다만, 관련
+                      법령에 따라 보존할 필요가 있는 경우에는 해당 기간 동안
+                      보관됩니다.
+                    </p>
+                    <br></br>
+                    <p
+                      style={{
+                        textAlign: "center",
+                        fontSize: "14px",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      개인정보의 제공
+                    </p>
+                    <ul>
+                      <li>
+                        ● 제공 항목 1: 생년월일, 성별/ 제공받는 자 1: 마케팅
+                        파트너
+                      </li>
+                      <li>
+                        ● 제공 항목 2: 이메일 / 제공받는 자 2: 마케팅 파트너
+                      </li>
+                    </ul>
+
+                    <p>
+                      <strong>개인정보의 파기</strong>
+                    </p>
+                    <p>
+                      귀하의 개인정보는 수집 및 이용 목적 달성 후에는 지체 없이
+                      파기됩니다. 파기 절차, 방법 및 시기는 다음과 같습니다:
+                    </p>
+                  </div>
+                </DialogContentText>
+              </DialogContent>
+
+              <DialogActions>
+                <Button onClick={handleClose} style={{ color: "red" }}>
+                  동의하지않음
+                </Button>
+                <Button
+                  onClick={handleDraw}
+                  style={{ color: "green" }}
+                  autoFocus
+                >
+                  동의
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Box>
           <Button
             variant="outlined"

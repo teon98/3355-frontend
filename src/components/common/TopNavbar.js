@@ -29,7 +29,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import PeopleIcon from "@mui/icons-material/People";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import BarcodeDialog from "../BarcodeDialog";
 
@@ -105,7 +105,7 @@ const TopNavbar = () => {
         <SettingsRoundedIcon sx={{ mr: "10px" }} />
         카드 관리
       </MenuItem>
-      <MenuItem onClick={handleNavigate} data-name="/logout">
+      <MenuItem onClick={handleNavigate} data-name="/auth/logout">
         <LogoutRoundedIcon sx={{ mr: "10px" }} />
         로그아웃
       </MenuItem>
@@ -202,13 +202,13 @@ const TopNavbar = () => {
               <ListItemIcon>
                 <AccountBoxIcon />
               </ListItemIcon>
-              <ListItemText primary="Account" />
+              <ListItemText primary="Mypage" />
             </ListItem>
           </Link>
         </List>
         <Box className="drawerFooter">
           <Divider />
-          <Link to="/logout" className="link" onClick={closeSidebar}>
+          <Link to="/auth/logout" className="link" onClick={closeSidebar}>
             <List>
               <ListItem>
                 <ListItemIcon>

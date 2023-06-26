@@ -51,8 +51,12 @@ const App = () => {
       <Container
         maxWidth="sm"
         className={
-          currentPath === "/"
-            ? appStyle.gradient
+          currentPath === "/" ||
+          currentPath === "/auth/cardCreate" ||
+          currentPath === "/auth/cardLoding" ||
+          currentPath === "/auth/login" ||
+          currentPath === "/auth/findPass"
+            ? appStyle.gradient2
             : currentPath === "/community/profileEdit" ||
               currentPath.indexOf("/my") >= 0
             ? appStyle.social
