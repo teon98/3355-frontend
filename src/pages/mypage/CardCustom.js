@@ -28,12 +28,13 @@ const CardCustom = () => {
   const userNo = useSelector((state) => state.userNo);
   const [color1, setColor1] = useState(""); //1색
   const [color2, setColor2] = useState(""); //2색
+  const [color3, setColor3] = useState(""); //글씨 색
   const [cardCode, setCardCode] = useState(""); //유저의 카드번호
   const [userNick, setUserNick] = useState(""); //유저 닉
   const [retter, setRetter] = useState(" "); //글씨
   const navi = useNavigate({});
 
-  //카드 번호 닉네임기가져오기
+  //카드 번호 닉네임가져오기
   useEffect(() => {
     axios({
       url: "/home/cardCodeNick",
@@ -61,8 +62,10 @@ const CardCustom = () => {
         setColor1(res.data.customColor1);
         setColor2(res.data.customColor2);
         setRetter(res.data.customLettering);
+        setColor3(res.data.customColor3);
         const el = document.getElementsByClassName("front");
         for (let i = 0; i < el.length; i++) {
+          //색깔설정~
           el[i].style.background =
             "linear-gradient(to right," +
             res.data.customColor1 +
@@ -72,6 +75,9 @@ const CardCustom = () => {
           el[i].style.color = "white";
           el[i].style.zIndex = "9999";
         }
+        const el2 = document.getElementById("ret"); //글씨설정
+        el2.innerHTML = retter;
+        el2.style.color = color3;
       })
       .catch((err) => {
         console.log(err);
@@ -90,7 +96,8 @@ const CardCustom = () => {
     }
     const el2 = document.getElementById("ret");
     el2.innerHTML = retter;
-  }, [color1, color2, retter]);
+    el2.style.color = color3;
+  }, [color1, color2, color3, retter]);
 
   // 카드 뒤집기 애니메이션
   const [isFlipped, setIsFlipped] = useState(false);
@@ -120,10 +127,17 @@ const CardCustom = () => {
   const handleChangeComplete2 = (e) => {
     setColor2(e.hex);
   };
+  //색갈3 지정
+  const handleChangeComplete3 = (e) => {
+    setColor3(e.hex);
+  };
 
   //레터링 지정
   const handleRetter = (e) => {
-    setRetter(e.target.value);
+    const intext = e.target.value;
+    if (intext.length <= 5) {
+      setRetter(e.target.value);
+    }
   };
 
   //제출
@@ -136,6 +150,7 @@ const CardCustom = () => {
         customColor1: color1,
         customColor2: color2,
         customLettering: retter,
+        customColor3: color3,
       },
     })
       .then((res) => {
@@ -159,14 +174,7 @@ const CardCustom = () => {
           className={`card ${isFlipped ? "is-flipped" : ""}`}
           onClick={handleClick}
         >
-          <Box
-            class="front"
-            // style={{
-            //   background: "linear-gradient(to right, #213e26, #05fa5f)",
-            //   color: "white",
-            //   zIndex: 9999,
-            // }}
-          >
+          <Box class="front">
             <h3>SamSam</h3>
             <Box>
               <Box className="magicon">
@@ -262,7 +270,6 @@ const CardCustom = () => {
         </Box>
       </Box>
       <br></br>
-      <br></br>
       <Box
         sx={{
           display: "flex",
@@ -273,7 +280,7 @@ const CardCustom = () => {
       >
         <TextField
           id="standard-basic"
-          label="Rettering"
+          label="Lettering"
           variant="standard"
           onChange={handleRetter}
           name="retter"
@@ -292,7 +299,15 @@ const CardCustom = () => {
           }}
         />
       </Box>
-      <br />
+      <br></br>
+      <Box sx={{}}>
+        {" "}
+        <GithubPicker
+          className="githubpicker"
+          color={color3}
+          onChangeComplete={handleChangeComplete3}
+        />
+      </Box>
       <br />
       <Button
         variant="outlined"

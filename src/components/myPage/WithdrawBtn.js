@@ -11,12 +11,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const EditButton = styled(Button)({
-  background: "#A055FF",
+  background: "#f2f1f8",
   width: "100%",
   marginTop: "25px",
   marginBottom: "25px",
+  borderBottom: "2px solid green",
+  borderRight: "2px solid green",
   "&:hover": {
-    background: "#672AB5",
+    background: "#7cde9d",
   },
 });
 
@@ -58,7 +60,11 @@ const WithdrawBtn = () => {
 
   return (
     <>
-      <EditButton variant="contained" onClick={handleClickOpen}>
+      <EditButton
+        variant="contained"
+        onClick={handleClickOpen}
+        style={{ color: "green" }}
+      >
         회원 탈퇴
       </EditButton>
       <Dialog

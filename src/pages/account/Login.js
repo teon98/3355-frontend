@@ -3,7 +3,7 @@ import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Alert, Box, Stack, TextField } from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackNavbar from "../../components/common/BackNavbar";
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import Swal from "sweetalert2";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const auththeme = createTheme({
   typography: {
@@ -58,9 +59,17 @@ const Login = () => {
     setUserPass(e.target.value);
   };
 
+  //비밀번호 텍스트-비밀전환
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   //리덕스 변수 사용하기
   const userNo = useSelector((state) => state.userNo);
   const dispatch = useDispatch();
+
   //로그인버튼
   const handleLogin = (e) => {
     axios({
@@ -171,6 +180,7 @@ const Login = () => {
               id="standard-basic"
               label="PassWord"
               variant="standard"
+              type={showPassword ? "text" : "password"}
               onChange={handlePass}
               name="userPass"
               color="primary"
@@ -186,7 +196,18 @@ const Login = () => {
                 ml: 2,
                 flex: 8,
               }}
-            />
+            />{" "}
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              edge="end"
+              sx={{
+                flex: 2.5,
+              }}
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
           </Box>
 
           <br></br>

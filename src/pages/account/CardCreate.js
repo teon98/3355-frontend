@@ -3,11 +3,12 @@ import logo from "../../images/Logo_3355.svg";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Box, TextField } from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import { useNavigate, useLocation } from "react-router";
 import axios from "axios";
 import BackNavbar from "../../components/common/BackNavbar";
 import CreditScoreOutlinedIcon from "@mui/icons-material/CreditScoreOutlined";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const auththeme = createTheme({
   typography: {
@@ -37,6 +38,13 @@ const CardCreate = () => {
 
   //카드 정규식
   const cardRegEx = /^[0-9]{4}$/;
+
+  //비밀번호 텍스트-비밀전환
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   //비밀번호 체크
   const handleCardPass = (e) => {
@@ -88,8 +96,9 @@ const CardCreate = () => {
 
   return (
     <ThemeProvider theme={auththeme}>
-      {/* 상단 뒤로가기 nav바 */}
-      <BackNavbar />
+      <br></br>
+      <br></br>
+      <br></br>
       <Box
         sx={{
           display: "flex",
@@ -132,6 +141,7 @@ const CardCreate = () => {
               id="standard-basic"
               label="CardPass"
               variant="standard"
+              type={showPassword ? "text" : "password"}
               onChange={handleCardPass}
               name="userPass"
               color="primary"
@@ -148,6 +158,17 @@ const CardCreate = () => {
                 flex: 8,
               }}
             />
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              edge="end"
+              sx={{
+                flex: 2.5,
+              }}
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
           </Box>
           <p id="passmessage" style={{ color: "#136162", marginTop: "10px" }}>
             카드 비밀번호는 숫자 4자리입니다
@@ -167,6 +188,7 @@ const CardCreate = () => {
               id="standard-basic"
               label="CardPassConfirm"
               variant="standard"
+              type={showPassword ? "text" : "password"}
               onChange={handleCardDupPass}
               name="userPassDup"
               color="primary"
@@ -183,6 +205,17 @@ const CardCreate = () => {
                 flex: 8,
               }}
             />
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              edge="end"
+              sx={{
+                flex: 2.5,
+              }}
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
           </Box>
           <p
             id="passDupmessage"

@@ -4,19 +4,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const EditButton = styled(Button)({
-  background: "#A055FF",
+  background: "#f2f1f8",
   width: "100%",
   marginTop: "25px",
   marginBottom: "25px",
+  borderBottom: "2px solid green",
+  borderRight: "2px solid green",
   "&:hover": {
-    background: "#672AB5",
+    background: "#7cde9d",
   },
 });
 
 const CardCustomBtn = () => {
   return (
     <Link to="/mypage/custom" style={{ textDecoration: "none" }}>
-      <EditButton variant="contained">카드 커스텀</EditButton>
+      <EditButton variant="contained" style={{ color: "green" }}>
+        카드 커스텀
+      </EditButton>
     </Link>
   );
 };
