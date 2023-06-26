@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
 import HeadLogo from "../../images/HeadLogo_3355.svg";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -31,7 +31,6 @@ import PeopleIcon from "@mui/icons-material/People";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import BarcodeDialog from "../BarcodeDialog";
 
 const GradientAppBar = styled(AppBar)`
   background: linear-gradient(360deg, #17b7bd 4.53%, #7cde9d 75.31%);
@@ -43,7 +42,7 @@ const TopNavbar = () => {
   const [badgeCnt, setBadgeCnt] = useState(0);
 
   const userNo = useSelector((state) => state.userNo); // 리덕스 변수 사용하기
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
     axios({
@@ -58,7 +57,7 @@ const TopNavbar = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [location]);
+  }, []);
 
   const isMenuOpen = Boolean(profileMenuAnchor);
 
@@ -120,16 +119,6 @@ const TopNavbar = () => {
     setIsSidebarOpen(false);
   };
 
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const sidebar = (
     <Drawer anchor="left" open={isSidebarOpen} onClose={closeSidebar}>
       <Box className="drawerContent">
@@ -142,11 +131,6 @@ const TopNavbar = () => {
               <ListItemText primary="My Card" />
             </ListItem>
           </Link>
-
-          <ListItem>
-            <ListItemText primary="결제 바로가기" onClick={handleClickOpen} />
-            <BarcodeDialog open={open} handleClose={handleClose} />
-          </ListItem>
 
           <Link
             to="/home/payment"
@@ -182,7 +166,7 @@ const TopNavbar = () => {
               <ListItemText primary="이벤트 목록 확인하기" />
             </ListItem>
           </Link>
-          <Link to="/event" className="link" onClick={closeSidebar}>
+          <Link to="/mypage" className="link" onClick={closeSidebar}>
             <ListItem>
               <ListItemText primary="출석체크" />
             </ListItem>
