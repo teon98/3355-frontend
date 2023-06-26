@@ -119,7 +119,7 @@ function Pay(props) {
   };
 
   return (
-    <Box className={appStyle.notgradient} p={3}>
+    <Box className={appStyle.notgradient} p={3} mb={7}>
       <Box>
         <Typography
           variant="h5"

@@ -22,7 +22,7 @@ const BackNavbar = () => {
   const currentPath = location.pathname;
   const navigate = useNavigate();
   const onClickBtn = () => {
-    if (currentPath == "/auth/login") {
+    if (currentPath === "/auth/login") {
       navigate("/");
     } else {
       navigate(-1);
