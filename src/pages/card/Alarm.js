@@ -1,10 +1,11 @@
-import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Typography } from "@mui/material";
 import AlarmList from "../../components/AlarmList";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import appStyle from "../../App.module.css";
 
 function Alarm(props) {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function Alarm(props) {
   };
 
   return (
-    <>
+    <Box className={appStyle.notgradient} mb={7}>
       <Grid
         container
         spacing={2}
@@ -70,7 +71,7 @@ function Alarm(props) {
       <Box p={3} pt={0}>
         <AlarmList />
       </Box>
-    </>
+    </Box>
   );
 }
 

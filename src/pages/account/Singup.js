@@ -573,7 +573,7 @@ const Singup = () => {
                       Swal.fire({
                         title: "개인 정보 관리 동의서",
                         html: `<div style="text-align: left; font-size: 14px; line-height: 1.5;font-family: GmarketSans;">
-                          <p><strong>[조직명]</strong>은(는) 귀하의 개인정보를 중요시하며, 관련 법규를 준수하여 안전하게 처리하고 있습니다. 본 동의문은 귀하의 개인정보를 수집, 보유, 이용, 제공 및 파기하는 경우에 적용됩니다. 아래의 내용을 주의 깊게 읽고, 동의 여부를 결정해 주시기 바랍니다.</p>
+                          <p><strong>[삼삼오오]</strong>은(는) 귀하의 개인정보를 중요시하며, 관련 법규를 준수하여 안전하게 처리하고 있습니다. 본 동의문은 귀하의 개인정보를 수집, 보유, 이용, 제공 및 파기하는 경우에 적용됩니다. 아래의 내용을 주의 깊게 읽고, 동의 여부를 결정해 주시기 바랍니다.</p>
                           
                           <p style="text-align: center; font-size: 14px; line-height: 1.5; ">수집 및 이용 목적</p>
                           <ul>
