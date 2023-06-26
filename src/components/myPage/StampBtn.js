@@ -9,7 +9,7 @@ import { MyContext } from "../../pages/mypage/Mypage";
 
 //버튼모양
 const EditButton = styled(Button)({
-  background: "#f2f1f8",
+  background: "white",
   width: "100%",
   marginTop: "25px",
   marginBottom: "25px",

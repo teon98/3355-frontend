@@ -55,9 +55,11 @@ function CardAni() {
           el[i].style.zIndex = "9999";
           el[i].style.position = "relative";
         }
-        const el2 = document.getElementById("ret"); //글시설정
-        el2.innerHTML = res.data.customLettering;
-        el2.style.color = res.data.customColor3;
+        if (res.data.customLettering != null) {
+          const el2 = document.getElementById("ret"); //글시설정
+          el2.innerHTML = res.data.customLettering;
+          el2.style.color = res.data.customColor3;
+        }
       })
 
       .catch((err) => {
@@ -124,9 +126,7 @@ function CardAni() {
                 textAlign: "right",
               }}
             >
-              <p className="ret" id="ret" style={{ color: "white" }}>
-                {retter}
-              </p>
+              <p className="ret" id="ret" style={{ color: "white" }}></p>
             </Box>
           </Box>
         </Box>

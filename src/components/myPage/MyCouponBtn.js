@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const EditButton = styled(Button)({
-  background: "#f2f1f8",
+  background: "white",
   width: "100%",
   marginTop: "25px",
   marginBottom: "25px",
@@ -17,7 +17,7 @@ const EditButton = styled(Button)({
 
 const MyCouponBtn = () => {
   return (
-    <Link to="/community/profileEdit" style={{ textDecoration: "none" }}>
+    <Link to="/mypage/myprofileedit" style={{ textDecoration: "none" }}>
       <EditButton variant="contained" style={{ color: "green" }}>
         프로필 수정
       </EditButton>
