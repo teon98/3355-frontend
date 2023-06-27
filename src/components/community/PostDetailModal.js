@@ -1,55 +1,165 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import defaultImg from "../../images/default.png";
+import "../../styles/PostStyles.css";
+import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
+import { Paper } from "@mui/material";
+//이미지 carousel
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import styled from "@emotion/styled";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
-const PostDetailDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
+const PostSlider = styled(Slider)`
+  height: 100%;
+  width: 100%;
+  position: relative;
+  .slick-prev::before,
+  .slick-next::before {
+    opacity: 0;
+    display: none;
+  }
+`;
 
-export interface DialogTitleProps {
-  id: string;
-  children?: React.ReactNode;
-  onClose: () => void;
-}
+const style = {
+  position: "fixed",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  maxWidth: "80%",
+  maxHeight: "70%",
+  width: "500px",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  borderRadius: "20px",
+  overflow: "auto",
+};
 
-function PostDetailDialogTitle(props: DialogTitleProps) {
-  const { children, onClose, ...other } = props;
+const postStyle = {};
 
+const PostDetailModal = (props) => {
+  const userNo = useSelector((state) => state.userNo);
+  const settings = {
+    dots: false,
+    infinite: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 500,
+  };
+
+  const item = props.postItem;
+  const profileImg = item.userProfileImg;
+  const postImage = item.post.postImg.slice(1, -1).split(",");
+  const tags = item.post.tags;
+  var tagsContent = "";
+  const load_comments = props.postItem.comments;
+
+  //comments는 변동 사항이 있기 대문에 useState로 선언
+  const [comments, setComments] = useState(load_comments);
+  //새로 단 댓글
+  const [newComment, setNewComment] = useState("");
+
+  console.log(item.post.postNo);
+
+  //   useEffect(() => {
+  //     setComments(load_comments);
+  //   }, [comments]);
+
+  const handleChange = (e) => {
+    setNewComment(e.target.value);
+  };
+
+  const commentPost = (e) => {
+    if (e.key === "Enter") {
+      console.log(newComment);
+      setComments([...comments, newComment]);
+      axios({
+        url: `/post/addcomments`,
+        method: "post",
+        params: {
+          userNo: userNo,
+          postNo: item.post.postNo,
+          commContent: newComment,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  for (var i = 0; i < tags.length; i++) {
+    tagsContent += "#" + tags[i]["tag"]["tagContent"] + " ";
+  }
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-      {children}
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </DialogTitle>
+    <Modal open={props.modalopen} onClose={props.onClose} maxwidth="xs">
+      <Paper sx={style} elevation={3}>
+        {/* 프로필 및 메뉴 */}
+        <Box sx={{ display: "flex", alignItems: "center", p: 2 }}>
+          <div className="postprofilebox">
+            <img
+              className="profileImg"
+              src={!profileImg ? defaultImg : profileImg}
+              alt="프로필 이미지"
+            />
+          </div>
+          <Typography>{item.userNickname}</Typography>
+          <Box sx={{ marginLeft: "auto", cursor: "pointer" }}>
+            <MoreVertRoundedIcon />
+          </Box>
+        </Box>
+        {/* 사진리스트 */}
+        <Box sx={postStyle}>
+          <PostSlider {...settings}>
+            {postImage.map((post, index) => (
+              <Box key={index}>
+                <img src={post} alt="post" width="100%" style={{}} />
+              </Box>
+            ))}
+          </PostSlider>
+        </Box>
+        {/* 태그와 좋아요 */}
+        <Box sx={{ p: 2, display: "flex" }}>
+          <Typography variant="body2">{tagsContent}</Typography>
+          <Box sx={{ display: "flex", marginLeft: "auto" }}>
+            <Typography variant="body2" mr={"3px"}>
+              {item.goodsCount}
+            </Typography>
+            <FavoriteBorderIcon fontSize="small" />
+          </Box>
+        </Box>
+        <hr />
+        {/* 댓글달기창 */}
+        <Box sx={{ px: 2, py: 1, display: "flex", alignItems: "center" }}>
+          <ForumRoundedIcon fontSize={"0.8rem"} />
+          <Typography fontSize={"0.8rem"}>댓글달기</Typography>
+          <input
+            type="text"
+            className="commentinput"
+            onChange={handleChange}
+            onKeyPress={commentPost}
+          />
+        </Box>
+        <hr />
+        {/* 댓글보기창 */}
+        <Box>
+          {comments.map((comment, index) => {
+            return <div key={index}>{comment.commContent}</div>;
+          })}
+        </Box>
+      </Paper>
+    </Modal>
   );
-}
-
-const PostDetailModal = () => {
-  return <Dialog></Dialog>;
 };
 
 export default PostDetailModal;

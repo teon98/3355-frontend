@@ -1,0 +1,24 @@
+.postprofilebox {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid transparent;
+  background-image: linear-gradient(136.88deg, #3100bc 14.75%, #b08bdf 75.25%);
+  border-image-slice: 1;
+  background-origin: border-box;
+  margin-right: 10px;
+}
+
+.commentinput {
+  border: 2px solid #303030;
+  border-radius: 20px;
+  outline: none;
+  margin-left: 3%;
+  font-family: "GmarketSans";
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 0.8rem;
+}

@@ -67,9 +67,9 @@ const FollowButton = (props) => {
 
   //팔로우 취소
   const followCancel = (owner, user) => {
-    let formData = new FormData();
-    formData.append("owner", owner);
-    formData.append("user", user);
+    // let formData = new FormData();
+    // formData.append("owner", owner);
+    // formData.append("user", user);
     axios(
       // .delete("/commu/followcancel", formData)
       // .delete("/commu/followcancel", { owner: owner, user: user })
