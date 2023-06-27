@@ -88,6 +88,7 @@ const Singup = () => {
       userCheck === true
     ) {
       setUserDisable(false);
+      setUser({ userEmail, userPass, userBirth, userGender, userNickname });
     } else {
       setUserDisable(true);
     }

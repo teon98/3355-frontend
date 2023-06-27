@@ -86,6 +86,7 @@ const GoogleSignup = () => {
       userCheck === true
     ) {
       setUserDisable(false);
+      setUser({ userEmail, userPass, userBirth, userGender, userNickname });
     } else {
       setUserDisable(true);
     }
@@ -159,7 +160,7 @@ const GoogleSignup = () => {
     if (genderRegEx.test(e.target.value)) {
       setUserGender(e.target.value);
       setUserGenderBoo(true);
-
+      console.log(userGender);
       setUser({ userEmail, userPass, userBirth, userGender, userNickname });
     } else {
       setUserGenderBoo(false);
