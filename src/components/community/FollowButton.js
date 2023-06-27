@@ -48,11 +48,59 @@ const FollowButton = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [btmsg]);
 
-  const handleClick = () => {
+  //팔로우 걸기
+  const followRequest = (owner, user) => {
+    let formData = new FormData();
+    formData.append("owner", owner);
+    formData.append("user", user);
+    axios
+      .post("/commu/followrequest", formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //팔로우 취소
+  const followCancel = (owner, user) => {
+    let formData = new FormData();
+    formData.append("owner", owner);
+    formData.append("user", user);
+    axios(
+      // .delete("/commu/followcancel", formData)
+      // .delete("/commu/followcancel", { owner: owner, user: user })
+      {
+        url: `/commu/followcancel`,
+        method: "delete",
+        params: { owner: owner, user: user },
+      }
+    )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleClick = (e) => {
     console.log(owneruserNo);
     console.log(props.userNo);
+    console.log(e.target.textContent);
+    if (e.target.textContent === "팔로우") {
+      //팔로우 취소
+      followCancel(owneruserNo, props.userNo);
+    } else if (e.target.textContent === "맞팔로우") {
+      //맞팔로우 걸기
+      followRequest(owneruserNo, props.userNo);
+    } else if (e.target.textContent === "팔로잉") {
+      //팔로잉 걸기
+      followRequest(owneruserNo, props.userNo);
+    }
   };
 
   if (btmsg === "팔로잉") {
@@ -62,7 +110,11 @@ const FollowButton = (props) => {
       </FollowIngBT>
     );
   } else if (btmsg === "팔로우") {
-    return <FollowBT variant="outlined">{btmsg}</FollowBT>;
+    return (
+      <FollowBT variant="outlined" onClick={handleClick}>
+        {btmsg}
+      </FollowBT>
+    );
   } else if (btmsg === "맞팔로우") {
     return (
       <FollowIngBT variant="contained" onClick={handleClick}>

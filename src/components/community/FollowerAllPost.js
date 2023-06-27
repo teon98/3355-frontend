@@ -10,9 +10,24 @@ import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Typography } from "@mui/material";
+import { Modal, Typography } from "@mui/material";
+import PostDetailModal from "./PostDetailModal";
 
 const FollowerAllPost = (props) => {
+  //모달창 state
+  const [open, setOpen] = useState(false);
+
+  //모달창 열기
+  const handleClickOpen = () => {
+    console.log("모달창 열림");
+    setOpen(true);
+  };
+
+  //모달창 닫기
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box>
       <ImageList>
@@ -32,11 +47,15 @@ const FollowerAllPost = (props) => {
           const img_arr = img_string.split(",");
 
           return (
-            <ImageListItem key={index}>
+            <ImageListItem
+              key={index}
+              onClick={handleClickOpen}
+              sx={{ cursor: "pointer" }}
+            >
               <img src={img_arr[0]} alt="post_1"></img>
               <ImageListItemBar
                 title={tag_list_view}
-                subtitle={item.post.user.userNickname}
+                subtitle={item.userNickname}
                 actionIcon={
                   <IconButton sx={{ color: "white" }}>
                     <Typography variant="body2" mr={"3px"}>
@@ -50,6 +69,8 @@ const FollowerAllPost = (props) => {
           );
         })}
       </ImageList>
+
+      <PostDetailModal open={open} onClose={handleClose} />
     </Box>
   );
 };
