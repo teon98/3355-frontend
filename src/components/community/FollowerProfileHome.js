@@ -7,6 +7,7 @@ import ProfilePost from "./ProfilePost";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
+import FollowButton from "./FollowButton";
 
 const FollowerProfileHome = () => {
   const params = useParams();
@@ -61,6 +62,7 @@ const FollowerProfileHome = () => {
     <Box sx={{ px: "24px", pb: "70px" }}>
       <FollowerProfile />
       <ProfileView />
+      <FollowButton userNickName={params.memberNickName} userNo={userNo} />
       <ProfilePost userNo={userNo} />
     </Box>
   );

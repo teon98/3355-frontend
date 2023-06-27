@@ -53,7 +53,7 @@ const ProfilePost = (props) => {
               <img src={img_arr[0]} alt="post_1"></img>
               <ImageListItemBar
                 title={tag_list_view}
-                subtitle={item.post.user.userNickname}
+                subtitle={item.userNickname}
                 actionIcon={
                   <IconButton sx={{ color: "white" }}>
                     <Typography variant="body2" mr={"3px"}>
