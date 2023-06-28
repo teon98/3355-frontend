@@ -16,10 +16,10 @@ import PostDetailModal from "./PostDetailModal";
 const FollowerAllPost = (props) => {
   //모달창 state
   const [open, setOpen] = useState(false);
+  const userNo = useSelector((state) => state.userNo);
 
   //모달창 열기
   const handleClickOpen = () => {
-    console.log("모달창 열림");
     setOpen(true);
   };
 
@@ -46,6 +46,28 @@ const FollowerAllPost = (props) => {
           const img_string = item.post.postImg.slice(1, -1);
           const img_arr = img_string.split(",");
 
+          const handleC = () => {
+            // console.log(userNo);
+            // console.log(item.post.postNo);
+            axios({
+              url: `/post/goods`,
+              method: "post",
+              params: { userNo: userNo, postNo: item.post.postNo },
+            })
+              .then((res) => {
+                //좋아요 처음
+                if (res.data > 0) {
+                } else {
+                  //좋아요 취소
+                }
+                // Axios 요청이 성공한 경우 화면을 다시 로드합니다.
+                window.location.reload();
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          };
+
           return (
             <ImageListItem
               key={index}
@@ -57,11 +79,15 @@ const FollowerAllPost = (props) => {
                 title={tag_list_view}
                 subtitle={item.userNickname}
                 actionIcon={
-                  <IconButton sx={{ color: "white" }}>
+                  <IconButton sx={{ color: "white" }} onClick={handleC}>
                     <Typography variant="body2" mr={"3px"}>
                       {item.goodsCount}
                     </Typography>
-                    <FavoriteBorderIcon fontSize="small" />
+                    {item.goodsCount > 0 ? (
+                      <FavoriteIcon fontSize="small" />
+                    ) : (
+                      <FavoriteBorderIcon fontSize="small" />
+                    )}
                   </IconButton>
                 }
               />
