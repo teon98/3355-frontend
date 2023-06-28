@@ -73,11 +73,15 @@ function ListTabs() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              pb: "16px",
             }}
           >
             <img
               src={health1}
-              style={{ objectFit: "cover", width: "80%", height: "80%" }}
+              style={{
+                objectFit: "cover",
+                height: "80px",
+              }}
               alt="헬스장이미지"
             />
           </Grid>
@@ -85,7 +89,7 @@ function ListTabs() {
             item
             xs={7}
             className="benefit"
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{ display: "flex", alignItems: "center", pb: "12px" }}
           >
             <Typography
               component="span"
@@ -107,11 +111,15 @@ function ListTabs() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              pb: "16px",
             }}
           >
             <img
               src={health2}
-              style={{ objectFit: "cover", width: "80%", height: "80%" }}
+              style={{
+                objectFit: "cover",
+                height: "80px",
+              }}
               alt="헬스장이미지"
             />
           </Grid>
@@ -119,7 +127,7 @@ function ListTabs() {
             item
             xs={7}
             className="benefit"
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{ display: "flex", alignItems: "center", pb: "12px" }}
           >
             <Typography
               component="span"
@@ -141,15 +149,15 @@ function ListTabs() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              pb: "16px",
             }}
           >
             <img
               src={health3}
               style={{
                 objectFit: "cover",
-                width: "80%",
-                height: "80%",
-                marginBottom: "30px",
+                height: "70px",
+                margin: "5px auto",
               }}
               alt="스크린야구장이미지"
             />
@@ -158,7 +166,7 @@ function ListTabs() {
             item
             xs={7}
             className="benefit"
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{ display: "flex", alignItems: "center", pb: "12px" }}
           >
             <Typography
               component="span"
@@ -184,7 +192,7 @@ function ListTabs() {
           >
             <img
               src={health4}
-              style={{ objectFit: "cover", width: "80%", height: "80%" }}
+              style={{ objectFit: "cover", height: "80px" }}
               alt="풋살장이미지"
             />
           </Grid>
@@ -225,8 +233,8 @@ function ListTabs() {
               src={chicken1}
               style={{
                 objectFit: "cover",
-                width: "80%",
-                height: "100%",
+                height: "70px",
+                paddingBottom: "16px",
               }}
               alt="랭킹닭컴 이미지"
             />
@@ -240,7 +248,7 @@ function ListTabs() {
             <Typography
               component="span"
               sx={{
-                fontSize: "inherit",
+                fontSize: "18px",
                 alignItems: "center",
                 marginLeft: "30%",
               }}
@@ -261,7 +269,11 @@ function ListTabs() {
           >
             <img
               src={chicken2}
-              style={{ objectFit: "cover", width: "120%", height: "100%" }}
+              style={{
+                objectFit: "cover",
+                height: "70px",
+                paddingBottom: "16px",
+              }}
               alt="맛있닭 이미지"
             />
           </Grid>
@@ -274,7 +286,7 @@ function ListTabs() {
             <Typography
               component="span"
               sx={{
-                fontSize: "inherit",
+                fontSize: "18px",
                 alignItems: "center",
                 marginLeft: "30%",
               }}
@@ -297,8 +309,8 @@ function ListTabs() {
               src={chicken3}
               style={{
                 objectFit: "cover",
-                width: "80%",
-                height: "80%",
+                height: "70px",
+                paddingBottom: "16px",
               }}
               alt="국민상점 이미지"
             />
@@ -312,7 +324,7 @@ function ListTabs() {
             <Typography
               component="span"
               sx={{
-                fontSize: "inherit",
+                fontSize: "18px",
                 alignItems: "center",
                 marginLeft: "30%",
               }}
@@ -333,7 +345,7 @@ function ListTabs() {
           >
             <img
               src={chicken4}
-              style={{ objectFit: "cover", width: "80%", height: "120%" }}
+              style={{ objectFit: "cover", height: "70px" }}
               alt="허닭 이미지"
             />
           </Grid>
@@ -346,7 +358,7 @@ function ListTabs() {
             <Typography
               component="span"
               sx={{
-                fontSize: "inherit",
+                fontSize: "18px",
                 alignItems: "center",
                 marginLeft: "30%",
               }}

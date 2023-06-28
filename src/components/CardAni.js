@@ -93,7 +93,7 @@ function CardAni() {
         onClick={handleClick}
       >
         <Box
-          class="front"
+          className="front"
           style={{
             background: "linear-gradient(to right, gray, gray)",
             color: "white",

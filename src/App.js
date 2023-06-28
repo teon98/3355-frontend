@@ -30,6 +30,7 @@ import CardCustom from "./pages/mypage/CardCustom";
 import FollowerProfileHome from "./components/community/FollowerProfileHome";
 import MyChangePass from "./pages/mypage/MyChangePass";
 import MyProfileEdit from "./components/myPage/MyProfileEdit";
+import All from "./components/community/All";
 
 //폰트 GmarketSans로 지정
 const theme = createTheme({
@@ -59,7 +60,8 @@ const App = () => {
           currentPath === "/auth/findPass"
             ? appStyle.gradient2
             : currentPath === "/community/profileEdit" ||
-              currentPath.indexOf("/my") >= 0
+              currentPath.indexOf("/my") >= 0 ||
+              currentPath === "/event"
             ? appStyle.social
             : currentPath.indexOf("/auth") >= 0
             ? appStyle.auth
@@ -93,6 +95,7 @@ const App = () => {
           {/* 커뮤니티 */}
           <Route path="/community" element={<Navbar />}>
             <Route index element={<CommunityMain />} />
+            <Route path="all" element={<All />}></Route>
             <Route path="profileHome" element={<ProfileHome />} />
             <Route path="profileEdit" element={<ProfileEdit />} />
             <Route path=":memberNickName" element={<FollowerProfileHome />} />
