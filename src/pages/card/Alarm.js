@@ -31,7 +31,7 @@ function Alarm(props) {
   };
 
   return (
-    <Box className={appStyle.notgradient} mb={7}>
+    <Box sx={{ pb: "100%" }}>
       <Grid
         container
         spacing={2}
