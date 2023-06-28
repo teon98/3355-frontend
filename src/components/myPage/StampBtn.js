@@ -50,11 +50,14 @@ const StampBtn = () => {
             icon: "success",
             title: "출석이 완료되었습니다.",
           });
+          setTimeout(function () {
+            window.location.reload();
+          }, 1100);
         } else {
           //출석실패
           Toast.fire({
             icon: "error",
-            title: "이미 출석을 하셧습니다.",
+            title: "이미 출석을 하셨습니다.",
           });
         }
       })

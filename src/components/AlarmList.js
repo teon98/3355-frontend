@@ -1,12 +1,10 @@
 import {
   Box,
   Card,
-  CardActionArea,
   CardContent,
   CardMedia,
   Divider,
   Grid,
-  Stack,
   Tab,
   Tabs,
   Typography,
