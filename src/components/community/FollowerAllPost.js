@@ -17,13 +17,15 @@ const FollowerAllPost = (props) => {
   //모달창 state
   const [modalopen, setModalopen] = useState(false);
   //모달창으로 전달할 item
-  const [postItem, setPostItem] = useState({});
+  const [postNo, setPostNo] = useState(0);
+  const [postitem, setPostitem] = useState({});
 
   //모달창 열기
   const handleClickOpen = (item) => {
-    console.log("모달창 열림");
-    setPostItem(item);
+    //console.log("모달창 열림");
+    setPostNo(item.post["postNo"]);
     setModalopen(true);
+    setPostitem(item);
   };
 
   //모달창 닫기
@@ -77,7 +79,9 @@ const FollowerAllPost = (props) => {
         <PostDetailModal
           modalopen={modalopen}
           onClose={handleClose}
-          postItem={postItem}
+          postNo={postNo}
+          postItem={postitem}
+          myNickname={props.myNickname}
         />
       )}
     </Box>

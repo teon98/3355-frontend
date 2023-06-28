@@ -94,12 +94,15 @@ const FollowButton = (props) => {
     if (e.target.textContent === "팔로우") {
       //팔로우 취소
       followCancel(owneruserNo, props.userNo);
+      setBtmsg("로딩중...");
     } else if (e.target.textContent === "맞팔로우") {
       //맞팔로우 걸기
       followRequest(owneruserNo, props.userNo);
+      setBtmsg("로딩중...");
     } else if (e.target.textContent === "팔로잉") {
       //팔로잉 걸기
       followRequest(owneruserNo, props.userNo);
+      setBtmsg("로딩중...");
     }
   };
 

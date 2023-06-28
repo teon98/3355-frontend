@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -16,6 +16,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
+import { Link } from "react-router-dom";
 
 const PostSlider = styled(Slider)`
   height: 100%;
@@ -42,10 +44,7 @@ const style = {
   overflow: "auto",
 };
 
-const postStyle = {};
-
 const PostDetailModal = (props) => {
-  const userNo = useSelector((state) => state.userNo);
   const settings = {
     dots: false,
     infinite: false,
@@ -54,42 +53,71 @@ const PostDetailModal = (props) => {
     speed: 500,
   };
 
-  const item = props.postItem;
-  const profileImg = item.userProfileImg;
-  const postImage = item.post.postImg.slice(1, -1).split(",");
-  const tags = item.post.tags;
+  const userNo = useSelector((state) => state.userNo);
+  const [comments, setComments] = useState([]);
+  //front를 위한 count
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    axios({
+      url: `comment/allComments`,
+      method: "get",
+      params: {
+        postNo: props.postNo,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        setCount(res.data[0]["commNo"] + 1);
+        setComments(res.data.sort());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const postImage = props.postItem.post.postImg.slice(1, -1).split(",");
+  const tags = props.postItem.post.tags;
   var tagsContent = "";
-  const load_comments = props.postItem.comments;
 
-  //comments는 변동 사항이 있기 대문에 useState로 선언
-  const [comments, setComments] = useState(load_comments);
+  for (var i = 0; i < tags.length; i++) {
+    tagsContent += "#" + tags[i]["tag"]["tagContent"] + " ";
+  }
+
   //새로 단 댓글
-  const [newComment, setNewComment] = useState("");
-
-  console.log(item.post.postNo);
-
-  //   useEffect(() => {
-  //     setComments(load_comments);
-  //   }, [comments]);
+  const [text, setText] = useState("");
+  const textRef = useRef();
 
   const handleChange = (e) => {
-    setNewComment(e.target.value);
+    setText(e.target.value);
   };
 
   const commentPost = (e) => {
     if (e.key === "Enter") {
-      console.log(newComment);
-      setComments([...comments, newComment]);
+      setCount(count + 1);
+      //댓글 객체 생성
+      setComments([
+        ...comments,
+        {
+          commContent: text,
+          commDate: "지금",
+          commNo: count,
+          commUser: props.myNickname,
+        },
+      ]);
+
       axios({
         url: `/post/addcomments`,
         method: "post",
         params: {
           userNo: userNo,
-          postNo: item.post.postNo,
-          commContent: newComment,
+          postNo: props.postNo,
+          commContent: text,
         },
       })
         .then((res) => {
+          setText("");
+          textRef.current.value = "";
           console.log(res);
         })
         .catch((err) => {
@@ -98,9 +126,11 @@ const PostDetailModal = (props) => {
     }
   };
 
-  for (var i = 0; i < tags.length; i++) {
-    tagsContent += "#" + tags[i]["tag"]["tagContent"] + " ";
-  }
+  //댓글 정렬하기
+  comments.sort((a, b) => {
+    return b.commNo - a.commNo;
+  });
+
   return (
     <Modal open={props.modalopen} onClose={props.onClose} maxwidth="xs">
       <Paper sx={style} elevation={3}>
@@ -109,17 +139,21 @@ const PostDetailModal = (props) => {
           <div className="postprofilebox">
             <img
               className="profileImg"
-              src={!profileImg ? defaultImg : profileImg}
+              src={
+                !props.postItem.userProfileImg
+                  ? defaultImg
+                  : props.postItem.userProfileImg
+              }
               alt="프로필 이미지"
             />
           </div>
-          <Typography>{item.userNickname}</Typography>
+          <Typography>{props.postItem.userNickname}</Typography>
           <Box sx={{ marginLeft: "auto", cursor: "pointer" }}>
             <MoreVertRoundedIcon />
           </Box>
         </Box>
         {/* 사진리스트 */}
-        <Box sx={postStyle}>
+        <Box>
           <PostSlider {...settings}>
             {postImage.map((post, index) => (
               <Box key={index}>
@@ -133,7 +167,7 @@ const PostDetailModal = (props) => {
           <Typography variant="body2">{tagsContent}</Typography>
           <Box sx={{ display: "flex", marginLeft: "auto" }}>
             <Typography variant="body2" mr={"3px"}>
-              {item.goodsCount}
+              {props.postItem.goodsCount}
             </Typography>
             <FavoriteBorderIcon fontSize="small" />
           </Box>
@@ -148,13 +182,42 @@ const PostDetailModal = (props) => {
             className="commentinput"
             onChange={handleChange}
             onKeyPress={commentPost}
+            ref={textRef}
           />
         </Box>
         <hr />
         {/* 댓글보기창 */}
         <Box>
           {comments.map((comment, index) => {
-            return <div key={index}>{comment.commContent}</div>;
+            let formatDate = comment.commDate;
+            formatDate = formatDate.split("T")[0];
+
+            return (
+              <Box key={index} sx={{ px: 2, py: 1, display: "flex" }}>
+                <Link
+                  to={`/community/${comment.commUser}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Typography
+                    className="moveProfile"
+                    sx={{ cursor: "pointer" }}
+                    fontSize={"0.8rem"}
+                    fontWeight={"bold"}
+                  >
+                    {comment.commUser}
+                  </Typography>
+                </Link>
+                <Typography sx={{ pl: 2 }} fontSize={"0.8rem"}>
+                  {comment.commContent}
+                </Typography>
+                <Typography
+                  sx={{ pl: 2, marginLeft: "auto" }}
+                  fontSize={"0.8rem"}
+                >
+                  {formatDate}
+                </Typography>
+              </Box>
+            );
           })}
         </Box>
       </Paper>
