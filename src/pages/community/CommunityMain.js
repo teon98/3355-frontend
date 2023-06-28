@@ -32,7 +32,7 @@ const theme = createTheme({
 
 const actions = [
   // { icon: <AddBoxRoundedIcon />, name: "새글쓰기", path: "/post" },
-  { icon: <GridViewRoundedIcon />, name: "전체게시물", path: "/post/all" },
+  { icon: <GridViewRoundedIcon />, name: "전체게시물", path: "/community/all" },
 ];
 
 const CommunityMain = () => {

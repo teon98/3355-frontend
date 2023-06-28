@@ -257,7 +257,11 @@ const PostNew = (myprofile) => {
           />
         </div>
       </Box>
-      <FollowerAllPost userNo={userNo} followerPosts={followerPosts} />
+      <FollowerAllPost
+        userNo={userNo}
+        followerPosts={followerPosts}
+        myNickname={myprofile.myNickname}
+      />
     </>
   );
 };

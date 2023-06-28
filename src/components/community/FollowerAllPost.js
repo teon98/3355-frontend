@@ -15,17 +15,22 @@ import PostDetailModal from "./PostDetailModal";
 
 const FollowerAllPost = (props) => {
   //모달창 state
-  const [open, setOpen] = useState(false);
+  const [modalopen, setModalopen] = useState(false);
+  //모달창으로 전달할 item
+  const [postNo, setPostNo] = useState(0);
+  const [postitem, setPostitem] = useState({});
 
   //모달창 열기
-  const handleClickOpen = () => {
-    console.log("모달창 열림");
-    setOpen(true);
+  const handleClickOpen = (item) => {
+    //console.log("모달창 열림");
+    setPostNo(item.post["postNo"]);
+    setModalopen(true);
+    setPostitem(item);
   };
 
   //모달창 닫기
   const handleClose = () => {
-    setOpen(false);
+    setModalopen(false);
   };
 
   return (
@@ -49,7 +54,7 @@ const FollowerAllPost = (props) => {
           return (
             <ImageListItem
               key={index}
-              onClick={handleClickOpen}
+              onClick={() => handleClickOpen(item)}
               sx={{ cursor: "pointer" }}
             >
               <img src={img_arr[0]} alt="post_1"></img>
@@ -70,7 +75,15 @@ const FollowerAllPost = (props) => {
         })}
       </ImageList>
 
-      <PostDetailModal open={open} onClose={handleClose} />
+      {modalopen && (
+        <PostDetailModal
+          modalopen={modalopen}
+          onClose={handleClose}
+          postNo={postNo}
+          postItem={postitem}
+          myNickname={props.myNickname}
+        />
+      )}
     </Box>
   );
 };

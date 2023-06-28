@@ -67,9 +67,9 @@ const FollowButton = (props) => {
 
   //팔로우 취소
   const followCancel = (owner, user) => {
-    let formData = new FormData();
-    formData.append("owner", owner);
-    formData.append("user", user);
+    // let formData = new FormData();
+    // formData.append("owner", owner);
+    // formData.append("user", user);
     axios(
       // .delete("/commu/followcancel", formData)
       // .delete("/commu/followcancel", { owner: owner, user: user })
@@ -94,12 +94,15 @@ const FollowButton = (props) => {
     if (e.target.textContent === "팔로우") {
       //팔로우 취소
       followCancel(owneruserNo, props.userNo);
+      setBtmsg("로딩중...");
     } else if (e.target.textContent === "맞팔로우") {
       //맞팔로우 걸기
       followRequest(owneruserNo, props.userNo);
+      setBtmsg("로딩중...");
     } else if (e.target.textContent === "팔로잉") {
       //팔로잉 걸기
       followRequest(owneruserNo, props.userNo);
+      setBtmsg("로딩중...");
     }
   };
 
