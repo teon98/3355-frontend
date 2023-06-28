@@ -5,6 +5,7 @@ import postst from "../../styles/CommunityStyles.module.css";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import axios from "axios";
 import FollowerAllPost from "./FollowerAllPost";
+import defaultImg from "../../images/default.png";
 
 const PostNew = (myprofile) => {
   const userNo = useSelector((state) => state.userNo);
@@ -180,7 +181,7 @@ const PostNew = (myprofile) => {
             <div className={postst.box}>
               <img
                 className={postst.profileImg}
-                src={myprofile.myImg}
+                src={!myprofile.myImg ? defaultImg : myprofile.myImg}
                 alt="내 프로필 이미지"
               />
             </div>

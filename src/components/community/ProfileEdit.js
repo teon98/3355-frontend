@@ -132,7 +132,11 @@ const ProfileEdit = () => {
           className="box"
           style={{ marginTop: "15px", marginBottom: "15px" }}
         >
-          <img className="profileImg" src={profileImg} alt="프로필 이미지" />
+          <img
+            className="profileImg"
+            src={!profileImg ? defaultImg : profileImg}
+            alt="프로필 이미지"
+          />
         </div>
         <label htmlFor="file">
           <p id="fileuploadtext">사진 수정하기</p>

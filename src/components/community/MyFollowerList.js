@@ -52,7 +52,7 @@ const MyFollowerList = (myprofile) => {
           <img
             name="myProfile"
             className="profileImg"
-            src={myprofile.myprofile}
+            src={!myprofile.myprofile ? defaultImg : myprofile.myprofile}
             alt="프로필 이미지"
           />
         </div>
