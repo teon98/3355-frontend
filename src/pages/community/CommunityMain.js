@@ -16,6 +16,7 @@ import PostNew from "../../components/community/PostNew";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import FollowerAllPost from "../../components/community/FollowerAllPost";
+import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
 
 const theme = createTheme({
   typography: {
@@ -24,16 +25,11 @@ const theme = createTheme({
 
   palette: {
     primary: {
-      main: "#A055FF", //배경색
+      main: "#53E2E8", //배경색
       contrastText: "#FFFFFF", //글자색
     },
   },
 });
-
-const actions = [
-  // { icon: <AddBoxRoundedIcon />, name: "새글쓰기", path: "/post" },
-  { icon: <GridViewRoundedIcon />, name: "전체게시물", path: "/community/all" },
-];
 
 const CommunityMain = () => {
   //현재 로그인한 사용자 정보 불러오기
@@ -79,17 +75,11 @@ const CommunityMain = () => {
         <SpeedDial
           ariaLabel="commMenu"
           sx={{ position: "fixed", bottom: 75, right: 20 }}
-          icon={<SpeedDialIcon />}
-        >
-          {actions.map((action) => (
-            <SpeedDialAction
-              key={action.name}
-              icon={action.icon}
-              tooltipTitle={action.name}
-              onClick={() => handleClick(action.path)}
-            />
-          ))}
-        </SpeedDial>
+          icon={<ArrowUpwardRoundedIcon />}
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        ></SpeedDial>
       </Box>
     </ThemeProvider>
   );

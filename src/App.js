@@ -95,11 +95,13 @@ const App = () => {
           {/* 커뮤니티 */}
           <Route path="/community" element={<Navbar />}>
             <Route index element={<CommunityMain />} />
-            <Route path="all" element={<All />}></Route>
+            {/* <Route path="all" element={<All />}></Route> */}
             <Route path="profileHome" element={<ProfileHome />} />
             <Route path="profileEdit" element={<ProfileEdit />} />
             <Route path=":memberNickName" element={<FollowerProfileHome />} />
           </Route>
+          {/* 전체게시물 */}
+          <Route path="/allCommunity" element={<All />}></Route>
           {/* 마이페이지 */}
           <Route path="/mypage" element={<Navbar />}>
             <Route index element={<Mypage />} />

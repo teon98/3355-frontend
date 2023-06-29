@@ -15,10 +15,9 @@ import PostDetailModal from "./PostDetailModal";
 
 const FollowerAllPost = (props) => {
   //모달창 state
-  const [open, setOpen] = useState(false);
   const userNo = useSelector((state) => state.userNo);
-
   const [modalopen, setModalopen] = useState(false);
+
   //모달창으로 전달할 item
   const [postNo, setPostNo] = useState(0);
   const [postitem, setPostitem] = useState({});
@@ -26,6 +25,7 @@ const FollowerAllPost = (props) => {
   //모달창 열기
   const handleClickOpen = (item) => {
     //console.log("모달창 열림");
+    console.log("item" + item);
     setPostNo(item.post["postNo"]);
     setModalopen(true);
     setPostitem(item);

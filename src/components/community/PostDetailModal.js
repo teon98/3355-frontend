@@ -59,8 +59,9 @@ const PostDetailModal = (props) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    console.log("postNo: " + props.postNo);
     axios({
-      url: `comment/allComments`,
+      url: `/comment/allComments`,
       method: "get",
       params: {
         postNo: props.postNo,
