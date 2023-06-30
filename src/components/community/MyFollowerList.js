@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import defaultImg from "../../images/default.png";
 import { Link, useNavigate } from "react-router-dom";
+import plusImg from "../../images/plus_img.png";
 
 const MyFollowerList = (myprofile) => {
   const userNo = useSelector((state) => state.userNo);
@@ -60,7 +61,6 @@ const MyFollowerList = (myprofile) => {
           내 프로필
         </p>
       </div>
-
       {followlist.map((item, index) => (
         <div className="profileBox" key={index}>
           <div className="foloowbox">
@@ -77,6 +77,13 @@ const MyFollowerList = (myprofile) => {
           </p>
         </div>
       ))}
+      <div className="profileBox">
+        <div className="foloowbox">
+          <Link to={"/community/all"}>
+            <img className="profileImg" src={plusImg} alt="프로필 이미지" />
+          </Link>
+        </div>
+      </div>
     </Stack>
   );
 };

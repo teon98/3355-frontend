@@ -16,6 +16,7 @@ import BarcodeScan from "./components/BarcodeScan";
 import Pay from "./pages/card/Pay";
 import CardCreate from "./pages/account/CardCreate";
 import Navbar from "./pages/common/Navbar";
+import Navbar2 from "./pages/common/Navbar2";
 import PayComplete from "./pages/card/PayComplete";
 import FindPass from "./pages/account/FindPass";
 import ChangePass from "./pages/account/ChangePass";
@@ -95,13 +96,11 @@ const App = () => {
           {/* 커뮤니티 */}
           <Route path="/community" element={<Navbar />}>
             <Route index element={<CommunityMain />} />
-            {/* <Route path="all" element={<All />}></Route> */}
+            <Route path="all" element={<All />}></Route>
             <Route path="profileHome" element={<ProfileHome />} />
             <Route path="profileEdit" element={<ProfileEdit />} />
             <Route path=":memberNickName" element={<FollowerProfileHome />} />
           </Route>
-          {/* 전체게시물 */}
-          <Route path="/allCommunity" element={<All />}></Route>
           {/* 마이페이지 */}
           <Route path="/mypage" element={<Navbar />}>
             <Route index element={<Mypage />} />

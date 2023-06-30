@@ -17,7 +17,7 @@ import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const PostSlider = styled(Slider)`
   height: 100%;
@@ -59,7 +59,6 @@ const PostDetailModal = (props) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    console.log("postNo: " + props.postNo);
     axios({
       url: `/comment/allComments`,
       method: "get",
@@ -103,7 +102,7 @@ const PostDetailModal = (props) => {
           commContent: text,
           commDate: "지금",
           commNo: count,
-          commUser: props.myNickname,
+          commUser: props.postItem.userNickname,
         },
       ]);
 
@@ -132,12 +131,20 @@ const PostDetailModal = (props) => {
     return b.commNo - a.commNo;
   });
 
+  const navigate = useNavigate();
+
   return (
     <Modal open={props.modalopen} onClose={props.onClose} maxwidth="xs">
       <Paper sx={style} elevation={3}>
         {/* 프로필 및 메뉴 */}
         <Box sx={{ display: "flex", alignItems: "center", p: 2 }}>
-          <div className="postprofilebox">
+          <div
+            className="postprofilebox"
+            onClick={() =>
+              navigate(`/community/${props.postItem.userNickname}`)
+            }
+            style={{ cursor: "pointer" }}
+          >
             <img
               className="profileImg"
               src={

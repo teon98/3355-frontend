@@ -12,7 +12,7 @@ const ProfileHome = () => {
   return (
     <Box sx={{ px: "24px", pb: "70px" }}>
       <Profile />
-      <ProfileView />
+      {/* <ProfileView /> */}
       <ProfileEditButton />
       <ProfilePost userNo={userNo} />
     </Box>

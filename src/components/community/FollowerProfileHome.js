@@ -61,7 +61,7 @@ const FollowerProfileHome = () => {
   return (
     <Box sx={{ px: "24px", pb: "70px" }}>
       <FollowerProfile />
-      <ProfileView />
+      {/* <ProfileView /> */}
       <FollowButton userNickName={params.memberNickName} userNo={userNo} />
       <ProfilePost userNo={userNo} />
     </Box>
