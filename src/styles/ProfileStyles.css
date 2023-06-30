@@ -33,6 +33,16 @@
   background-color: #d87741;
 }
 
+.SILVER {
+  color: #dde3ff;
+  background-color: #6a73a1;
+}
+
+.GOLD {
+  color: #9a6600;
+  background-color: #eeb341;
+}
+
 #file {
   display: none;
 }
