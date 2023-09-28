@@ -6,7 +6,8 @@
 - [3️⃣ 팀원소개](#3️⃣팀원소개)
 - [4️⃣ 테이블구조](#4️⃣테이블구조)
 - [5️⃣ 시스템 구조](#5️⃣시스템구조)
-- [6️⃣ 프로그램 화면](#6️⃣프로그램화면)
+- [6️⃣ UI/UX](#6️⃣UI/UX)
+- [7️⃣ 프로젝트 화면](#7️⃣프로젝트화면)
 
 # 1️⃣프로젝트-개요
 - 헬스장 내부 멤버쉽 카드를 발급하여 다양한 혜택을 제공하는 플랫폼을 개발한다.
@@ -31,38 +32,11 @@
 # 5️⃣시스템구조
 <img src="https://github.com/sam-sam-jo/.github/assets/49816869/0259952b-404b-4420-bca5-5f164696d2af" width="70%" />
 
-<!--
-# 6️⃣프로그램화면
-### 1) 로그인, 충전 알림 화면
+# 6️⃣UI/UX
+<img width="853" alt="삼삼오오UI" src="https://github.com/teon98/3355-frontend/assets/49816869/56ad259f-b037-4436-bd15-8f0bb75d3a90">
 
-
-### 2) 회원가입 화면
-
-
-### 3) 결제
-
-
-### 4) 충전, 카드 내역
-
-
-### 5) 결제, 알림 전체 읽기
-
-
-### 6) 포인트 결제, 카드내역 필터링
-
-
-### 7) 커뮤니티 기능
-
-
-### 8) 마이페이지, 출석체크 포인트
-
-
-### 9) 마이페이지, 출석체크, 포인트 내역, 알림 전체 읽기
-
-
-### 10) 카드커스텀 카드 뒤집기 기능
-
-
-### 11) 비밀번호 찾기 기능
-<img src="https://github.com/sam-sam-jo/.github/assets/49816869/f8890251-5560-4318-9311-f58e0ce5b170" width="70%"/>
--->
+# 7️⃣프로젝트화면
+|             내 프로필 수정하기              |                내 POST 등록하기                |        펫시터 상세 정보 보여주기 및 예약 요청         |
+| :---------------------------------------: | :---------------------------------------: | :---------------------------------------: |
+|<img src=https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExenh1dzZ4Nnp5eWZsYmFieng5OW1ldHl3M3AwN2w3eWJjMGU3ZHdpZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fyAJC1tE0LCy7S23FH/giphy.gif>|
+<img src=https://media.giphy.com/media/Yh4K4VBN5yB5sk4Dce/giphy-downsized-large.gif>| <img src=https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDZjbGxpZHc5eHhseG5zcDc3ZWx2OWlzeDQ0cmlzbnc3cXRsbjI0MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/aNpyWWqeMUi0p5Ti3N/giphy-downsized-large.gif>|
