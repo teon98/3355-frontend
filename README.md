@@ -19,16 +19,21 @@
 
 # 6 프로젝트화면
 ### 1) 커뮤니티 프로필 수정
+
 <img src=https://media.giphy.com/media/fyAJC1tE0LCy7S23FH/giphy.gif >
 
 ### 2) 커뮤니티 게시물 등록
+
 <img src=https://media4.giphy.com/media/Yh4K4VBN5yB5sk4Dce/giphy.gif>
 
 ### 3) 커뮤니티 게시물 상세 보기 및 댓글달기
+
 <img src=https://media1.giphy.com/media/UHmfHNV5NRhQAp77MW/giphy.gif>
 
 ### 4) 커뮤니티 전체 게시물 보기 및 태그 기반 필터링
+
 <img src=https://media.giphy.com/media/rJz84tE5WYwMRzgHQI/giphy-downsized-large.gif>
 
 ### 5) 커뮤니티 팔로우 등록 및 취소
+
 <img src=https://media4.giphy.com/media/meh6VFiYn4Qbc0109Q/giphy.gif>
