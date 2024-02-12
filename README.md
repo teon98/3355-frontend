@@ -24,8 +24,10 @@
 ### 2) 커뮤니티 게시물 등록
 
 ### 3) 커뮤니티 게시물 상세 보기 및 댓글달기
+![댓글달기](https://github.com/teon98/3355-frontend/assets/49816869/7d9eaf59-8224-42c6-9b91-089cd1b95cbb)
 
 
 ### 4) 커뮤니티 전체 게시물 보기 및 태그 기반 필터링
 <img src=https://media.giphy.com/media/rJz84tE5WYwMRzgHQI/giphy-downsized-large.gif>
 
+### 5) 커뮤니티 팔로우 등록 및 취소
